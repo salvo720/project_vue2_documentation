@@ -31,6 +31,7 @@
   <h2>valore reverse message</h2>
   {{ reverse_message }}
   <hr>
+  <TodoItem></TodoItem>
   </h4>
 </div>
 </template>
@@ -38,6 +39,8 @@
 <script>
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue'
+import TodoItem from '@/components/TodoItem.vue'
+
 
 export default {
   name: 'app',
@@ -57,7 +60,10 @@ export default {
     reverseMessage: function () {
       this.reverse_message = this.reverse_message.split('').reverse().join('')
     }
-  }
+  },
+  components: {
+    TodoItem // Register a new component
+  },
 
 }
 </script>
