@@ -35,6 +35,9 @@
   <!-- l'elemento passao al v-bind (in questo caso todo ) indica il nome della variabile a cui passeremo i dati .
    il v-bind-key: , viene usato per scegliere la chiave del for  -->
   </h4>
+  <hr>
+  
+  <hr>
 </div>
 </template>
 
@@ -42,7 +45,6 @@
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue'
 import TodoItem from '@/components/TodoItem.vue'
-
 
 export default {
 name: 'app',
