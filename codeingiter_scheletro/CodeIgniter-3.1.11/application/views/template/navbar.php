@@ -27,6 +27,15 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="<?php echo site_url('Welcome/index') ?>">Welcome controller </a>
         </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            API  |  end-point
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="<?php echo site_url('API_Controller/index') ?>">Index</a></li>
+              <!-- <li><a class="dropdown-item" href="<?php echo site_url('Produttori_Crud_Controller/new_productor') ?>">Nuovo Produttore</a></li> -->
+            </ul>
+        </li> 
         <!-- <li class="nav-item">
           <a class="nav-link" href="#">Link</a>
         </li>

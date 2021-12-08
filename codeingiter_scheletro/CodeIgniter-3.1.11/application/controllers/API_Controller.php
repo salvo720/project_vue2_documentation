@@ -1,22 +1,19 @@
 <?php
 
-// use phpDocumentor\Reflection\Types\This;
-
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Elementi_Crud_Controller extends CI_Controller {
+class API_Controller extends CI_Controller {
 
 	public function __construct()
 	{
-			parent::__construct();
-			// Your own constructor code
-			// insert helper
-			$this->load->helper(array('form', 'url','security'));
-			// insert libray
-			$this->load->library('form_validation');
-			//inser model 
-			$this->load->model(array('Element_Model' ),'',true);
-			// $this->load->model(array('Element_Model' , 'Productor_Model' ),'',true);
+        parent::__construct();
+        // Your own constructor code
+        // insert helper
+        $this->load->helper(array('form', 'url','security'));
+        // insert libray
+        $this->load->library('form_validation');
+        //inser model 
+        $this->load->model(array('Element_Model' , 'Productor_Model' ),'',true);
 			
 	}
 
@@ -61,6 +58,7 @@ class Elementi_Crud_Controller extends CI_Controller {
 	}
 	public function detail_element_injson($id=0)
 	{
+		// TODO:la query non va 
 		if($id!=0){
 		$result=$this->Element_Model->detail_element($id);
 		$result=json_encode($result);
@@ -76,18 +74,17 @@ class Elementi_Crud_Controller extends CI_Controller {
 
 	public function insert_new_element()
 	{
-
-		$array_validation_errors = array(
-            'required' => sprintf('%s e un campo richiesto ','{field}'),
-            'trim' => sprintf(' %s si e verificato un errore con riporva piu tardi ','{field}'),
-            'xss_clean' => sprintf('%s si e verificato un errore con riprova piu tardi ' ,'{field}'),
+        $array_validation_errors = array(
+            'required' => sprintf('si e verificato un errore con riporva piu tardi ','{field}'),
+            'trim' => sprintf('si e verificato un errore con riporva piu tardi ','{field}'),
+            'xss_clean' => sprintf('si e verificato un errore con riprova piu tardi ' ,'{field}'),
         );
-
-		$this->form_validation->set_rules('Nome_elemento', 'NOME ELEMENTO', 'required|trim|xss_clean', $array_validation_errors);
-		$this->form_validation->set_rules('Numero_elemento', 'NUMERO ELEMENTO', 'required|trim|xss_clean', $array_validation_errors);
-		$this->form_validation->set_rules('Tipologia', 'TIPOLOGIA ELEMENTO ', 'required|trim|xss_clean', $array_validation_errors);		
-		$this->form_validation->set_rules('Quantita', 'QUANTITA ELEMENTO ', 'required|trim|xss_clean', $array_validation_errors);
-		$this->form_validation->set_rules('Prezzo', 'PREZZO ELEMENTO', 'required|trim|xss_clean', $array_validation_errors);
+        
+		$this->form_validation->set_rules('Nome_elemento', 'id elemento nascosto ', 'required|trim|xss_clean', $array_validation_errors);
+		$this->form_validation->set_rules('Numero_elemento', 'id elemento nascosto ', 'required|trim|xss_clean', $array_validation_errors);
+		$this->form_validation->set_rules('Tipologia', 'id elemento nascosto ', 'required|trim|xss_clean', $array_validation_errors);
+		$this->form_validation->set_rules('Quantita', 'id elemento nascosto ', 'required|trim|xss_clean', $array_validation_errors);
+		$this->form_validation->set_rules('Prezzo', 'id elemento nascosto ', 'required|trim|xss_clean', $array_validation_errors);
 
 		if($this->form_validation->run() == TRUE){
 			$nome_elemento=$this->input->post('Nome_elemento');
@@ -97,27 +94,22 @@ class Elementi_Crud_Controller extends CI_Controller {
 			$prezzo_elemento=$this->input->post('Prezzo');
 			
 			$array_elemento=array(
-				'nome'=> $nome_elemento ,
-				'numero'=> $numero_elemento ,
-				'tipologia'=> $tipologia_elemento ,
-				'quantita'=> $quantita_elemento ,
-				'prezzo'=> $prezzo_elemento ,
+				'Nome_elemento'=> $nome_elemento ,
+				'Numero_elemento'=> $numero_elemento ,
+				'Tipologia'=> $tipologia_elemento ,
+				'Quantita'=> $quantita_elemento ,
+				'Prezzo'=> $prezzo_elemento ,
 			);
 
 			$result=$this->Element_Model->new_element($array_elemento);
 
-			if($result){
-				// echo 'elemento inserito con successo ';
-				$this->session->set_flashdata('successo', 'elemento inserito con successo');
-				redirect(site_url('Elementi_Crud_Controller/index'));
-			}else{
-				// echo 'errore nell\' inserire il nuovo elemento';
-				$this->session->set_flashdata('errore', 'errore nell\' inserire il nuovo elemento');
-				redirect(site_url('Elementi_Crud_Controller/index'));
-			}
-		}else{
+        }else{
 			echo validation_errors();
 		}
+
+
+
+		// TODO:fare la query nel model e provare il new element
 	}
 
     public function update_element($id=0)
@@ -132,11 +124,14 @@ class Elementi_Crud_Controller extends CI_Controller {
 
 	public function execute_update($id)
 	{
+		// $data=array();
 
-		$array_validation_errors = array(
-            'required' => sprintf('%s e un campo richiesto ','{field}'),
-            'trim' => sprintf(' %s si e verificato un errore con riporva piu tardi ','{field}'),
-            'xss_clean' => sprintf('%s si e verificato un errore con riprova piu tardi ' ,'{field}'),
+		// TODO:FINIRE LA VALIDAZIONE 
+
+        $array_validation_errors = array(
+            'required' => sprintf('si e verificato un errore con riporva piu tardi ','{field}'),
+            'trim' => sprintf('si e verificato un errore con riporva piu tardi ','{field}'),
+            'xss_clean' => sprintf('si e verificato un errore con riprova piu tardi ' ,'{field}'),
         );
 
 		$this->form_validation->set_rules('id_element', 'id elemento nascosto ', 'required|trim|xss_clean', $array_validation_errors);
@@ -165,32 +160,39 @@ class Elementi_Crud_Controller extends CI_Controller {
 			);
 			$result=$this->Element_Model->update_element($elemento);
 
-			if($result){
-				// echo 'elemento inserito con successo ';
-				$this->session->set_flashdata('successo', 'aggiornamento eseguito con successo');
-				redirect(site_url('Elementi_Crud_Controller/index'));
-			}else{
-				// echo 'errore nell\' inserire il nuovo elemento';
-				$this->session->set_flashdata('errore', 'errore nell\' aggiornare l\' elemento');
-				redirect(site_url('Elementi_Crud_Controller/index'));
-			}			
+			// echo "update eseguito con successo ";
+			redirect(site_url('Crud_Controller/index'));
 		}else{
 			echo validation_errors();
 		}
-				
+		
+		
 	}
     public function delete_element($id)
 	{
-		$result=$this->Element_Model->delete_element_by_id($id);
+		$this->Element_Model->delete_element_by_id($id);
+		redirect(site_url('Crud_Controller/index'));
+	}
 
-		if($result!=0){
-			// echo 'elemento inserito con successo ';
-			$this->session->set_flashdata('successo', 'elemento eliminato con successo');
-			redirect(site_url('Elementi_Crud_Controller/index'));
-		}else{
-			// echo 'errore nell\' inserire il nuovo elemento';
-			$this->session->set_flashdata('errore', 'errore nell\' eliminare l\' elemento');
-			redirect(site_url('Elementi_Crud_Controller/index'));
+	// produttore (seconda tabella)
+
+	public function new_element_productor($id)
+	{
+		// $this->Element_Model->delete_element_by_id($id);
+		redirect(site_url('Crud_Controller/index'));
+	}
+
+	public function  update_element_productor($id)
+	{
+		// $this->Element_Model->delete_element_by_id($id);
+		redirect(site_url('Crud_Controller/index'));
+	}
+
+	public function delete_element_productor( $id_elelemt=0 , $id_productor=0)
+	{
+		if(($id_elelemt != 0) && ($id_productor != 0 )){
+		$this->Productor_Model->delete_element_inproductor_by_id( $id_elelemt ,$id_productor);
+		redirect(site_url('Crud_Controller/detail_element/'. $id_elelemt . '/' . $id_productor ));
 		}
 	}
 

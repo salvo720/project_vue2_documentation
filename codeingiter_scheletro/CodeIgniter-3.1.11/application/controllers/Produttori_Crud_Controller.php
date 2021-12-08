@@ -55,23 +55,15 @@ class Produttori_Crud_Controller extends CI_Controller {
 
 	public function insert_new_productor()
 	{
-		$validation_Nome_elemento=array('required' => 'NOME ELEMENTO e un campo richiesto',
-			'trim' => 'NOME ELEMENTO si e verificato un errore con riporva piu tardi ',
-			'xss_clean' => 'NOME ELEMENTO si e verificato un errore con riporva piu tardi ',
-		);
-		$this->form_validation->set_rules('Nome_Produttore', 'id elemento nascosto ', 'required|trim|xss_clean', $validation_Nome_elemento);
+		$array_validation_errors = array(
+            'required' => sprintf('%s e un campo richiesto ','{field}'),
+            'trim' => sprintf(' %s si e verificato un errore con riporva piu tardi ','{field}'),
+            'xss_clean' => sprintf('%s si e verificato un errore con riprova piu tardi ' ,'{field}'),
+        );
 
-		$validation_Numero_elemento=array('required' => 'NUMERO ELEMENTO e un campo richiesto',
-			'trim' => 'NUMERO ELEMENTO si e verificato un errore con riporva piu tardi ',
-			'xss_clean' => 'NUMERO ELEMENTO  si e verificato un errore con riporva piu tardi ',
-		);
-		$this->form_validation->set_rules('Numero_Partita_Iva_Produttore', 'id elemento nascosto ', 'required|trim|xss_clean', $validation_Numero_elemento);
-
-		$validation_Tipologia=array('required' => 'TIPOLOGIA e un campo richiesto',
-			'trim' => ' TIPOLOGIA si e verificato un errore con riporva piu tardi ',
-			'xss_clean' => 'TIPOLOGIA si e verificato un errore con riporva piu tardi ',
-		);
-		$this->form_validation->set_rules('Id_Elemento', 'id elemento nascosto ', 'required|trim|xss_clean', $validation_Tipologia);
+		$this->form_validation->set_rules('Nome_Produttore', 'NOME PRODUTTORE ', 'required|trim|xss_clean', $array_validation_errors);
+		$this->form_validation->set_rules('Numero_Partita_Iva_Produttore', 'NUMERO PARTITA IVA PRODUTTORE ', 'required|trim|xss_clean', $array_validation_errors);
+		$this->form_validation->set_rules('Id_Elemento', 'ID ELEMENTO', 'required|trim|xss_clean', $array_validation_errors);
 
 		if($this->form_validation->run() == TRUE){
 			$nome_poduttore=$this->input->post('Nome_Produttore');
@@ -104,8 +96,6 @@ class Produttori_Crud_Controller extends CI_Controller {
 
 	public function  update_productor($id)
 	{	
-
-
 		$data=array();
 		$data['id']=$id;
 		$result=$this->Productor_Model->take_productor_by_id($id);
@@ -115,23 +105,15 @@ class Produttori_Crud_Controller extends CI_Controller {
 
 	public function  execute_update($id)
 	{
-		$validation_Nome_elemento=array('required' => 'NOME ELEMENTO e un campo richiesto',
-			'trim' => 'NOME ELEMENTO si e verificato un errore con riporva piu tardi ',
-			'xss_clean' => 'NOME ELEMENTO si e verificato un errore con riporva piu tardi ',
-		);
-		$this->form_validation->set_rules('Nome_Produttore', 'id elemento nascosto ', 'required|trim|xss_clean', $validation_Nome_elemento);
+		$array_validation_errors = array(
+            'required' => sprintf('%s e un campo richiesto ','{field}'),
+            'trim' => sprintf(' %s si e verificato un errore con riporva piu tardi ','{field}'),
+            'xss_clean' => sprintf('%s si e verificato un errore con riprova piu tardi ' ,'{field}'),
+        );
 
-		$validation_Numero_elemento=array('required' => 'NUMERO ELEMENTO e un campo richiesto',
-			'trim' => 'NUMERO ELEMENTO si e verificato un errore con riporva piu tardi ',
-			'xss_clean' => 'NUMERO ELEMENTO  si e verificato un errore con riporva piu tardi ',
-		);
-		$this->form_validation->set_rules('Numero_Partita_Iva_Produttore', 'id elemento nascosto ', 'required|trim|xss_clean', $validation_Numero_elemento);
-
-		$validation_Tipologia=array('required' => 'TIPOLOGIA e un campo richiesto',
-			'trim' => ' TIPOLOGIA si e verificato un errore con riporva piu tardi ',
-			'xss_clean' => 'TIPOLOGIA si e verificato un errore con riporva piu tardi ',
-		);
-		$this->form_validation->set_rules('Id_Elemento', 'id elemento nascosto ', 'required|trim|xss_clean', $validation_Tipologia);
+		$this->form_validation->set_rules('Nome_Produttore', 'NOME PRODUTTORE ', 'required|trim|xss_clean', $array_validation_errors);
+		$this->form_validation->set_rules('Numero_Partita_Iva_Produttore', 'PARTITA IVA PRODUTTORE ', 'required|trim|xss_clean', $array_validation_errors);
+		$this->form_validation->set_rules('Id_Elemento', 'ID ELEMENTO ', 'required|trim|xss_clean', $array_validation_errors);
 
 		if($this->form_validation->run() == TRUE){
 			$nome_poduttore=$this->input->post('Nome_Produttore');
