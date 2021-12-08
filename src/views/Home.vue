@@ -72,4 +72,6 @@ name: 'app',
     TodoItem // Register a new component
   },
 }
+// TODO : add to git ignore package.json  , different install from windows and mac , 
+//  or reinstall vue project every times 
 </script>
