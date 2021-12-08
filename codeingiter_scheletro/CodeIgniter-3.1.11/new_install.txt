@@ -1,0 +1,9 @@
+cosa fare alla prima installazione di codeingiter 3.11 : 
+1) rimuovere index.php nella url e dal file config 
+2) settare il database 
+3) dai uno sguardo al $this->load->view() funzione , e la funzione per caricare i model 
+4) aggiungiungere tra gli autoload la libreria del template
+5) quando si dichiara il model bisogna passare il terzo parametro true che indica di usare i parametri nel file database per la connessione
+6) creare un nuovo utente nel database per accedere 
+7) svuotare index.php dal file di config dove ci sta la variabile $config['index_page']
+8) configurazione template nel passare i dati (in questo caso pagevar )
