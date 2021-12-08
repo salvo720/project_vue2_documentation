@@ -57,6 +57,12 @@
     <!-- con v-once direttiva il valore non si aggiorna ,quindi non e piu reattiva  -->
     <br>
     <button v-on:click="msg='benvenuto utente' ">cambia valore </button>
+    <hr>
+    <p>Using mustaches : {{ rawHtml }}</p>
+    <p>Using v-html directive : <span v-html="rawHtml"></span></p>
+    <hr>
+    <div v-bind:id="dynamicId">l'id e : {{ dynamicId}}</div>
+    <button v-bind:disabled="isButtonDisabled">il valore di disabled e  : {{ isButtonDisabled}}</button>
   </div>
 
 <!-- bootstrap 5 cdn js -->
@@ -68,9 +74,16 @@
   crossorigin="anonymous"></script>
   <!-- vue js cdn  -->
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>   
+
 <!-- script vue -->
 <script>
-var data = { a: 1 , msg : 'benvenuto', }
+var data = {
+  a: 1 , 
+  msg : 'benvenuto', 
+  rawHtml:'<span style="color:red">this text should be red</span>', 
+  dynamicId:'id_prova' ,
+  // isButtonDisabled:'false',
+}
 var vm = new Vue({
   el: '#app',
   data: data,
@@ -97,4 +110,5 @@ vm.$watch('a', function (newValue, oldValue) {
 
 </script> 
 </body>
+<!-- se dichiaraimao un avariabile vue con all'interno dell'html dobbiamo usare la direttiva v-html per non rendirizzare l'html come codice vue  -->
 </html>
