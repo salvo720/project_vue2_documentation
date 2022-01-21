@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Dropdown
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+          </li>
+        </ul>
+        <form class="d-flex">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+  <div id="app" class="container">
+      <h2>test</h2>
+      <hr>
+      <p>
+        <h2>
+            possiamo usare javascript dentro vue , ma con un unica restrione , 
+            ogni associazion puo contare solo una singola espressione 
+            aggiunto javascript per somma  
+        </h2>
+        {{ a + 1 }}
+        <br><hr>
+        <h2>
+            aggiunto javascript per if ternario
+        </h2>
+        {{ msg ? 'YES' : 'NO' }}
+        <br><hr>
+        <h2>
+            aggiunto javascript per split e reverse del testo
+        </h2>
+        {{ msg.split('').reverse().join('') }}
+        <br><hr>
+        <h2>
+            questo tipo di espressioni non funzioneranno , 
+            vedi il codice commeenttato dopo la riga 70 
+        </h2>
+        <!-- {{ var testo_vuoto = 1 }}
+        <br><hr>
+        {{ if (msg) { return msg } }} -->
+        <br><hr>
+        <h2>
+            Direttive vuejs
+        </h2>
+        <p v-if="msg">v-if True</p>
+        <p v-if="seen">v-if False</p>
+        <br><hr>
+        <h2>
+            Direttiva v-bind 
+        </h2>
+        <!-- assocaizione con v-bind dell'href dentro a con la variabile vue js di a  -->
+        <a v-bind:href="url"> link per test v-bind su url </a> 
+        <br>
+        la variabile url vale : {{ url }}
+        <br><hr>
+        <h2>
+            Direttiva v-on 
+        </h2>
+        <!-- assocaizione con v-on all'evento click , quando avvento il doSomethings e l'evento da ascoltare    di a  -->
+        <a v-on:click="doSomethings"> link per test v-bind su url </a> 
+        <br>
+        la variabile url vale : {{ url }}
+        <br><hr>
+        <h2>
+           Test attributi dinamici 
+        </h2>
+        <!-- assocaizione con v-bind dell'href dentro a con la variabile vue js di a  -->
+        <a v-bind:[attributeName]="url"> link per test v-bind su url </a> 
+        <br>
+        la variabile url vale : {{ url }}
+        <br><hr>
+        <h2>
+            Modificatori 
+            usando il Modificatore .prevent dice alla direttiva v-on di  
+            richiamare event.preventDefault() , quando l'evento e attivato
+         </h2>
+         <!-- assocaizione con v-bind dell'href dentro a con la variabile vue js di a  -->
+         <form v-on:submit.prevent="onSubmit"> 
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+         </form>
+         <br><hr>
+         <h2>
+             Vue js abbreviazioni 
+         </h2>
+        <h2>
+           V-bind
+        </h2>
+        <!--  v-bind intero full syntax -->
+        <a v-bind:href="url"> ... </a>
+       <!--   v-bind abbreviato o short -->
+        <a :href="url"> ... </a>
+        <!--  v-bind dinamico o short with dynamic argument (2.6.0+) -->
+        <a :[key]="url"> ... </a>
+         <br><hr>
+         <h2>
+            V-on
+         </h2>
+         <!--  v-on intero full syntax -->
+         <a v-on:click="doSomething"> ... </a>
+        <!--   v-on abbreviato o short -->
+        <a @click="doSomething"> ... </a>
+         <!--  v-on dinamico o short with dynamic argument (2.6.0+) -->
+        <a @[event]="doSomething"> ... </a>
+
+        i caratteeri : e @ sono supportati da tutti i browser che supportano vue , 
+        quaindi possono analizzarli correettamnte, e vengono visualizatti nel markup 
+        reindirizzato finale (da vue ) .
+        La sintassi per la scorciatoia e compleetamente facoltativa
+        <br><hr>
+      </p>
+    <h2>il valore di a e :</h2>
+    {{ a }}
+  </br>
+    <button v-on:click="a=a+1">cambia valore </button>
+    <hr>
+    <span>Message: {{ msg }}</span>
+    <hr>
+    <span v-once>This will never change: {{ msg }}</span>
+    <!-- con v-once direttiva il valore non si aggiorna ,quindi non e piu reattiva  -->
+    <br>
+    <button v-on:click="msg='benvenuto utente' ">cambia valore </button>
+    <hr>
+    <p>Using mustaches : {{ rawHtml }}</p>
+    <p>Using v-html directive : <span v-html="rawHtml"></span></p>
+    <hr>
+    <div v-bind:id="dynamicId">l'id e : {{ dynamicId}}</div>
+    <button v-bind:disabled="isButtonDisabled">il valore di disabled e  : {{ isButtonDisabled}}</button>
+  </div>
+
+<!-- bootstrap 5 cdn js -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<!-- jqeruy cdn  -->
+<script
+  src="https://code.jquery.com/jquery-3.6.0.js"
+  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+  crossorigin="anonymous"></script>
+  <!-- vue js cdn  -->
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>   
+
+<!-- script vue -->
+<script>
+var data = {
+  a: 1 , 
+  msg : 'benvenuto', 
+  rawHtml:'<span style="color:red">this text should be red</span>', 
+  dynamicId:'id_prova' ,
+  //   il bottone non sara rendirizzato da vue quando disabled e false , null , undefined 
+  isButtonDisabled: undefined , 
+  // isButtonDisabled:'disabled',  
+  seen:false, 
+  url: 'ciao',
+  doSomethings : 'vuoto',
+  attributename : 'href' ,  // usato nel test attributi dinamici
+  event : 'click' ,   
+}
+var vm = new Vue({
+  el: '#app',
+  data: data,
+  created: function () {
+    // `this` points to the vm instance
+    console.log('a is: ' + this.a)
+  },
+})
+
+console.log(vm.$data)
+
+vm.$data === data // => true
+vm.$el === document.getElementById('app') // => true
+
+// data.a="ciao"
+
+// $watch is an instance method
+vm.$watch('a', function (newValue, oldValue) {
+  // This callback will be called when `vm.a` changes
+  console.log('a change value ')
+})
+
+
+
+</script> 
+</body>
+<!-- se dichiaraimao un avariabile vue con all'interno dell'html dobbiamo usare la direttiva v-html per non rendirizzare l'html come codice vue  -->
+</html>
