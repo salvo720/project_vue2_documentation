@@ -32,6 +32,7 @@
             API  |  end-point
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <!-- List API or endpoint  -->
               <li><a class="dropdown-item" href="<?php echo site_url('API_Controller/index') ?>">Index</a></li>
               <!-- <li><a class="dropdown-item" href="<?php echo site_url('Produttori_Crud_Controller/new_productor') ?>">Nuovo Produttore</a></li> -->
             </ul>
