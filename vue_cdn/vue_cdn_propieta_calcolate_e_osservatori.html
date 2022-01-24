@@ -46,6 +46,20 @@
   </nav>
 
     <div id="app" class="container">
+        <p>
+            <h2>
+                Computed 
+                i computed sono lee propieta calcolate , sono delle funzioni che spostiamo sotto le propieta calcolate 
+                se sono ripetute nel progetto o per semplificare la lettura del codice e quindi aumentare la mantenibilita 
+            </h2>
+            <div>
+                variabile iniziale : {{ msg }}
+                <br>
+                variabile con il reverse_message : {{ reverse_message }}
+                <br>
+            </div>
+            <br><hr>
+        </p>
     </div>
 
 <!-- bootstrap 5 cdn js -->
@@ -61,11 +75,29 @@
 <!-- script vue -->
 <script>
 var data = {
+    a: 1 , 
+  msg : 'benvenuto', 
+  rawHtml:'<span style="color:red">this text should be red</span>', 
+  dynamicId:'id_prova' ,
+  //   il bottone non sara rendirizzato da vue quando disabled e false , null , undefined 
+  isButtonDisabled: undefined , 
+  // isButtonDisabled:'disabled',  
+  seen:false, 
+  url: 'ciao',
+  doSomethings : 'vuoto',
+  attributename : 'href' ,  // usato nel test attributi dinamici
+  event : 'click' , 
 }
 var vm = new Vue({
   el: '#app',
   data: data,
   created: function () {
+  },
+  computed:{
+    reverse_message : function () {
+        // `this` points to the vm instance
+        return this.msg.split('').reverse().join('');
+    },
   },
 })
 

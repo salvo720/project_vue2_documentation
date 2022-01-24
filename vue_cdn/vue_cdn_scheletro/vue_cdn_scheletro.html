@@ -61,6 +61,18 @@
 <!-- script vue -->
 <script>
 var data = {
+    a: 1 , 
+  msg : 'benvenuto', 
+  rawHtml:'<span style="color:red">this text should be red</span>', 
+  dynamicId:'id_prova' ,
+  //   il bottone non sara rendirizzato da vue quando disabled e false , null , undefined 
+  isButtonDisabled: undefined , 
+  // isButtonDisabled:'disabled',  
+  seen:false, 
+  url: 'ciao',
+  doSomethings : 'vuoto',
+  attributename : 'href' ,  // usato nel test attributi dinamici
+  event : 'click' , 
 }
 var vm = new Vue({
   el: '#app',
