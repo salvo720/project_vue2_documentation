@@ -59,15 +59,47 @@
                 <br>
             </div>
             <br><hr>
-            <h2>
-              Computed o methods
-              possiamo scegliere se definire una computed o un methods in base a cosa ci serve , la differenza  
+              <h2>
+                Computed VS methods
+              </h2>
+              <div>
+              possiamo scegliere se definire una computed o un methods in base a cosa ci serve , 
+              <strong>la differenza sta nei tempi di calcolo : </strong><br>
+              1)una computed viene calcolato 1 volta e le successive volte prendera il valore dalla cache finche
+              la variabile non cambiera valore (dipendenza reattiva ) ; <br>
+              2)un methods verra sempre calcolata ogni volta che si esegue un nuovo rendering ; <br>
+              3)una compudet come questa : <br>
+              computed: { <br>
+                now: function () { <br>
+                  return Date.now() <br>
+                } <br>
+              } <br>
+              non verra mai aggiornata perche priva di dipendenze reattive ;<br>
+          </div>
+          <br><hr>
+          <h2>
+            Computed getter e setter 
           </h2>
           <div>
-              variabile iniziale : {{ msg }}
-              <br>
-              variabile con il reverse_message : {{ reverse_message }}
-              <br>
+          le propieta calcolate per impostazione predefinita sono solo getter , ma possiamo anche utilizzare le setter 
+          <!-- field input -->
+          <!-- aggiunto e un plus , si puo fare benissiomo con il vm.full_Name esterno da vue 
+          <label for="input">input</label>  
+          <input type="text" id="input" class="form-control form-control-lg" v-model.lazy="firstName" />
+          <input type="text" id="input" class="form-control form-control-lg" v-model.lazy="lastName" /> -->
+          <br>
+          il nome completo e :  {{ full_Name }}
+          </div>
+          <br><hr>
+          <h2>
+            watcher su vuejs 
+          </h2>
+          <div>
+          i watcher si usano per eseguire delle chiamatee asincrone o operazione costose in riposta alla modifica dei dati 
+          <br>
+            Ask a yes/no question:
+            <input type="text" v-model="question">
+            {{ answer }}
           </div>
           <br><hr>
         </p>
@@ -79,8 +111,17 @@
 <script
   src="https://code.jquery.com/jquery-3.6.0.js"
   integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-  crossorigin="anonymous"></script>
-  <!-- vue js cdn  -->
+  crossorigin="anonymous" >
+</script>
+
+<!-- Poiché esiste già un ricco ecosistema di librerie ajax -->
+<!-- e raccolte di metodi di utilità generici, Vue core -->
+<!-- riesce a rimanere piccolo non reinventandoli. Anche questo -->
+<!-- ti dà la libertà di usare ciò che conosci. -->
+<script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+
+<!-- vue js cdn  -->
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>   
 <!-- script vue -->
 <script>
@@ -98,16 +139,63 @@ var vm = new Vue({
   url: 'ciao',
   doSomethings : 'vuoto',
   attributename : 'href' ,  // usato nel test attributi dinamici
-  event : 'click' , 
+  event : 'click' ,
+  firstName : '',
+  lastName : '',
+  question : '' ,
+  answer : 'I cannot give you an answer until you ask a question!' ,
 },
   created: function () {
+    // _.debounce è una funzione fornita da lodash per limitare come
+    // spesso è possibile eseguire un'operazione particolarmente costosa.
+    // In questo caso, vogliamo limitare la frequenza con cui accediamo
+    // yesno.wtf/api, in attesa che l'utente abbia completato
+    // finito di digitare prima di fare la richiesta ajax. Per imparare
+    // ulteriori informazioni sulla funzione _.debounce (e sua cugina
+    // _.throttle(_.acceleratore)), visita: https://lodash.com/docs#debounce
+    this.debouncedGetAnswer = _.debounce(this.getAnswer , 500 )
   },
   computed:{
     reverse_message : function () {
         // `this` points to the vm instance
         return this.msg.split('').reverse().join('');
     },
+    full_Name: {
+      // getter
+      get: function (){
+        return this.firstName + ' ' + this.lastName 
+      },
+      set:function(newValue){
+        var name = newValue.split(' ')
+        this.firstName=name[0]
+        this.lastName=name[name.length -1]
+      },
+    },
   },
+  watch:{
+    // ogni volta che la domanda , la funzione viene eseguita
+    question:function(newQuestion , oldQuestion ){
+      this.answer = 'Waiting for you stop typing..' 
+      this.debouncedGetAnswer()
+    },
+  },
+  methods:{
+    getAnswer:function(){
+      if(this.question.indexOf('?' === -1)){
+        this.answer = 'Questions usualy contain a question  mark ;-)'
+        return 
+      }
+      this.answer = 'Thinking...'
+      var vm = this 
+      axios.get('https://yesno.wtf/api')
+        .then(function(response){
+          vm.answer= _.capitalize(response.data.answer)
+        })
+        .catch(function(error){
+          vm.answer = 'Error Cloud reach the Api' + error
+        })
+    },
+  }
 })
 
 
@@ -117,6 +205,7 @@ var vm = new Vue({
 window.console.log(vm.reverse_message)
 vm.msg="hello form javascript"
 window.console.log(vm.reverse_message)
+vm.full_Name = 'John Doe'
 
 
 </script> 
