@@ -46,24 +46,52 @@
   </nav>
 
     <div id="app" class="container">
-      <h2>legatura di classi test(coding)</h2>
-      <div>
-
-        <div v-bind:class="{ active: isActive }"> <p>legatura di classe</p></div>
-        <div class="static" v-bind:class="{ active: isActive, 'text-danger': hasError }">legatura seconda classe</div>
-        <div class="static" v-bind:class=" classObject ">object class test</div>
-        <div class="static" v-bind:class=" classObject2 ">object class test with computed </div>
-        <div class="static" v-bind:class=" [ activeClass , errorClass ] ">array test </div>
-        <div class="static" v-bind:class=" [ activeClass ? activeClass : 'active_empty' , errorClass ] ">array test ternary expression </div>
-        <div class="static" v-bind:class=" [ {activeClass: activeClass }, errorClass ] ">array test object vue syntax  , it show class only when compare class is same (alternative ternary expression ) </div>
-        <div class="static" v-bind:style=" { color : active_color , fontSize : font_size + 'px' } "> legatura con lo style  </div>
-        <div class="static" v-bind:style="styleObject"> legatura con oggetto di  style  </div>
-        <div class="static" v-bind:style="[ styleObject, styleObject2 ]"> legatura con array di oggetti </div>
-        <div class="static" v-bind:style=""> prefisso fornitore , vue scansionera il codice ed andra ad aggiungere in automatico i prefissi dei fornitori (fornitori browser per ex funzioni sperimnetali che seguono la nomenclatura ad esempio -webkit ) </div>
-        <div class="static" v-bind:style=" { display : ['-webkit-box' , '-ms-flexbox' , 'flex' ] } "> matrice di valori multipli per la propieta flex (che e l'ultimo elemento dell'array ) </div>
-
-        
-      </div>
+        <h2>direttiva v-if</h2>
+        <p> la direttiva v-if indica se eseguire o meno un rendering in base al valore di una variabile </p>
+        <div>
+            <p>variable isAwesome value : {{ isAwesome }}</p>
+            <p v-if="isAwesome">vue is awesome</p>
+            <p v-else="isAwesome">oh no , vue not awesome</p>
+            <hr>
+            <p>variable isAwesome2 value : {{ isAwesome2 }}</p>
+            <p v-if="isAwesome2">vue is awesome</p>
+            <p v-else="isAwesome2">oh no , vue not awesome</p>
+        </div>
+        <hr><br>
+        <h2>direttiva v-if con template </h2>
+        <p> i template sono dei tag di vue al rendirizzamento il tag template scompare  </p>
+        <p> i template sono un elemento, che funge da involucro invisibile</p>
+        <div>
+            <template v-if="isAwesome">
+                <h1>Title</h1>
+                <p>Paragraph 1</p>
+                <p>Paragraph 2</p>
+            </template>
+        <br><hr> 
+        <h2>la direttiva v-else </h2>
+        <p> un v-else deve seguire un v-if o un v-else-if altrimenti non sara riconosciuto  </p>
+        <p> la direttiva v-else indica un blocco else nel caso in cui non entriamo nel v-if  </p>
+        <div>
+            <p>variable isAwesome2 value : {{ isAwesome2 }}</p>
+            <p v-if="isAwesome2">vue is awesome</p>
+            <p v-else="isAwesome2">oh no , vue not awesome</p>
+        <br><hr> 
+        <h2>la direttiva v-else-if </h2>
+        <p> simile al v-else ma deve seguire il v-if o un v-else-if   </p>
+        <p> la direttiva v-else-if indica un blocco v-else-if nel caso in cui non entriamo nel v-if  </p>
+        <div>
+            <p>variable type value : {{ type }}</p>
+            <p v-if="type === 'a'"> type is a </p>
+            <p v-else-if="type === 'b'"> type is b </p>
+            <p v-else-if="type === 'c'"> type is c </p>
+            <p v-else > type not a/b/c </p>
+            <hr>
+            <p>variable type_2 value : {{ type_2 }}</p>
+            <p v-if="type_2 === 'a'"> type_2 is a </p>
+            <p v-else-if="type_2 === 'b'"> type_2 is b </p>
+            <p v-else-if="type_2 === 'c'"> type_2 is c </p>
+            <p v-else > type_2 not a/b/c </p>
+        <br><hr> 
     </div>
 
 <!-- bootstrap 5 cdn js -->
@@ -79,7 +107,7 @@
 <!-- script vue -->
 <script>
 var data = {
-  a: 1 , 
+    a: 1 , 
   msg : 'benvenuto', 
   rawHtml:'<span style="color:red">this text should be red</span>', 
   dynamicId:'id_prova' ,
@@ -91,39 +119,16 @@ var data = {
   doSomethings : 'vuoto',
   attributename : 'href' ,  // usato nel test attributi dinamici
   event : 'click' , 
-  isActive: true ,
-  hasError : false ,
-  classObject :{
-    active : true , 
-    'text-warning' : true ,
-  },
-  activeClass: 'active',
-  errorClass: 'text-danger ',
-  error: null ,
-  active_color:'red',
-  font_size : 30 ,
-  styleObject: {
-    color:'blue',
-    fontSize : '30px' ,
-  },
-  styleObject2: {
-    color:'red',
-    padding: '10px',
-  },
+  isAwesome: true  ,
+  isAwesome2: false ,
+  type : 'd' ,
+  type_2 : 'c' ,
 }
 var vm = new Vue({
   el: '#app',
   data: data,
   created: function () {
   },
-  computed:{
-    classObject2: function(){
-      return {
-        active : this.isActive && !this.error ,
-        'text-danger' : this.error && this.error.type === 'fatal' ,
-      }
-    },
-  }
 })
 
 
