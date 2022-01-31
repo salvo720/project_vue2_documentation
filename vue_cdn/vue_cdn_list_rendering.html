@@ -37,15 +37,18 @@
             <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
           </li>
         </ul>
-        <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
       </div>
     </div>
   </nav>
 
     <div id="app" class="container">
+    <p v-show="hide">
+      {{ variable_for_cycle = 0 }}
+    </p>
+      <h2> in array count value : {{ array.length }} </h2>
+      <p v-for="arr in array" v-bind:key="arr.name">
+      element array {{ variable_for_cycle_increment(variable_for_cycle) }} : {{ arr.name }}
+      </p>
     </div>
 
 <!-- bootstrap 5 cdn js -->
@@ -73,11 +76,26 @@ var data = {
   doSomethings : 'vuoto',
   attributename : 'href' ,  // usato nel test attributi dinamici
   event : 'click' , 
+  array:
+  [
+    { name : 'foo'  } ,
+    { name : 'bar'  } ,
+    { name : 'land'  } ,
+    { name : 'terrain' } ,
+  ] ,
+  variable_for_cycle : '' ,
+  hide: false ,
 }
 var vm = new Vue({
   el: '#app',
   data: data,
   created: function () {
+  },
+  methods :{
+    variable_for_cycle_increment(variable_for_cycle){
+      this.variable_for_cycle = this.variable_for_cycle + 1 
+      return this.variable_for_cycle 
+    },
   },
 })
 
