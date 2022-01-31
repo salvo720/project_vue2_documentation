@@ -75,6 +75,10 @@
             <p>variable isAwesome2 value : {{ isAwesome2 }}</p>
             <p v-if="isAwesome2">vue is awesome</p>
             <p v-else="isAwesome2">oh no , vue not awesome</p>
+            <h3>math random nel v-if</h3>
+            <p>math random value : {{ variable_random }}</p>
+            <p v-if="variable_random >= 0.5 "> Now you see me </p>
+            <p v-else> Now you don't</p>
         <br><hr> 
         <h2>la direttiva v-else-if </h2>
         <p> simile al v-else ma deve seguire il v-if o un v-else-if   </p>
@@ -91,7 +95,84 @@
             <p v-else-if="type_2 === 'b'"> type_2 is b </p>
             <p v-else-if="type_2 === 'c'"> type_2 is c </p>
             <p v-else > type_2 not a/b/c </p>
+        <br><hr>
+        <h2>la direttiva key </h2>
+        <p>vuejs punta all'efficenza . </p>
+        <p>spesso riutilizzando gli elementi invece di renderli da 0</p>
+        <p>la direttva key serve per diffrenziare degli elementi , e per effettuare un reder da 0 dell'elemento  .</p>
+        <div>
+          <hr>
+          <p>elementi senza la key di vue </p>
+          <template v-if="user_access === 'login' ">
+            <label>Username</label>
+            <input placeholder="Enter your username" >
+           </template>
+           <template v-else>
+              <label>Email</label>
+              <input placeholder="Enter your Email" >
+           </template> 
+           <br><br>
+           <p>new_user value : {{ user_access }}</p>
+           <button type="button" @click="user_access='new_user'">Change value of user_access</button><br>
+           <hr>
+           <p>elementi con la key di vue </p>
+           <template v-if="user_access2 === 'login' ">
+            <label>Username</label>
+            <input placeholder="Enter your username" key="Username-input">
+           </template>
+           <template v-else>
+              <label>Email</label>
+              <input placeholder="Enter your Email" key="Email-input">
+           </template> 
+           <br><br>
+           <p>user_access2 value : {{ user_access2 }}</p>
+          <button type="button" @click="user_access2='new_user'">Change value of user_access2</button><br>
         <br><hr> 
+        <h2>la direttiva v-show </h2>
+        <p>la direttiva v-show reindirizza e aggiuge gli elementi al dom e gioca sulla propieta css per mostrare o meno l'elemento </p>
+        <p> la direttiva v-show non supporta con i tag vue :  tempalte e v-else  </p>
+        <div>
+            <p v-show="test_v_show"> test v-show show</p>
+            <p v-show="test_v_show2"> test v-show hide  </p>
+            <hr>
+        <br><hr>
+        <h2>la direttiva v-show nel tempalte e v-else </h2>
+        <div>
+            <p>elementi con la key di vue </p>
+            <p v-show="test_v_show">prima del template test v-show show</p>
+            <template v-if="user_access2 === 'login' ">
+              <p v-show="test_v_show"> nel tempalte test v-show show</p>
+              <label>Username</label>
+              <input placeholder="Enter your username" key="Username-input">
+             </template>
+             <template v-else>
+                <p v-show="test_v_show"> nel v-else test v-show show</p>
+                <label>Email</label>
+                <input placeholder="Enter your Email" key="Email-input">
+             </template> 
+             <br><br>
+             <p>user_access2 value : {{ user_access2 }}</p>
+            <button type="button" @click="user_access2='new_user'">Change value of user_access2</button><br>
+            <hr>
+        <br><hr>
+        <h2>v-if VS v-show </h2>
+        <div>
+          <h2>la direttiva v-if</h2>
+          <p>la direttiva v-if è il rendering condizionale "reale" perche garantisce che il listener di eventi e il componente figlio <br>
+          all'interno del blocco condizionale vengano correttamente distrutti e ricreati durante le alternanze  </p>
+          <p>la direttiva v-if e anche pigra , ovvero se la condizione e false durante il rendering iniziale non fara nulla <br>
+          e il blocco di codice non sara visualizzato(render di vue ) finche la condizione non sara vera per la prima volta </p>
+          <p>v-show invece visulizza sempre un elemento ma lo mostra o nasconde usando le propieta css </p>
+          <h2>Le Differenze </h2>
+          <p>v-if ha costi commutazionali piu elelvati mentre v-show ha costi di render iniziali piu elevati </p>
+          <p> <strong> scegliamo v-show </strong> se dobbiamo cambiare qualcosa molto spesso </p>
+          <p> <strong>scegliamo v-if </strong> se la condizione e improbabile che cambi in fase di esecuzione </p>
+          <h2>Consigli</h2>
+          <p>e altamente sconsigliato usare la direttiva v-if e v-for insieme .</p>
+          <p> tra v-if e v-for , <strong> v-for ha una priorita maggiore </strong> .</p>
+        </div>
+        <br><hr>
+
     </div>
 
 <!-- bootstrap 5 cdn js -->
@@ -123,6 +204,11 @@ var data = {
   isAwesome2: false ,
   type : 'd' ,
   type_2 : 'c' ,
+  variable_random : Math.random() ,
+  user_access : 'login' ,
+  user_access2 : 'login' ,
+  test_v_show : 'ok' ,
+  test_v_show2 : false ,
 }
 var vm = new Vue({
   el: '#app',
