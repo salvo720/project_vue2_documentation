@@ -42,13 +42,51 @@
   </nav>
 
     <div id="app" class="container">
-    <p v-show="hide">
-      {{ variable_for_cycle = 0 }}
-    </p>
-      <h2> in array count value : {{ array.length }} </h2>
-      <p v-for="arr in array" v-bind:key="arr.name">
-      element array {{ variable_for_cycle_increment(variable_for_cycle) }} : {{ arr.name }}
-      </p>
+      <div>
+        <h2> La direttiva v-for  </h2>
+        <strong> 2 parametri : element , index </strong>
+        <p v-show="hide">
+          {{ variable_for_cycle = 0 }}
+        </p>
+        <h4> in array count value : {{ array.length }} </h4>
+        <p v-for="arr in array" v-bind:key="arr.name">
+        element array {{ variable_for_cycle_increment(variable_for_cycle) }} : {{ arr.name }}
+        </p>
+        <hr><br>
+
+        <h2> La direttiva v-for  </h2>
+        <strong> 2 parametri : element , index </strong>
+        <p> la direttiva v-for support un secondo parametro opzione che e l'indice </p>
+        <p> in alternativa invece di in possiamo usare of per avvicinarci alla sintassi degli iterati js .</p> 
+        <h4> in array count value : {{ array.length }} </h4>
+        <p v-for="(arr , index)  of array" v-bind:key="index">
+        element array {{ index }} : {{ arr.name }}
+        </p>
+        <hr><br>
+
+        <h2> v-for con gli oggetti  </h2>
+        <strong> 3 parametri : value , key_object or name , index </strong>
+        <p> possiamo usare la direttiva v-for per scorrere gli elementi di un oggetto </p>
+        <p> </p> 
+        <p v-for="value in object" >
+          {{ value }}
+        </p>
+        <hr><br>
+
+        <h2> v-for con gli oggetti  </h2>
+        <strong> 3 parametri : value , key_object or name , index </strong>
+        <p> possiamo usare la direttiva v-for per scorrere gli elementi di un oggetto </p>
+        <p> anche qui possiamo passare un secondo parametro (in questo caso name ) , che possiamo usare come key  </p>
+        <p> inoltre possiamo passare un terzo parametro ovvero l'Indice (index) , che possiamo usare come key  </p>
+        <p> </p> 
+        <p v-for="(value , name , index )  in object" v-bind:key="key">
+        {{index }} | {{ name }} : {{ value }}
+        </p>
+        <p><strong>quando si esegue l'iterazione di un oggetto , l'ordine su cio si base l'enumerazione di Object.Keys() <br>
+        non garantito sia coerente tra le implementazioni del motere javascript  </strong></p>
+        <hr><br>
+
+      </div>
     </div>
 
 <!-- bootstrap 5 cdn js -->
@@ -85,6 +123,12 @@ var data = {
   ] ,
   variable_for_cycle : '' ,
   hide: false ,
+  object : {
+    id : 14 ,
+    name : 'test_name' ,
+    surname : 'test_surname' ,
+    day : 20 ,
+  } , 
 }
 var vm = new Vue({
   el: '#app',
