@@ -75,17 +75,56 @@
 
         <h2> v-for con gli oggetti  </h2>
         <strong> 3 parametri : value , key_object or name , index </strong>
+        <h2> key e una direttiva di un api </h2>
+        <p> la key viene usata per tracciare l'identita di ciascun nodo e riuilizzare e riodinare gli elementi esistenti , rendendo necessario avere un <strong> attributo key univoco  </strong></p>
         <p> possiamo usare la direttiva v-for per scorrere gli elementi di un oggetto </p>
         <p> anche qui possiamo passare un secondo parametro (in questo caso name ) , che possiamo usare come key  </p>
         <p> inoltre possiamo passare un terzo parametro ovvero l'Indice (index) , che possiamo usare come key  </p>
         <p> </p> 
-        <p v-for="(value , name , index )  in object" v-bind:key="key">
+        <p v-for="(value , name , index )  in object" v-bind:key="value.id">
         {{index }} | {{ name }} : {{ value }}
         </p>
         <p><strong>quando si esegue l'iterazione di un oggetto , l'ordine su cio si base l'enumerazione di Object.Keys() <br>
         non garantito sia coerente tra le implementazioni del motere javascript  </strong></p>
         <hr><br>
 
+        <h2> vue e gli array </h2>
+        <p> vue avvolge i metodi di mutazione dell'array osservando se ci sono cambiamenti , sui metodi : </p>
+        <p> push , pop , shift ,unshift , </p> 
+        <p> splice , sort , reverse  </p>
+        <p v-for="(value , name , index )  in array_test" v-bind:key="index">
+        {{index }} {{ name }} : {{ value }}
+        </p>
+        <hr><br>
+
+        <h2> vue e la sostituzione di un array </h2>
+        <p> ci sono anche dei metodi non mutanti per l'array ma che lo sostituiscono , cioe non mutano un array ma lo sostiuscono <strong> sempre con un nuovo array </strong> </p>
+        <p> vue non butta via il vecchio dom , ma grazie a delle tecniche euristiche inteligenti per massimizzare il riutilizzo degli elementi del dom </p>
+        <p> quindi sostiuire un array con un atro è efficace </p>
+        <p>a causa delle limitazioni di javascript esistono tipi di modifiche che vue non e in grado di rilevare con array e oggetti </p>
+        <h3> Avvertenze : </h3>
+        <p>per vederli segui il seguente link ( https://vuejs.org/v2/guide/reactivity.html#Change-Detection-Caveats ) </p>
+        <p v-for="(value , name , index )  in array_test" v-bind:key="index">
+        {{index }} {{ name }} : {{ value }}
+        </p>
+        <hr><br>
+
+        <h2> vue e sostizione array con filtro e riodinati  </h2>
+        <p> filtro e riordino di un array , senza modificare quello esistente  </p>
+        <p v-for="value in number_computed" >
+         {{ value }}
+        </p>
+        <hr><br>
+
+        <h2> vue e sostizione array con filtro e riodinati  </h2>
+        <p> in caso di loop (v-for ) nidificati non possiamo usare le computed ma paossiamo usare i methods </p>
+        <p v-for="num in number_array_2" ></p>
+          <p v-for="value in number_methods(num)" >
+          {{ value }}
+          </p>
+        </p>
+        <hr><br>
+ 
       </div>
     </div>
 
@@ -129,7 +168,15 @@ var data = {
     surname : 'test_surname' ,
     day : 20 ,
   } , 
+  array_test:
+  [
+    { id : 'test' , name : 'test'  } ,
+  ] ,
+  array_number : [ 1,2,3,4,5,6,7,8 ] ,
+  number_array_2 : [ [ 1,2,3,4,5,6,7,8 ] , [ 9,10,11,12,13,14,15 ] ],
+
 }
+
 var vm = new Vue({
   el: '#app',
   data: data,
@@ -140,9 +187,30 @@ var vm = new Vue({
       this.variable_for_cycle = this.variable_for_cycle + 1 
       return this.variable_for_cycle 
     },
+    number_methods : function(num){
+      return num.filter(function(number){
+        return number % 2 === 0
+      })
+    },
+  },
+  computed : {
+    number_computed : function(){
+      return this.array_number.filter(function(number){
+        return number % 2 === 0
+      })
+    },
   },
 })
 
+// vue avvolge i metodi di mutazione dell'array osservando se ci sono cambiamenti , sui metodi :
+// push , pop , shift ,unshift ,
+// splice , sort reverse 
+vm.array.push({ name: 'element add form javascript ' })
+vm.array_test.push({ id : 2 , name: 'test javascript' })
+// value e una variabile locale per la funzione possiamo dargli qualsiasi nome 
+vm.array_test = vm.array_test.filter(function (value){
+  return value.name.match(/test/)
+})
 
 </script> 
 
