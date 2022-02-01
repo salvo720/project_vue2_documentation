@@ -118,13 +118,21 @@
 
         <h2> vue e sostizione array con filtro e riodinati  </h2>
         <p> in caso di loop (v-for ) nidificati non possiamo usare le computed ma paossiamo usare i methods </p>
-        <p v-for="num in number_array_2" ></p>
-          <p v-for="value in number_methods(num)" >
+        <p> i for anninadati non funzionano cal tag p </p>
+        <ul v-for="num in number_array_2" >
+          <li v-for="value in number_methods(num)" >
           {{ value }}
-          </p>
-        </p>
+          </li>
+        </ul>
+        <hr>
+        <div> <h2>in alternativa puoi provare con i div </h2></div>
+        <div v-for="num in number_array_2" >
+          <div v-for="value in number_methods(num)" >
+          {{ value }}
+          </div>
+        </div>
         <hr><br>
- 
+
       </div>
     </div>
 
@@ -173,7 +181,7 @@ var data = {
     { id : 'test' , name : 'test'  } ,
   ] ,
   array_number : [ 1,2,3,4,5,6,7,8 ] ,
-  number_array_2 : [ [ 1,2,3,4,5,6,7,8 ] , [ 9,10,11,12,13,14,15 ] ],
+  number_array_2 : [[ 1,2,3,4,5,6,7,8 ] , [ 9,10,11,12,13,14,15 ]],
 
 }
 
@@ -187,8 +195,8 @@ var vm = new Vue({
       this.variable_for_cycle = this.variable_for_cycle + 1 
       return this.variable_for_cycle 
     },
-    number_methods : function(num){
-      return num.filter(function(number){
+    number_methods : function (num) {
+      return num.filter(function (number) {
         return number % 2 === 0
       })
     },
