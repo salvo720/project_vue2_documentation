@@ -116,7 +116,7 @@
         </p>
         <hr><br>
 
-        <h2> vue e sostizione array con filtro e riodinati  </h2>
+        <h2> vue e v-for annidati   </h2>
         <p> in caso di loop (v-for ) nidificati non possiamo usare le computed ma paossiamo usare i methods </p>
         <p> i for anninadati non funzionano cal tag p </p>
         <ul v-for="num in number_array_2" >
@@ -131,6 +131,23 @@
           {{ value }}
           </div>
         </div>
+        <hr><br>
+
+        <h2> vue e v-for con interi   </h2>
+        <p> su vue js puoi usare anche degli interi nel v-for , in questo caso vue ripettera il modello molte volte </p>
+        <div v-for="test in 10" >
+          {{ test }}
+        </div>
+        <hr><br>
+
+        <h2> vue e v-for e i template   </h2>
+        <p> su vue js puoi usare anche dei template , in questo caso vue ripettera il modello molte volte </p>
+        <template>
+          <div v-for="test in 10" >
+            {{ test }}
+            <p class="divider" role="presentation"></p>
+          </div>
+        </template>
         <hr><br>
 
       </div>
