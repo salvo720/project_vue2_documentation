@@ -150,6 +150,88 @@
         </template>
         <hr><br>
 
+        <h2> v-for e v-if   </h2>
+        <p> se posizionati sullo stesso nodo <strong> v-for ha una priorita maggiore di v-if </strong>, cio significa che v-if sara eseguito separatamento su ciascun interazione del ciclo   </p>
+        <p> questo puo essere utile quando <strong> si desidera eseguire il render dei nodi solo per alcuni elementi </strong> </p>
+          <div v-for="num in array_number" v-if="!array_number.isCompleted">
+            {{ num }}
+          </div>
+        <hr><br>
+
+      <h2> v-for e v-if   </h2>
+      <p> per eseguire il rendering condizionale del ciclo ci basta posizionare <strong> la direttiva v-if al nodo sopra v-for , con un wrapper (contenitore) o template </strong> </p>
+      <div v-if="array_number.length " >
+        <div v-for="num in array_number" >
+          {{ num }}
+        </div>
+      </div>
+      <div v-else>No left array_number!!! </div>
+      <hr><br>
+
+      <h2> v-for e i componenti </h2>
+      <p>possiamo usare un v-for anche con i componenti vue </p>
+      <div>
+        <my-component v-for="(item) in array" v-bind:key="item.name"> test componente <br> <my-component>
+        <hr>  
+      </div>
+      <hr><br>
+
+      <h2> v-for e i componenti </h2>
+      <div>
+        <p>il motivo per cui non viene iniettato automaticamente  iniettato v-for nell componete e perche cio rende il componente strettamente accoppiato a come v-for funziona </p>
+        <p> quando usiamo i v-for con i componenti e meglio essere espliciti sulla provenieza dei dati da passare 
+          in modo da poter riusare il componenete il piu possibile </p>
+        <my-component 
+        v-for="(item,index) in array_2_element" 
+        v-bind:item="item"
+        v-bind:index="index"
+        v-bind:key="item.name"
+        > test componente <br> <my-component>
+      </div>
+      <hr><br>
+
+      <h2> v-for e i componenti </h2>
+      <div>
+        <p>il motivo per cui non viene iniettato automaticamente  iniettato v-for nell componete e perche cio rende il componente strettamente accoppiato a come v-for funziona </p>
+        <p> quando usiamo i v-for con i componenti e meglio essere espliciti sulla provenieza dei dati da passare 
+          in modo da poter riusare il componenete il piu possibile </p>
+        <my-component 
+        v-for="(item,index) in array_2_element" 
+        v-bind:item="item"
+        v-bind:index="index"
+        v-bind:key="item.name"
+        > test componente <br> <my-component>
+      </div>
+      <hr><br>
+
+      <h2> v-for e i componenti esempio  </h2>
+      <div>
+        <div id="todo-list-example">
+          <form v-on:submit.prevent="addNewTodo">
+            <label for="new-todo"> add a todo </label>
+            <input type="text" 
+            v-model="newTodoText"
+            id="new-todo"
+            placeholder="E.g. Feed to cat "
+            >
+            <button> add</button>
+          </form>
+          <ul>
+            <li
+            is="todo-item"
+            v-for="(todo,index ) in todos "
+            v-bind:key="todo.id"
+            v-bind:title="todo.title"
+            v-on:remove="todos.splice(index,1)"
+            ></li>
+          </ul>
+        </div>
+      </div>
+      <hr><br>
+      
+
+      
+
       </div>
     </div>
 
@@ -199,8 +281,49 @@ var data = {
   ] ,
   array_number : [ 1,2,3,4,5,6,7,8 ] ,
   number_array_2 : [[ 1,2,3,4,5,6,7,8 ] , [ 9,10,11,12,13,14,15 ]],
+  array_2_element : [1,2] , 
+
 
 }
+
+Vue.component('todo-item' , { 
+  template : '\
+  <li>\
+    {{ title }}\
+    <button v-on:click="$emit.(\'remove\')">Remove<button>\
+  </li>\ ',
+  props : ['title'] ,
+})
+var vm2= new Vue({
+  el: '#todo-list-example',
+  data: {
+    newTodoText : '',
+    todos : [ 
+      {
+      id: 1,
+      title: 'Do the dishes',
+      },
+      {
+      id: 2,
+      title: 'Take out the trash',
+      },
+      {
+      id: 3,
+      title: 'Mow the lawn',
+      },
+    ] ,
+    nextTodoId : 4 ,
+  },
+  methods : {
+    addNewTodo : function () {
+      this.todos.push({
+        id: this.nextTodoId++,
+        title : this.newTodoText
+      })
+      this.newTodoText = ''
+    }
+  },
+});
 
 var vm = new Vue({
   el: '#app',
