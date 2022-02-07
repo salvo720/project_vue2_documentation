@@ -46,19 +46,70 @@
         <div>
             <h2>la direttiva v-on </h2>
             <div>la direttiva v-on serve per ascoltare un evento , successivamente va legata con l'evento da ascoltare </div>
-            <button v-on:click="counter+=1">add 1 </button>
+            <button type="button" class="btn btn-primary" v-on:click="counter+=1">add 1 </button>
             <div> counter vale : {{counter }} </div>
         </div>
-
+        <hr><br>
+        
         <div>
             <h2>la direttiva v-on </h2>
             <div>la direttiva v-on cosi avra una logica piu complesso , per rendere il tutto piu semplice <strong> v-on accetta anche i metodi </strong> </div>
-            <button v-on:click="aumenta_variabile">add 1 </button>
+            <button type="button" class="btn btn-primary" v-on:click="aumenta_variabile">add 1 </button>
             <div> counter vale : {{ counter_2 }} </div>
             <hr>
             <!-- `greet` is the name of a method defined below -->
-            <button v-on:click="greet"> Greet </button>
+            <button type="button" class="btn btn-primary" v-on:click="greet"> Greet </button>
         </div>
+        <hr><br>
+
+        <div>
+          <h2>la direttiva v-on con i methods  </h2>
+          <p>puoi integrare la diretiva v-on con i methods da richiamare quando si attiva un evento </p>
+          <button type="button" class="btn btn-primary" v-on:click="say('Hi')"> say Hi </button>
+          <hr>
+          <!-- `greet` is the name of a method defined below -->
+          <button type="button" class="btn btn-primary" v-on:click="say('Hello')"> say Hello </button>
+        </div>
+        <hr><br>
+
+        <div>
+          <h2>la direttiva  e gli eventi nativi   </h2>
+          <div> a volte si ha la necessita di accedere agli eventi nativi e lo si passanto nella funzione la variabile $event </div>
+          <button type="button" class="btn btn-primary" v-on:click="say_2('Hi', $event)"> say Hi </button>
+        </div>
+        <br><hr>
+
+        <div>
+          <h2>la direttiva  v-on e i modificatori di eventi  </h2>
+          <div> i modificatori di eventi sono sempre postfissi di direttive denotati da . </div>
+          <div> i modificatori di eveenti sono : </div>
+          <ul>
+            <li>.stop</li>
+            <li>.prevent</li>
+            <li>.capture</li>
+            <li>.self</li>
+            <li>.once</li>
+            <li>.passive</li>
+          </ul>
+
+          <div> il modificatore .stop serve peer fermare la propagazione di un evento </div>
+          <div> <h4> la propagazione dell'evento click verrà interrotta </h4> </div>
+          <!-- ferma solo il bubling  -->
+          <button type="button" class="btn btn-primary" v-on:click.stop="test"> link </button>
+          <hr>
+
+          <div> <h4> l' evento di invio non ricaricherà più la pagina </h4> </div>
+          <!-- ferma solo il bubling  -->
+          <form v-on:submit.prevent="test2">
+          <button type="button" class="btn btn-primary" > link </button>
+          </form>
+
+          <div> i modificatori possono essere combinati </div>
+          <button type="button" class="btn btn-primary" v-on:click.stop.prevent="test"> link </button>
+
+        </div>
+
+
     </div>
 
 <!-- bootstrap 5 cdn js -->
@@ -98,6 +149,25 @@ var vm = new Vue({
   methods : {
     aumenta_variabile: function (){
         this.counter_2 += 1 ;
+    },
+    say:function(message){
+      alert(message)
+    },
+    say_2:function(message , event){
+      alert(message + ' from event : ' + event)
+      console.log(event)
+      if(event){
+        event.preventDefault();
+      }else{
+        alert('no event prenset ')
+      }
+    },
+    test:function(){
+      // do nothing
+      alert('event not stopped')
+    },
+    test2:function(){
+      alert('l \' evento di invio non ricaricherà più la pagina')
     },
     greet: function (event){
         // `this` inside methods points to the Vue instance
