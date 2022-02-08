@@ -103,10 +103,46 @@
           <form v-on:submit.prevent="test2">
           <button type="button" class="btn btn-primary" > link </button>
           </form>
+          <hr>
 
-          <div> i modificatori possono essere combinati </div>
+          <div> <h4> i modificatori possono essere combinati </h4></div>
           <button type="button" class="btn btn-primary" v-on:click.stop.prevent="test"> link </button>
+          <hr>
 
+          <div> <h4> solo il modificatore  </h4> </div>
+          <form v-on:submit.prevent="test2">
+            <button type="button" class="btn btn-primary" > link </button>
+          </form>
+          <hr>
+
+          <div> <h4> capture </h4></div>
+          <div>usa la modalita di acquisizione (capture) quando aggiungi il listener di eventi</div>
+          <div>cioe un eventto che punta ad un elemento interno viene gestio qui prima di essere gesttito da quell'elemento</div>
+          <button type="button" class="btn btn-primary" v-on:click.capture="test3"> link </button>
+          <hr>
+
+          <div> <h4> self </h4> </div>
+          <div> i trigger in ascolto solo se event.target e l'elemento stesso </div>
+          <div>cioe non e da un elemento figlio </div>
+          <button type="button" class="btn btn-primary" v-on:click.self="test4"> link </button>
+          <hr>
+
+          <div><h4> l'ordine dei modificatori di eventi e importate perche il codice viene
+          generato nello stesso ordine . </h4></div>
+          <div><h4> Pertanto l'utilizzo di <strong class="red"> v-on:click.prevent.self </strong> impedira tutti i
+          click mentre  <strong class="red"> v-on:click.self.prevent impedira solo i click sull'elemento stesso </strong></h4></div>
+          <hr><br>
+
+          <div> <h4> once </h4> </div>
+          <div> L'evento click sara attivato massimo una volta </div>
+          <div> a differenza degli atri modificatori che sono esclusivi degli eventi del DOM nativi 
+          il <strong class="red"> .once </strong> puo esserre utilizzato anche sui componenti </div>
+          <button type="button" class="btn btn-primary" v-on:click.once="test5"> link </button>
+          <hr>
+
+
+          <div></div>
+            
         </div>
 
 
@@ -164,10 +200,19 @@ var vm = new Vue({
     },
     test:function(){
       // do nothing
-      alert('event not stopped')
+      alert('event non fermato , ma il bubling dell\'evento e da verificare se ee in stop ')
     },
     test2:function(){
       alert('l \' evento di invio non ricaricherà più la pagina')
+    },
+    test3:function(){
+      alert('l \' evento di invio cattturato ma funzione eseguitta ')
+    },
+    test4:function(){
+      alert('l \' evento si attiva solo da se stesso ')
+    },
+    test5:function(){
+      alert('l \' evento si attiva all massimo una volta ')
     },
     greet: function (event){
         // `this` inside methods points to the Vue instance
