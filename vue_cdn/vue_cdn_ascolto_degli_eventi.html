@@ -7,6 +7,11 @@
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
+<style>
+  .red{
+    color:red;
+  }
+</style>
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
@@ -140,8 +145,69 @@
           <button type="button" class="btn btn-primary" v-on:click.once="test5"> link </button>
           <hr>
 
+          <div> <h4> passive </h4> </div>
+          <div> Si verifichera l'evento predefinito dell'evento di scorrimento </div>
+          <div> immediatamente invece di aspettare il completamento di onScroll
+          Nel caso contenga event.preventDefault  </div> 
+          <div><strong class="red"> .passive </strong> puo esserre utilizzato anche sui componenti </div>
+          <button type="button" class="btn btn-primary" v-on:click.once="test6"> link </button>
+          <hr>
 
-          <div></div>
+          <div> <h4> non usare <strong class="red">  .passive e .prevent </strong> insieme peerche il .prevent sara ignorato e il browser
+          mostrera un avviso . <strong class="red"> Ricorda che il .passive </strong> comunica al browser che non vuoi impedire
+          il comportamento predefinito </h4> </div>
+          <hr>
+
+          <div>
+            <h2>la direttiva v-on e i tasti chiave </h2>
+            <div> vue ti consente di ascoltare gli eventi legandali a dei tasti specifici .  </div>
+            <div> vue consente di aggiungere modificatori  chiave v-on durantte l'ascolto di eventi chaive </div>
+
+            <div> <h4> chiamera vm.submit solo quando la chiave(il tasto ) e enter </h4></div>
+            <button type="button" class="btn btn-primary" v-on:keyup.enter="test7"> attiva con enter  </button>
+            <hr>
+            <div>si puo utilizzare qualsiasi nome di chiave valido esposto tramite KeyboardEvent.key 
+            come modificatori convertendoli in kebab-case </div>
+            <div>Nel caso seguente il modificatore sara chiamato solo se $event.key sara uguale a 'PageDown' </div>
+            <button type="button" class="btn btn-primary" v-on:keyup.page-down="test8"> attiva con pagina sotto  </button>
+          </div>
+          <br><hr>
+
+          <div>
+            <h2> Codici chiave  </h2>
+            <div> l'uso dei keycode e deprecato e potrebbe non essere supportato nei nuovi browser   </div>
+            <div> l'uso di keyCode attributi e consentito anche : </div>
+            <button type="button" class="btn btn-primary" v-on:keyup.13="test9"> attiva con keyup.13  </button>
+            <input v-on:keyup.13="test9">
+          </div>
+          <br><hr>
+
+          <div>
+            <div> vue fornisce alias per i codici chiave piu comunemente usati quando
+            necessario il supporto del browser legacy   </div>
+            <ul>
+              <li class="red">.enter</li>
+              <li class="red">.tab</li>
+              <li class="red">.delete</li> <div> cattura entrambi i tasti "Cancella" e "Blackspace"</div>
+              <li class="red">.esc</li>
+              <li class="red">.space</li>
+              <li class="red">.up</li>
+              <li class="red">.down</li>
+              <li class="red">.left</li>
+              <li class="red">.right</li>
+            </ul>
+            <div> alcuni tasti (esc e i tasti freccia ) hanno valori incoerenti in IE9 , quindi 
+            questi alias integrati dovrebbero essere preferiti se e necessario supportare IE9 </div>
+          </div>
+          <hr>
+          <div> <h2> KeyCodes personalizzati  </h2> </div>
+          <div> possiamo definire degli alias di modificatori chiave personalizzati 
+          tramite l'oggetto globale config.KeyCodes : </div>
+          <div> abilita v-on:keyup.f1</div>
+          <div> Vue.config.KeyCodes.f1 = 112 </div>
+          <button type="button" class="btn btn-primary" v-on:keyup.f1="test10"> attiva con f1  </button>
+          <input v-on:keyup.f1="test10"> attiva con f1  </input>
+          <br><hr>
             
         </div>
 
@@ -160,6 +226,9 @@
 
 <!-- script vue -->
 <script>
+Vue.config.keyCodes = {
+  f1:112, 
+}
 var data = {
   a: 1 , 
   msg : 'benvenuto', 
@@ -213,6 +282,21 @@ var vm = new Vue({
     },
     test5:function(){
       alert('l \' evento si attiva all massimo una volta ')
+    },
+    test6:function(){
+      alert('l \' evento passive si attiva prima del completamento dell\'evento Scroll ')
+    },
+    test7:function(){
+      alert('l \' evento si attiva solo quando premi enter ')
+    },
+    test8:function(){
+      alert('l \' evento si attiva solo si attiva page down (scorri sotto )')
+    },
+    test9:function(){
+      alert('l \' evento si attiva solo si attiva keyup 13')
+    },
+    test10:function(){
+      alert('l \' evento si attiva solo si attiva keyup f1')
     },
     greet: function (event){
         // `this` inside methods points to the Vue instance
