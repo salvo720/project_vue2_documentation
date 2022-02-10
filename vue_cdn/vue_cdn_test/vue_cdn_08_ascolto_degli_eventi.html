@@ -200,6 +200,7 @@
             questi alias integrati dovrebbero essere preferiti se e necessario supportare IE9 </div>
           </div>
           <hr>
+
           <div> <h2> KeyCodes personalizzati  </h2> </div>
           <div> possiamo definire degli alias di modificatori chiave personalizzati 
           tramite l'oggetto globale config.KeyCodes : </div>
@@ -208,7 +209,61 @@
           <button type="button" class="btn btn-primary" v-on:keyup.f1="test10"> attiva con f1  </button>
           <input v-on:keyup.f1="test10"> attiva con f1  </input>
           <br><hr>
+
+          <div> <h2> Tasti di modifica rapida </h2> </div>
+          <div> e possibile utilizzare i seguenti modificatori per attivare listener di eventi tramite 
+          il mouse o la tastiera solo quando viene premuto il tasto modificatore corrispondente : </div>
+          <ul class="red">
+            <li> .ctrl </li>
+            <li> .alt </li>
+            <li> .shift </li>
+            <li> .meta </li>
+          </ul>
+          <hr><br>
+
+          <div> <h4> ALT + C </h4></div>
+          <button type="button" class="btn btn-primary" v-on:keyup.alt.67="test11"> attiva ALT + C  </button>
+          <input v-on:keyup.ALT.67="test11"> attiva ALT + C </input>
+          <br><hr>
+
+          <div> <h4> CTRL + CLICK </h4></div>
+          <button type="button" class="btn btn-primary" v-on:click.ctrl="test12"> attiva CTRL + CLICK </button>
+          <input v-on:click.ctrl="test12"> attiva CTRL + CLICK  </input>
+          <br><hr>
+
+          <div> <h4> Si noti che i tasti modificatori sono diversi dai tasti normali e , se usati con keyup , 
+          gli eventi ,devono essere premuti quando l'evento viene emesso . In altre parole , keyup.ctrl 
+          si attivera solo se rilasci il tasto premuto CTRL . Non si attivera se rilasci il tasto  CTRL da solo . 
+          Se si desidera tale comporttamento utilizza invece keycode for CTRL  : keyup.17 . 
+          </h4> </div>
+          <hr><br>
+
+          <div> <h2> Modificatore .exact  </h2></div>
+          <div> il modificatore .exact consente il controllo dell'esatta combinazione di modificatori di sistema 
+          necessari per attivare un evento </div>
+          <div> Questo si attivera se viene premuto ALT o MAIUSC </div>
+          <button type="button" class="btn btn-primary" v-on:click.ctrl="test13"> attiva CLICK + ALT o MAIUSC </button>
+          <input v-on:click.ctrl="test13"> attiva CLICK + ALT o MAIUSC  </input>
+          <hr>
+          <div> Questo si attivera quando CTRL e nessun altro tasto viene premuto </div>
+          <button type="button" class="btn btn-primary" v-on:click.ctrl.exact ="test14"> attiva CLICK + CTRL </button>
+          <input v-on:click.ctrl.exact="test14"> attiva CLICK + CTRL  </input>
+          <hr>
+          <div> Questo si attivera quando CLICK e nessun altro tasto viene premuto </div>
+          <button type="button" class="btn btn-primary" v-on:click.exact ="test15"> attiva CLICK </button>
+          <input v-on:click.exact="test15"> attiva CLICK </input>
+          <hr><br>
             
+          <div><h4> questi modificatori limitano il gestore di eventi attivati da uno specifico 
+          tasto del mouse  </h4> </div>
+          <ul class="red">
+            <li>.left</li>
+            <li>.right</li>
+            <li>.middle</li>
+          </ul>
+          <button type="button" class="btn btn-primary" v-on:click.right ="test16"> attiva CLICK (tasto destro ) </button>
+          <input v-on:click.exact="test15"> attiva CLICK (tasto destro ) </input>
+          
         </div>
 
 
@@ -297,6 +352,24 @@ var vm = new Vue({
     },
     test10:function(){
       alert('l \' evento si attiva solo si attiva keyup f1')
+    },
+    test11:function(){
+      alert('l \' evento si attiva solo con ALT + C ')
+    },
+    test12:function(){
+      alert('l \' evento si attiva solo con CTRL + CLICK ')
+    },
+    test13:function(){
+      alert('l \' evento si attiva solo con CTRL o MAIUSC ')
+    },
+    test14:function(){
+      alert('l \' evento si attiva solo con CTRL ')
+    },
+    test15:function(){
+      alert('l \' evento si attiva solo quando nessun modificatore di sistema viene premuto ')
+    },
+    test16:function(){
+      alert('l \' evento si attiva solo quandoo viene premtu il tasto destro del mouse ')
     },
     greet: function (event){
         // `this` inside methods points to the Vue instance
