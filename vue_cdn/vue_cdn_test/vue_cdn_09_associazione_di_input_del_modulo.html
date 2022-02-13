@@ -7,6 +7,11 @@
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
+<style>
+  .red{
+    color:red;
+  }
+</style>
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
@@ -42,7 +47,115 @@
   </nav>
 
     <div id="app" class="container">
-      <!-- vuoto nuovo file   -->
+     
+      <div>
+        <h2> la direttiva v-model </h2>
+        <div> la direttiva v-model cre associazioni dati bidirezionali su elementi di input del modulo textarea e select .  </div>
+        <div> seleziona automaticamente il modo corretto per aggiornare l'elemento in base al tipo di input </div>
+        <div> v-model e essenziamenlte sintassi di zucchero per aggiornare i dati sugli eventi di input utente </div>
+        <div> piu un attenzione speciale per qualche caso limite </div>
+
+        <div> <h4> v-model ingnorera gli attributi iniziali value , checked o selected trovati su qualsiasi elemento del modulo .</h4> </div>
+        <div> <h4 class="red"> v-model trattera sempre gli elementi vue come fonte di verita </h4> </div>
+        <div> <h4 class="red"> quindi dovresti dichiarare il tuo valore iniziale su lato javascript all'interno di data  </h4> </div>
+
+        <div> v-model usa internamente propieta diverse ed emette eventi diversi per differenziare i tipi di input </div>
+        <ul>
+          <li> gli elementi text e textarea usano value <span class="red">value  </span> come propieta e input come evento </li>
+          <li> caselle di controllo e pulsanti opzione utilizzano <span class="red"> checked </span> come propieta ed change come evento </li>
+          <li>i campi di select usano <span class="red"> value </span> come una prop e change come evento </li>
+        </ul>
+        <label for="id_mess">Messaggio</label>
+        <input id="id_mess" v-model="Messaggio" placeholder="edit me">
+        <div> Messaggio vale : {{Messaggio }} </div>
+    </div>
+    <hr><br>
+
+    <div>
+      <h2> la direttiva v-model </h2>
+      <div> <h4> testo multilinea </h4> </div>
+      <div> il messagio multilinea e  : <span> {{ Messaggio_2 }} </span> </div>
+      <br>
+      <label for="id_mess_2">Messaggio_2</label>
+      <textarea id="id_mess_2" v-model="Messaggio_2" placeholder="add new line "></textarea>
+      <hr>
+      <div class="red"> guarda il codice linea sotto per textarea </div>
+      <div> l'interlopolazione su text area( <!-- <textarea> {{ Messaggio_2 }} </textarea>  --> ) non funziona usa v-model invece </div>
+    </div>
+    <hr><br>
+
+    <div>
+      <h2> la direttiva v-model </h2>
+      <div> <h4> casella di controllo singola valore boolenao </h4> </div>
+      <input type="checkbox" id="checkbox" v-model="Checkbox">
+      <label for="checkbox"> {{ Checkbox }}</label>
+      <hr>
+      <div> <h4> piu casella di controllo legate alla stessa matrice </h4> </div>
+      <input type="checkbox" id="jack" value="Jack" v-model="check_names">
+      <label for="jack"> Jack </label>
+      <input type="checkbox" id="john" value="Jhon" v-model="check_names">
+      <label for="john"> John </label>
+      <input type="checkbox" id="mike" value="Mike" v-model="check_names">
+      <label for="mike"> Mike </label>
+      <br><br>
+      <div> check_names value : {{ check_names }}</div>
+    </div>
+    <hr><br>
+
+    <div>
+      <h2> la direttiva v-model </h2>
+      <div> <h4> radio </h4> </div>
+      <input type="radio" id="one" value="One" v-model="select_radio">
+      <label for="one"> One </label>
+      <br>
+      <input type="radio" id="two" value="Two" v-model="select_radio">
+      <label for="two"> Two </label>
+      <br><br>
+      <div> select_radio value : {{ select_radio }}</div>
+    </div>
+    <hr><br>
+
+    <div>
+      <h2> la direttiva v-model </h2>
+      <div> <h4> selected </h4> </div>
+      <div> selected_menu value : {{ selected_menu }}</div><br>
+      <select v-model="selected_menu" class="form-select" aria-label="Default select">
+        <option disabled value=""> Please select one </option>
+        <option value="One">One</option>
+        <option value="Two">Two</option>
+        <option value="Three">Three</option>
+      </select>
+      <br>
+      <div> <h5> Se l'elemeto seleziono non corrisponde a nessuno delle opzioni dell'elemento selected , 
+      verra visualizzato in uno stato non selezionato . In IOS cio impedira all'utente di selezionare il primo elemento  , 
+      perche IOS non genera un change evento in questo caso . Si consigli pertanto di fornire disabled come valore vuoto , come 
+      mostrato nell'esempio precedente . </h5></div>
+    </div>
+    <hr><br>
+
+    <div>
+      <h2> la direttiva v-model </h2>
+      <div> <h4> selezione multipla associzione array </h4> </div>
+      <div> select_array value : {{ select_array }}</div><br>
+      <select v-model="select_array" class="form-select" aria-label="Default select" multiple>
+        <option disabled value=""> Please select one </option>
+        <option value="One">One</option>
+        <option value="Two">Two</option>
+        <option value="Three">Three</option>
+      </select>
+    </div>
+    <hr><br>
+
+    <div>
+      <h2> la direttiva v-model </h2>
+      <div> <h4> selezione con v-for </h4> </div>
+      <div> select_array_for value : {{ select_array_for }}</div><br>
+      <select v-model="select_array_for" class="form-select" aria-label="Default select" multiple>
+        <option v-for="(option,index) in options" v-bind:key="option.value" v-bind:value="option.value"> {{ option.text }}</option>
+      </select>
+    </div>
+    <hr><br>
+
     </div>
 
 <!-- bootstrap 5 cdn js -->
@@ -70,6 +183,19 @@ var data = {
   doSomethings : 'vuoto',
   attributename : 'href' ,  // usato nel test attributi dinamici
   event : 'click' , 
+  Messaggio : '' ,
+  Messaggio_2 : '' ,
+  Checkbox : false ,
+  check_names: [] ,
+  select_radio : [] ,
+  selected_menu : '' ,
+  select_array:[] , 
+  select_array_for : ['A'] ,
+  options : [
+    { text:'One',value:'A'} ,
+    { text:'Two',value:'B'} ,
+    { text:'Three',value:'C'} ,
+  ]
 }
 var vm = new Vue({
   el: '#app',
