@@ -156,6 +156,110 @@
     </div>
     <hr><br>
 
+    <div>
+      <h2> Vincoli di valore </h2>
+      <div> per le opzioni radio , checkbox o select ,i valori v-bind sono generalmente 
+      stringhe sttatiche , o booleane per chekckbox </div>
+      <div><h4> radio_Var e una stringa 'a' quando selezionata </h4></div>
+      <div> radio_var value : {{ radio_var }}</div><br>
+      <input type="radio" v-model="radio_var" value="a"> test a
+      <hr>
+      <div><h4> checkbox_var è (o / uno dei due ) vero o falso  </h4></div>
+      <div> checkbox_var value : {{ checkbox_var }}</div><br>
+      <input type="checkbox" v-model="checkbox_var"> test checkbox
+      <hr>
+      <div><h4> 'selected' e una stringa ('test') quando viene selezionata la prima opzione  </h4></div>
+      <div> select_var value : {{ select_var }}</div><br>
+      <select v-model="select_var" class="form-select">
+        <option disabled value="">Select one </option> 
+        <option value="test">Test</option> 
+      </select>
+      <hr>
+      <div><h4> Ma a volte , potremmo voler associare il valore a una propieta dinamica sull'instanza Vue .
+      Possiamo usare v-bind per raggiungere questo obiettivo . Inoltre l'uso di v-bind ci consente 
+      di associare il valore di input a valori non stringa 
+      </h4></div>
+      <br>
+    </div>
+    <hr><br>
+
+    <div>
+      <h2> Caselle di controllo  </h2>
+      <div> quando viene checkato il suo valore sara yes , altrimenti il suo valore sara no </div>
+      <div> casella_var value : {{ casella_var }}</div><br>
+      <input type="checkbox" v-model="casella_var" true-value="yes" false-value="no"> test checkbox
+    </div>
+    <br>
+    <div><h4 > gli attributi <span class="red"> true-value e false-value  </span> non influiscono 
+    sull'atttrivuto dell'input <span class="red"> value </span> peche i browser non includono 
+    caselle deselezionate negli invii dei moduli . <span class="red"> Per garantire che uno dei due valori sia inviato 
+    in un modulo ad esempio ( yes o no ) utilliza gli ingressi radio </span></Per> </h4></div>
+    <hr><br>
+
+    <div>
+      <h2> Radio  </h2>
+      <div> radio_var_2 value : {{ radio_var_2 }}</div><br>
+      <input type="radio" v-model="radio_var_2" v-bind:value="value_radio_bind" > test A
+    </div>
+    <hr><br>
+
+    <div>
+      <h2> Seleziona opzioni  </h2>
+      <div> select_var_2 tipo : {{ typeof(select_var_2) }}</div><br>
+      <div> select_var_2 value : {{ select_var_2 }}</div><br>
+      <select v-model="select_var_2" class="form-select" aria-label="Default select example">
+        <option value="" disabled> Select One </option>
+        <option v-bind:value="{ number:123 }"> 123 </option>
+      </select>
+    </div>
+    <hr><br>
+
+    <div>
+      <h2> Modificatori </h2>
+      <div> <h4> .lazy </h4></div>
+      <div> per impostazione predefinita v-model sincronizza l'input con i dati dopo ogni 
+      evento di input (ad eccezione della composizione IME  ) , puoi aggiungere il modificatore <span class="red"> .lazy 
+      per sincronizzare dopo L'evento change </span> </div>
+      <div> <h4> sincronizza dopo modifica invece di input </h4> </div>
+      <div> test_lazy value : {{ test_lazy }}</div><br>
+      <input v-model.lazy="test_lazy" >
+    </div>
+    <hr><br>
+
+    <div>
+      <div> <h4> .number </h4></div>
+      <div> Se desideri che l'input dell'utente venga <span class="red"> automaticamente typecast come un numero , puoi 
+      aggiungere il .number </span> modificatore ai tuoi v-modell input gestiti : </div>
+      <div> test_number value : {{ test_number }}</div><br>
+      <input type="number" v-model.number="test_number" >
+    </div>
+    <hr><br>
+    <div> <h4> Questo e spesso utile perche , perche anche con <span class="red"> type="number" </span> , 
+    il valore di input HTML restituisce sempre una stringa . Se il valore non puo essere analizzato 
+    con <span class="red"> parseFloat() </span> , viene restituito il valore originale </h4></div>
+    <hr><br>
+    
+    <div>
+      <div> <h4> .trim </h4></div>
+      <div> Se vuoi che <span class="red">gli spazi bianchi dell'utente vengano tagliati automaticamente </span>  
+      puoi aggiungere il  <span class="red"> .trim </span> modificatore ai tuoi v-modell input gestiti : </div>
+      <div> test_trim value : {{ test_trim }}</div><br>
+      <input v-model.trim="test_trim" >
+    </div>
+    <hr><br>
+    <div> <h4 class="red"> Ricorda : il trim rimuove tutti gli spazi , quando ci
+    sono piu di uno spazio consecutivo  </h4></div>
+
+    <div>
+      <h2> v-model con componenti </h2>
+      <div> i tipi di input integratti in html non soddisfano sempre le tue esigenze .
+      Fortunatamente i componenti vue ti consentono di creare input riutilizzabili 
+      con un comportamento completamente personalizzato . 
+      <span class="red "> Questi ingressi funzionano anche con i v-model  </span> </div>
+    </div>
+    <hr><br>
+
+
     </div>
 
 <!-- bootstrap 5 cdn js -->
@@ -195,7 +299,18 @@ var data = {
     { text:'One',value:'A'} ,
     { text:'Two',value:'B'} ,
     { text:'Three',value:'C'} ,
-  ]
+  ],
+  radio_var : '' ,
+  checkbox_var : '' ,
+  select_var : '' ,
+  casella_var : '' ,
+  radio_var_2 : '' ,
+  value_radio_bind: 'test value radio' ,
+  select_var_2 : '' ,
+  test_lazy : '' ,
+  test_number : '' ,
+  test_trim : '' ,
+
 }
 var vm = new Vue({
   el: '#app',
