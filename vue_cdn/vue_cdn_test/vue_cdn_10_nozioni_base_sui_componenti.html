@@ -42,7 +42,85 @@
   </nav>
 
     <div id="app" class="container">
-        <!-- vuoto -->
+
+      <div>
+        <h2> i componenti su vue  </h2>
+        <div> componente esempio  <br>
+        <button-counter></button-counter>
+        <br>
+        <div> Poiche i componenti sono instanze vue riutilizzabili  , accetttano le stesse opzioni 
+        <span class="text-primary"> di new Vue , come data ,computed , watch ,  methods  e gli hook del ciclo
+        di vita  </span> le uniche eccezzioni sono alcune opzioni specifiche della radice come
+        <span class="text-primary"> el </span> </div>
+        </div>
+      </div>
+      <hr><br>
+
+      <div>
+        <h2> Riutilizzo dei componenti su vue  </h2>
+        <div> i componeneti posso essere riutilizzati tutte le volte che vuoi   <br>
+        <button-counter></button-counter> <br>
+        <button-counter></button-counter> <br>
+        <button-counter></button-counter> <br>
+        <br>
+        <div> Si noti che quando si fa click <span class="text-primary"> sui pulsanti ognuno mantiene il 
+        propio count . </span> Questo perche ogni volta che <span class="text-primary"> usi un componente 
+        ne viene creata una nuova instanza </span> </div>
+        </div>
+      </div>
+      <hr><br>
+
+      <div>
+        <h2> <span class="text-primary"> Data </span> deve essere una funzione </h2>
+        <div> quando abbiamo <span> definito il </button-counter> componente </span> , potresti aver 
+        notato che data non e stato fornito direttamente un oggetto , come questo :  <br>
+          <div>
+            data : { <br>
+              count : 0 <br>
+            } <br>
+          </div>
+          <div> invece l'opzione <span class="text-primary"> data di un componente deve 
+          essere una funzione </span> , in modo che ogni instanza possa mantere una copia
+          indipendente dell'oggetto dati restituito  </div>
+          <div> 
+            data : function(){ <br>
+              return { <br>
+                count : 0 <br>
+              }
+            } <br>
+          </div>
+          <div> Se vue non avesse questa regola , fare click su un pulsante influirebbe sui dati di tutte 
+          le altre instanze . <span class="tetx-primary"> adesso vue ha un controllo su questo ,
+          qundi se data non e una funzione vue va in errore .</span>
+          </div>
+        </div>
+      </div>
+      <hr><br>
+
+      <div>
+        <h2> Organizzazione dei compoenti  </h2>
+        <div>E comune che un app sia organizzata in un albero di componenti nidificati : </div>
+        <!-- TODO FERMO ALLA PRIMA RIGA PIU QUELLA DELLA REGISTRAZIONE DEI CIMPONENTI GLOBALI E LOCALE SOTTO  -->
+          <div>  i componenti possono essere registrati a <span class="text-primary">  
+          livello globale o locale . </span> <br>
+          Per registrare un componente a <span class="text-primary">  livello globale usiamo il Vue.component </span>
+          Per registrare un componeente a <span class="text-primary"> livello locale usiamo   </span> </div>
+        </div>
+      </div>
+      <hr><br>
+
+    </div>
+
+    <div id="app_2" class="container">
+
+      <div>
+        <h2> Seconda instanza vue bind su app_2 </h2>
+        <div> componente esempio  <br>
+        <button-counter></button-counter>
+        </div>
+      </div>
+      <hr><br>
+
     </div>
 
 <!-- bootstrap 5 cdn js -->
@@ -57,6 +135,22 @@
 
 <!-- script vue -->
 <script>
+
+// Definisco un nuovo compoenente chiamato button-counter 
+Vue.component('button-counter' , {
+  data : function () {
+    return {
+      count : 0
+    } 
+  },
+  template : '<button v-on:click="count++" type="button" class="btn btn-info"> Mi hai cliccato {{ count }} volte </button>'
+} );
+
+new Vue ({ el:'#app'});
+
+
+
+
 var data = {
   a: 1 , 
   msg : 'benvenuto', 
@@ -69,10 +163,11 @@ var data = {
   url: 'ciao',
   doSomethings : 'vuoto',
   attributename : 'href' ,  // usato nel test attributi dinamici
-  event : 'click' , 
+  event : 'click' ,
+  click : 0 , 
 }
 var vm = new Vue({
-  el: '#app',
+  el: '#app_2',
   data: data,
   created: function () {
   },
@@ -86,6 +181,8 @@ var vm = new Vue({
 
   },
 })
+
+
 
 
 </script> 
