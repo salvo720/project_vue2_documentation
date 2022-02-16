@@ -99,14 +99,35 @@
 
       <div>
         <h2> Organizzazione dei compoenti  </h2>
-        <div>E comune che un app sia organizzata in un albero di componenti nidificati : </div>
-        <!-- TODO FERMO ALLA PRIMA RIGA PIU QUELLA DELLA REGISTRAZIONE DEI CIMPONENTI GLOBALI E LOCALE SOTTO  -->
+        <div>E comune che un app sia organizzata in un albero di componenti nidificati : 
+          Ad esempio potresti avere componenti per un'intestazione , una barra laterale e 
+          un'area di contenuto ciascuno contenete in genere altri componenti per collegamenti 
+          di navigazione , post di blog e cosi via . 
+          Per utilizzare questi componenti e necessario registrarli in modo che Vue li conosca . 
+        </div>
           <div>  i componenti possono essere registrati a <span class="text-primary">  
           livello globale o locale . </span> <br>
-          Per registrare un componente a <span class="text-primary">  livello globale usiamo il Vue.component </span>
+          Per registrare un componente a <span class="text-primary">  livello globale usiamo il Vue.component </span> <br>
           Per registrare un componeente a <span class="text-primary"> livello locale usiamo   </span> </div>
         </div>
-      </div>
+        <hr>
+        <h2> Vue component </h2>
+        <div>
+          Vue.component('my_component_name',{ <br>
+            // ..... option ...... <br>
+          }) <br>
+        </div>
+        <hr>
+        <div> i componenti registrati a livello globale possono essere usati da 
+        <span class="text-info"> qualunque instanza Vue radice ( new Vue ) </span> 
+        creata in seguito e anche all'interno di tutti i sotto componenti  dell'albero
+        dei componeti di quell'instanza Vue  </div>
+      <hr><br>
+
+      <div>
+        <h2> Passaggio di dati a componenti figli con prop   </h2>
+        <div> vuoto 
+        </div>
       <hr><br>
 
     </div>
