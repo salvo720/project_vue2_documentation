@@ -10,6 +10,9 @@
     <link href="../assets/fontawesome-free-6.0.0-webcss/css/all.css"></link>   
 </head>
 <style>
+    .padding_bottom_200px{
+      padding: 0 0 200px 0;
+    }
     .divider:after,
     .divider:before {
     content: "";
@@ -62,7 +65,7 @@
 
     <div id="app" class="container-fluid">
 
-        <section class="vh-100">
+        <div class="row padding_bottom_200px">
             <div class="container-fluid h-custom">
               <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-md-9 col-lg-6 col-xl-5">
@@ -72,6 +75,8 @@
                 <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
                     <div> username vale :  {{ username }} </div>
                     <div> passowrd vale : {{ password }} </div>
+                    <div> remember_me_check vale : {{ remember_me_check }} </div>
+                    
                     <form v-on:submit.prevent="render_form">
                         <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
                             <p class="lead fw-normal mb-0 me-3">Sign in with</p>
@@ -110,7 +115,7 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <!-- Checkbox -->
                             <div class="form-check mb-0">
-                            <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3" />
+                            <input class="form-check-input me-2" type="checkbox" v-model="remember_me_check" true-value="yes" false-value="no" id="form2Example3" />
                             <label class="form-check-label" for="form2Example3">
                             Remember me
                             </label>
@@ -126,6 +131,8 @@
                 </div>
               </div>
             </div>
+          </div>
+          <footer class="footer fixed-bottom"> 
             <div class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
               <!-- Copyright -->
               <div class="text-white mb-3 mb-md-0">
@@ -150,8 +157,7 @@
               </div>
               <!-- Right -->
             </div>
-          </section>
-
+        </footer>
     </div>
 
 <!-- bootstrap 5 cdn js -->
@@ -186,6 +192,7 @@ var data = {
   event : 'click' , 
   username : '' ,
   password : '' ,
+  remember_me_check : '' ,
 }
 var vm = new Vue({
   el: '#app',
@@ -194,18 +201,21 @@ var vm = new Vue({
   },
 
     methods : {
-        render_form: function (){
+        render_form: async function (){
+          alert('processing')
             window.console.log(' form mandato ')
             window.console.log(' username vale : ' + this.username )
             window.console.log(' password vale : ' + this.password)
-            const response = await fetch('/back-end_api' , {
+            window.console.log(' password vale : ' + this.remember_me_check)
+            const response = await fetch('/back_end_api.php' , {
                 method : 'POST' ,
                 headers : { 'content-type ' : ' application/json ' },
 
                 // pass data to request 
-                body : JSON.stringfy({
+                body : JSON.stringify({
                 username : this.username ,
                 passowrd : this.passowrd ,
+                remember_me_check : this.remember_me_check ,
                 })
             });
         },
