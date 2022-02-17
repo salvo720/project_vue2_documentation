@@ -221,13 +221,13 @@ var vm = new Vue({
                 passowrd : this.passowrd ,
                 remember_me_check : this.remember_me_check ,
             } 
-            const request = fetch( url_request_login , {
+            const request = await fetch( url_request_login , {
                 method : 'POST' ,
                 headers : headers_request ,
 
                 // pass data to request 
-                body: JSON.stringify( user_data )
-            });
+                body: JSON.stringify( {"userdata" : { user_data } })
+            }).then(response => response.json());
             // --------------------------------------------------------------------
             // fetch("https://api.npms.io/v2/search?q=vue")
             //   .then(response => response.json())
