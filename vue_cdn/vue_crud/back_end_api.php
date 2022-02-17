@@ -1,6 +1,6 @@
 <?php
 
-$username = $_POST['username'];
+$email = $_POST['email'];
 $password = $_POST['password'];
 $remember_me_check = $_POST['remember_me_check'];
 
@@ -16,7 +16,7 @@ if (mysqli_connect_errno())
 // Select all of our stocks from table 'stock_tracker'
 $sql = "SELECT * 
         FROM  user
-        WHERE username= '".$username."' AND password = '".$password."' ";
+        WHERE email= '".$email."' AND password = '".$password."' ";
 
 // echo $sql;
  

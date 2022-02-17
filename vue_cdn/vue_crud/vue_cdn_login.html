@@ -73,7 +73,7 @@
                     alt="Sample image">
                 </div>
                 <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                    <div> username vale :  {{ username }} </div>
+                    <div> email vale :  {{ email }} </div>
                     <div> passowrd vale : {{ password }} </div>
                     <div> remember_me_check vale : {{ remember_me_check }} </div>
                     
@@ -102,7 +102,7 @@
 
                         <!-- Email input -->
                         <div class="form-outline mb-4">
-                            <input v-model.lazy="username" type="email" id="id_email" class="form-control form-control-lg" placeholder="Enter a valid email address" />
+                            <input v-model.lazy="email" type="email" id="id_email" class="form-control form-control-lg" placeholder="Enter a valid email address" />
                             <label class="form-label" for="id_email">Email address</label>
                         </div>
 
@@ -190,7 +190,7 @@ var data = {
   doSomethings : 'vuoto',
   attributename : 'href' ,  // usato nel test attributi dinamici
   event : 'click' , 
-  username : '' ,
+  email : '' ,
   password : '' ,
   remember_me_check : '' ,
 }
@@ -202,22 +202,36 @@ var vm = new Vue({
 
     methods : {
         render_form: async function (){
-          alert('processing')
+          var baseUrl= 'http://localhost:8081/';
+
+          // alert('processing')
             window.console.log(' form mandato ')
-            window.console.log(' username vale : ' + this.username )
+            window.console.log(' email vale : ' + this.email )
             window.console.log(' password vale : ' + this.password)
             window.console.log(' password vale : ' + this.remember_me_check)
-            const response = await fetch('back_end_api.php' , {
-                method : 'POST' ,
-                headers : { 'content-type ' : ' application/json ' },
 
-                // pass data to request 
-                body : JSON.stringify({
-                username : this.username ,
+            const url_request_login="http://localhost/project_vue2_documentation/vue_cdn/vue_crud/back_end_api.php";
+            const headers_request = {  
+                  'Accept' : ' application/json ' ,
+                  'Content-Type ' : ' application/json ' ,
+                  'Access-Control-Allow-Origin:':'http://localhost:8080',
+                };
+            const user_data  = { 
+                email : this.email ,
                 passowrd : this.passowrd ,
                 remember_me_check : this.remember_me_check ,
-                })
+            } 
+            const request = fetch( url_request_login , {
+                method : 'POST' ,
+                headers : headers_request ,
+
+                // pass data to request 
+                body: JSON.stringify( user_data )
             });
+            // --------------------------------------------------------------------
+            // fetch("https://api.npms.io/v2/search?q=vue")
+            //   .then(response => response.json())
+            //   .then(data => (this.totalVuePackages = data.total));
         },
     }
 })
