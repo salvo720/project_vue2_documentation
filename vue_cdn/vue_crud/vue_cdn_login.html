@@ -202,7 +202,7 @@ var vm = new Vue({
 
     methods : {
         render_form: async function (){
-          var baseUrl= 'http://localhost:8081/';
+          // var baseUrl= 'http://localhost:8081/';
 
           // alert('processing')
             window.console.log(' form mandato ')
@@ -211,23 +211,30 @@ var vm = new Vue({
             window.console.log(' password vale : ' + this.remember_me_check)
 
             const url_request_login="http://localhost/project_vue2_documentation/vue_cdn/vue_crud/back_end_api.php";
-            const headers_request = {  
-                  'Accept' : ' application/json ' ,
-                  'Content-Type ' : ' application/json ' ,
-                  'Access-Control-Allow-Origin:':'http://localhost:8080',
-                };
+            // const headers_request = {  
+            //       // 'Accept' : ' application/json ' ,
+            //       // 'Content-Type ' : ' application/json ' ,
+            //       // 'Access-Control-Allow-Origin:':'http://localhost:8080',
+            //     };
             const user_data  = { 
                 email : this.email ,
-                passowrd : this.passowrd ,
+                passowrd : this.passowrd , /* psw non la manda capire perche  */
                 remember_me_check : this.remember_me_check ,
             } 
-            const request = await fetch( url_request_login , {
+              const request = await fetch( url_request_login , {
                 method : 'POST' ,
-                headers : headers_request ,
-
-                // pass data to request 
-                body: JSON.stringify( {"userdata" : { user_data } })
+                // headers : headers_request ,
+                body: JSON.stringify(  user_data  )
             }).then(response => response.json());
+              // })
+              
+            // const request = fetch( url_request_login , {
+            //     method : 'POST' ,
+            //     headers : headers_request ,
+
+            //     // pass data to request 
+            //     body: JSON.stringify( {"userdata" : { user_data } })
+            // }).then(response => response.json());
             // --------------------------------------------------------------------
             // fetch("https://api.npms.io/v2/search?q=vue")
             //   .then(response => response.json())
