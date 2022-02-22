@@ -211,22 +211,27 @@ var vm = new Vue({
             window.console.log(' password vale : ' + this.remember_me_check)
 
             const url_request_login="http://localhost/project_vue2_documentation/vue_cdn/vue_crud/back_end_api.php";
-            // const headers_request = {  
-            //       // 'Accept' : ' application/json ' ,
-            //       // 'Content-Type ' : ' application/json ' ,
-            //       // 'Access-Control-Allow-Origin:':'http://localhost:8080',
-            //     };
-            const user_data  = { 
-                email : this.email ,
-                passowrd : this.passowrd , /* psw non la manda capire perche  */
-                remember_me_check : this.remember_me_check ,
-            } 
-              const request = await fetch( url_request_login , {
-                method : 'POST' ,
-                // headers : headers_request ,
-                body: JSON.stringify(  user_data  )
+            const headers_request = [ 
+            'Accept : application/json ' ,
+            'Content-Type : application/json' ,
+            'Access-Control-Allow-Origin : *' ,
+            ];
+            const user_data  = {
+              'email' : this.email  , 
+              'passowrd' : this.passowrd , /* il fetch non consente di usare il nome password cambia la variabile del this   */
+              'remember_me_check' : this.remember_me_check 
+            }
+
+            const response = await fetch( url_request_login , {
+              method : 'POST' ,
+              headers : headers_request ,
+              body: JSON.stringify(  { 'user_data' : user_data }  )
             }).then(response => response.json());
-              // })
+            window.console.log('risposta _1 vale :' , response);
+            return response.json(); // parses JSON response into native JavaScript objects
+            window.console.log('risposta_2 vale :' , response);
+            
+            // })
               
             // const request = fetch( url_request_login , {
             //     method : 'POST' ,
