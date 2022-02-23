@@ -30,7 +30,7 @@
     }
 </style>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light" > 
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Navbar</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,9 +63,53 @@
     </div>
   </nav>
 
-    <div id="app" class="container-fluid">
-      
+  <div id="app" >
+    <div class="container-fluid">
+      <div class="row bg-dark">
+        <div class="col-lg-12">
+          <div class="text-center text-light display-4 pt-2" style="font-size:25px"> Crup application VUE.JS , PHP & MYSQL </div>
+        </div>
+      </div>
+
+
+      <div class="container">
+        <div class="row mt-3"></div>
+        <div class="col-lg-6">
+          <h3 class="text-info">Registra Utente</h3>
+        </div>
+        <div class="col-lg-6">
+          <button class="btn btn-info float-right">
+        <i class="fas fa-user"></i>&nbsp;&nbsp; ADD New User
+        </button>
+        </div>
+      </div>
+      <hr class="bg-info" >
+      <div class="alert alert-danger" v-if="ErrorMsg">
+        Errore Messaggio
+      </div>
+      <div class="alert alert-success" v-if="SuccessMsg">
+        successo Messaggio
+      </div>
+
+      <!-- Dispay Records  -->
+      <div class="row">
+        <div class="col col-lg-12">
+          <table class="table table-border table-striped">
+            <thead>
+              <tr class="text-center bg-info text-light">
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Edit</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
     </div>
+  </div>
 
 <!-- bootstrap 5 cdn js -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
@@ -85,21 +129,9 @@
 <!-- script vue -->
 <script>
 var data = {
-  a: 1 , 
-  msg : 'benvenuto', 
-  rawHtml:'<span style="color:red">this text should be red</span>', 
-  dynamicId:'id_prova' ,
-  //   il bottone non sara rendirizzato da vue quando disabled e false , null , undefined 
-  isButtonDisabled: undefined , 
-  // isButtonDisabled:'disabled',  
-  seen:false, 
-  url: 'ciao',
-  doSomethings : 'vuoto',
-  attributename : 'href' ,  // usato nel test attributi dinamici
-  event : 'click' , 
-  email : '' ,
-  psw_field : '' ,
-  remember_me_check : '' ,
+ ErrorMsg : false ,
+ SuccessMsg : false ,
+
 }
 var vm = new Vue({
   el: '#app',
