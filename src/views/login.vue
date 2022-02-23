@@ -119,6 +119,8 @@
 <!-- script vue -->
 <script>
 
+import axios from 'axios';
+
 export default {
   name: '#app',
   data (){
@@ -141,14 +143,23 @@ export default {
             window.console.log(' password vale : ' + this.password)
             window.console.log(' remember_me_check vale : ' + this.remember_me_check)
 
+            const url_request = "http://localhost/project_vue2_documentation/vue_cdn/vue_crud/back_end_api.php" ;
+
             const user_data  = {
               'email' : this.email  , 
               'passowrd' : this.password , /* il fetch non consente di usare il nome password cambia la variabile del this   */
               'remember_me_check' : this.remember_me_check 
             }
+
+            const response = await axios.post( url_request , user_data );
+            window.console.log(response);
            
         },
     }
 }
 
+// TODO : aggiungere le icone di font-awesome , ed installarlo ,
+//  prova installazione fallita l'applicazione fa continue richieste al server 
+
 </script> 
+
