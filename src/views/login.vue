@@ -143,7 +143,11 @@ export default {
             window.console.log(' password vale : ' + this.password)
             window.console.log(' remember_me_check vale : ' + this.remember_me_check)
 
-            const url_request = "http://localhost/project_vue2_documentation/vue_cdn/vue_crud/back_end_api.php" ;
+            // const url_request = "http://localhost/project_vue2_documentation/vue_cdn/vue_crud/back_end_api.php" ;
+            const url_request = "/back_end_api" ;
+
+
+            const headers_request = ' Access-Control-Allow-Origin : * ' 
 
             const user_data  = {
               'email' : this.email  , 
@@ -151,7 +155,7 @@ export default {
               'remember_me_check' : this.remember_me_check 
             }
 
-            const response = await axios.post( url_request , user_data );
+            const response = await axios.post( url_request , headers_request ,user_data );
             window.console.log(response);
            
         },
