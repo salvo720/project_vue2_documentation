@@ -1,7 +1,5 @@
 <?php
-// $email = $_POST['email'];
-// $password = $_POST['password'];
-// $remember_me_check = $_POST['remember_me_check'];
+
 
 // Create connection
 $con=mysqli_connect("localhost","salvo","","vue_crud");
@@ -12,19 +10,84 @@ if (mysqli_connect_errno())
   echo "Failed to connect to MySQL: " . mysqli_connect_error();
 }
  
-// Select all of our stocks from table 'stock_tracker'
-$sql = "SELECT * 
-        FROM  users";
+// ACTION 
+$action = '';
+if(isset($_GET['action'])){
+    $action = $_GET['action'];
+}
+// echo "action : ",  $action , "<br>";
 
 // echo $sql;
- $users= array();
-if ($result = mysqli_query($con, $sql)) {
-    // Fetch one and one row
-    echo "<pre>";
-    while ($row = $result->fetch_assoc()) {
-        array_push($users , $row);
+if ($action == 'create') {
+
+    // POST
+    // $email = $_POST['email'];
+    // $password = $_POST['password'];
+    // $remember_me_check = $_POST['remember_me_check'];
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+
+    // SQL
+    $sql = "INSERT INTO users ('name','email','phone') 
+        Value ('". $name ."','". $email ."','". $phone ."')";
+
+    if($sql){
+        $result['message'] = 'User added succcessfully';
+    }else{
+        $result['error'] = true;
+        $result['message'] = 'Fialed to add user ';
+
     }
-    $result_2['users'] = $users ;
+  }
+
+  // UPDATE
+if ($action == 'update') {
+
+    // POST
+    // $email = $_POST['email'];
+    // $password = $_POST['password'];
+    // $remember_me_check = $_POST['remember_me_check'];
+    $id = $_POST['id'];
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+
+    // SQL
+    $sql = "UPDATE users  SET 'name'='". $name ."' , 'email'='". $email ."', 'phone'='". $phone ."' 
+    WHERE id'='". $id ."'";
+
+    if($sql){
+        $result['message'] = 'User Update succcessfully';
+    }else{
+        $result['error'] = true;
+        $result['message'] = 'Fialed to Update user ';
+
+    }
+  }
+
+    // echo $sql;
+if ($action == 'delete') {
+
+    // POST
+    // $email = $_POST['email'];
+    // $password = $_POST['password'];
+    // $remember_me_check = $_POST['remember_me_check'];
+    $id = $_POST['id'];
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+
+    // SQL
+    $sql = "DELETE from users WHERE id'='". $id ."'";
+
+    if($sql){
+        $result['message'] = 'User Delete succcessfully';
+    }else{
+        $result['error'] = true;
+        $result['message'] = 'Fialed to Delete user ';
+
+    }
   }
 
   echo json_encode($result_2);
