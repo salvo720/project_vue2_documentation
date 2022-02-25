@@ -86,7 +86,7 @@
           <h3 class="text-info">Registra Utente</h3>
         </div>
         <div class="col-lg-6">
-          <button class="btn btn-info float-right" @click="showAddModal=false">
+          <button class="btn btn-info float-right" @click="showAddModal=true">
           <i class="fas fa-user"></i>&nbsp;&nbsp; ADD New User
         </button>
         </div>
@@ -143,42 +143,44 @@
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Add New User Model  -->
-  <div id="overlay" v-if="showAddModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Add New User </h5>
-          <button type="button" class="close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body pt-4">
-          <form action="#" method="POST">
-            
-            <div class="form-group">
-              <input type="text" name="name" class="form-control form-control-lg" placeholder="Name">
-            </div>
+      <!-- Add New User Model  -->
+    <div id="overlay" v-if="showAddModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Add New User </h5>
+            <button type="button" class="close" @click="showAddModal=false">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body pt-4">
+            <form action="#" method="POST">
+              
+              <div class="form-group">
+                <input type="text" name="name" class="form-control form-control-lg" placeholder="Name">
+              </div>
 
-            <div class="form-group">
-              <input type="text" name="email" class="form-control form-control-lg" placeholder="email">
-            </div>
+              <div class="form-group">
+                <input type="text" name="email" class="form-control form-control-lg" placeholder="email">
+              </div>
 
-            <div class="form-group">
-              <input type="number" name="phone" class="form-control form-control-lg" placeholder="phone">
-            </div>
+              <div class="form-group">
+                <input type="number" name="phone" class="form-control form-control-lg" placeholder="phone">
+              </div>
 
-            <div class="form-group">
-              <button type="button" class="btn btn-info btn-block btn-lg" @click="showAddModal=true"> Add User </button>
-            </div>
-          
-          </form>
-        </div>
+              <div class="form-group">
+                <button type="button" class="btn btn-info btn-block btn-lg" @click="showAddModal=false"> Add User </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
+
+  </div>
+
+ 
 
 <!-- bootstrap 5 cdn js -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
@@ -230,19 +232,6 @@ var vm = new Vue({
               'remember_me_check' : this.remember_me_check 
             }
 
-            const response = await fetch( url_request_login , {
-              method : 'POST' ,
-              headers : headers_request ,
-              body: JSON.stringify(  { 'user_data' : user_data }  )
-            }).then(response => response.json());
-            // window.console.log('risposta _1 vale :' , response);
-            // return response.json(); // parses JSON response into native JavaScript objects
-            // window.console.log('risposta_2 vale :' , response);
-            
-            // --------------------------------------------------------------------
-            // fetch("https://api.npms.io/v2/search?q=vue")
-            //   .then(response => response.json())
-            //   .then(data => (this.totalVuePackages = data.total));
         },
     }
 })
