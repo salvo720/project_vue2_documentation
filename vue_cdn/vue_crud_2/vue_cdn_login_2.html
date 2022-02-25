@@ -204,7 +204,7 @@
               </div>
 
               <div class="form-group">
-                <button type="button" class="btn btn-info btn-block btn-lg" @click="showAddModal=false"> Upload User </button>
+                <button type="button" class="btn btn-info btn-block btn-lg" @click="showEditModal=false"> Upload User </button>
               </div>
             </form>
           </div>
@@ -261,6 +261,7 @@ var data = {
  showAddModal : false ,
  showEditModal : false ,
  showDeleteModal : false ,
+ link_php_page : 'http://localhost/project_vue2_documentation/vue_cdn/vue_crud/process.php?action==read' ;
 }
 var vm = new Vue({
   el: '#app',
@@ -293,6 +294,7 @@ var vm = new Vue({
         },
     }
 })
+
 
 
 </script> 
