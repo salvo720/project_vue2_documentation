@@ -27,9 +27,10 @@ if ($action == 'create') {
     $name = $_POST['name'];
     $email = $_POST['email'];
     $phone = $_POST['phone'];
+    var_dump($_POST);
 
     // SQL
-    $sql = "INSERT INTO users ('name','email','phone') 
+    $sql = "INSERT INTO users (name,email,phone) 
         Value ('". $name ."','". $email ."','". $phone ."')";
     // Execute SQL
     $query=$con->query($sql);
