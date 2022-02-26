@@ -27,16 +27,15 @@ if ($action == 'create') {
     $name = $_POST['name'];
     $email = $_POST['email'];
     $phone = $_POST['phone'];
-    var_dump($_POST);
+    // var_dump($_POST);
 
     // SQL
     $sql = "INSERT INTO users (name,email,phone) 
         Value ('". $name ."','". $email ."','". $phone ."')";
     // Execute SQL
     $query=$con->query($sql);
-    var_dump($sql);
-    var_dump($query);
-
+    // var_dump($sql);
+    // var_dump($query);
 
     if($query){
         $result['message'] = 'User added succcessfully';
@@ -45,6 +44,8 @@ if ($action == 'create') {
         $result['message'] = 'Failed to add user ';
 
     }
+    $result['users'] = 'Failed to add user ';
+
   }
 
   // UPDATE
