@@ -44,8 +44,6 @@ if ($action == 'create') {
         $result['message'] = 'Failed to add user ';
 
     }
-    $result['users'] = 'Failed to add user ';
-
   }
 
   // UPDATE
