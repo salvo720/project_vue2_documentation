@@ -39,16 +39,16 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `phone`) VALUES
-(3, 'wolf', 'wolfmania@gmail.com', '123456'),
-(4, 'wolf_2', 'wolfmania_2@gmail.com', '123456'),
-(5, 'wolf_3', 'wolfmania_3@gmail.com', '123456'),
-(6, 'wolf_4', 'wolfmania_4@gmail.com', '123456'),
-(7, 'wolf_5', 'wolfmania_5@gmail.com', '123456'),
-(8, 'wolf_6', 'wolfmania_6@gmail.com', '123456'),
-(9, 'wolf_7', 'wolfmania_7@gmail.com', '123456'),
-(10, 'wolf_8', 'wolfmania_8@gmail.com', '123456'),
-(11, 'wolf_9', 'wolfmania_9@gmail.com', '123456'),
-(12, 'wolf_10', 'wolfmania_10@gmail.com', '123456');
+(1, 'wolf', 'wolfmania@gmail.com', '123456'),
+(2, 'wolf_2', 'wolfmania_2@gmail.com', '123456'),
+(3, 'wolf_3', 'wolfmania_3@gmail.com', '123456'),
+(4, 'wolf_4', 'wolfmania_4@gmail.com', '123456'),
+(5, 'wolf_5', 'wolfmania_5@gmail.com', '123456'),
+(6, 'wolf_6', 'wolfmania_6@gmail.com', '123456'),
+(7, 'wolf_7', 'wolfmania_7@gmail.com', '123456'),
+(8, 'wolf_8', 'wolfmania_8@gmail.com', '123456'),
+(9, 'wolf_9', 'wolfmania_9@gmail.com', '123456'),
+(10, 'wolf_10', 'wolfmania_10@gmail.com', '123456');
 
 --
 -- Indici per le tabelle scaricate
