@@ -1,6 +1,5 @@
 <?php
 
-
 // Create connection
 $con=mysqli_connect("localhost","salvo","","vue_crud");
  
@@ -59,10 +58,12 @@ if ($action == 'update') {
     $phone = $_POST['phone'];
 
     // SQL
-    $sql = "UPDATE users  SET 'name'='". $name ."' , 'email'='". $email ."', 'phone'='". $phone ."' 
-    WHERE id'='". $id ."'";
+    $sql = "UPDATE users  SET name='". $name ."' , email='". $email ."', phone='". $phone ."' 
+    WHERE id='". $id ."'";
     // Execute SQL
     $query=$con->query($sql);
+    // var_dump($sql);
+    // var_dump($query);
 
     if($query){
         $result['message'] = 'User Update succcessfully';
@@ -86,10 +87,13 @@ if ($action == 'delete') {
     $phone = $_POST['phone'];
 
     // SQL
-    $sql = "DELETE from users WHERE id'='". $id ."'";
+    $sql = "DELETE from users WHERE id='". $id ."'";
 
     // Execute SQL
-    $con->query($sql);
+    $query=$con->query($sql);
+
+    //  var_dump($sql);
+    // var_dump($query);
 
     if($query){
         $result['message'] = 'User Delete succcessfully';
