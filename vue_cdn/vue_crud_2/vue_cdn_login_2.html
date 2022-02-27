@@ -93,10 +93,10 @@
       </div>
       <hr class="bg-info" >
       <div class="alert alert-danger" v-if="ErrorMsg">
-        Errore Messaggio
+        { {ErrorMsg }}
       </div>
       <div class="alert alert-success" v-if="SuccessMsg">
-        successo Messaggio
+        {{ SuccessMsg }}
       </div>
 
       <!-- Dispay Records  -->
@@ -113,31 +113,16 @@
                 <th>Delete</th>
               </tr>
             </thead>
-            <tbody class="text-center">
+            <tbody class="text-center" v-for="user in users">
               <tr>
-                <td>1</td>
-                <td>wolf</td>
-                <td>wolfmania@gmail.com</td>
-                <td>i2992992922828282</td>
+                <td> {{ user.id }} </td>
+                <td> {{ user.name }} </td>
+                <td> {{ user.email }} </td>
+                <td> {{ user.phone }} </td>
                 <td><a href="#" class="text-success" @click="showEditModal=true"><i class="fas fa-edit"></i></a></td>
                 <td><a href="#" class="text-danger" @click="showDeleteModal=true"><i class="fas fa-trash"></i></a></td>
               </tr>
-              <tr>
-                <td>2</td>
-                <td>wolf</td>
-                <td>wolfmania@gmail.com</td>
-                <td>i2992992922828282</td>
-                <td><a href="#" class="text-success"><i class="fas fa-edit"></i></a></td>
-                <td><a href="#" class="text-danger"><i class="fas fa-trash"></i></a></td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>wolf</td>
-                <td>wolfmania@gmail.com</td>
-                <td>i2992992922828282</td>
-                <td><a href="#" class="text-success"><i class="fas fa-edit"></i></a></td>
-                <td><a href="#" class="text-danger"><i class="fas fa-trash"></i></a></td>
-              </tr>
+              
             </tbody>
           </table>
         </div>
@@ -249,6 +234,8 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>   
 <!-- font awesome cdn  -->
 <script src="../assets/fontawesome-free-6.0.0-web/js/all.js"></script>   
+<!-- axios cdn -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.0/axios.min.js" integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 
 
@@ -256,20 +243,41 @@
 <!-- script vue -->
 <script>
 var data = {
- ErrorMsg : false ,
- SuccessMsg : false ,
+ ErrorMsg : "" ,
+ SuccessMsg : "" ,
  showAddModal : false ,
  showEditModal : false ,
  showDeleteModal : false ,
  link_php_page : 'http://localhost/project_vue2_documentation/vue_cdn/vue_crud_2/process.php?action=read' ,
+ users : [] ,
+ newUser : { name: "" , email : "" , phone : "" },
+ currentUser : {},
+
 }
 var vm = new Vue({
   el: '#app',
   data: data,
   created: function () {
   },
+  mounted : function(){
+    // mettere la chiamata alla funzione qui dentro fara in modo che vue js andra a prendere i dati al mount 
+    this.getAllUsers();
+  },
 
     methods : {
+      async getAllUsers(){
+        await axios.get(this.link_php_page , 
+            { 
+              headers: 'Access-Control-Allow-Origin : *' ,
+              mode: 'cors',
+            }).then(function(response){
+            if(response.data.error){
+              app.ErrorMsg = response.data.message;
+            }else{
+              app.users = response.data.users;
+            }
+          })
+        },
         render_form: async function (){
           // var baseUrl= 'http://localhost:8081/';
 

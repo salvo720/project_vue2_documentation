@@ -17,6 +17,18 @@ if(isset($_GET['action'])){
 // echo "action : ",  $action , "<br>";
 
 // echo $sql;
+if ($action == 'read') {
+
+    $sql = "SELECT * FROM `users`";
+    // Execute SQL
+    $query=$con->query($sql);
+    $users=array();
+    while($row = $query->fetch_assoc()){
+        array_push($users , $row);
+    }
+    $result['users'] = $users;
+  }
+
 if ($action == 'create') {
 
     // POST
