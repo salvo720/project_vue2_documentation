@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:8889
--- Creato il: Feb 25, 2022 alle 12:21
--- Versione del server: 5.7.32
--- Versione PHP: 7.4.16
+-- Host: localhost
+-- Creato il: Feb 27, 2022 alle 21:37
+-- Versione del server: 8.0.18
+-- Versione PHP: 7.3.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -48,7 +49,9 @@ INSERT INTO `users` (`id`, `name`, `email`, `phone`) VALUES
 (7, 'wolf_7', 'wolfmania_7@gmail.com', '123456'),
 (8, 'wolf_8', 'wolfmania_8@gmail.com', '123456'),
 (9, 'wolf_9', 'wolfmania_9@gmail.com', '123456'),
-(10, 'wolf_10', 'wolfmania_10@gmail.com', '123456');
+(10, 'wolf_10', 'wolfmania_10@gmail.com', '123456'),
+(17, 'asd', 'asd', '213'),
+(18, 'asd', 'asd2', '213');
 
 --
 -- Indici per le tabelle scaricate
@@ -69,7 +72,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT per la tabella `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
