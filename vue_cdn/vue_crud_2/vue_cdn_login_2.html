@@ -266,15 +266,16 @@ var vm = new Vue({
 
     methods : {
       async getAllUsers(){
-        await axios.get(this.link_php_page , 
-            { 
-              headers: 'Access-Control-Allow-Origin : *' ,
-              mode: 'cors',
-            }).then(function(response){
+        await axios.get(this.link_php_page, {
+            headers: {'Access-Control-Allow-Origin': '*'},
+             mode: 'cors',
+          }).then(function(response){
+            console.log(response)
             if(response.data.error){
               app.ErrorMsg = response.data.message;
             }else{
               app.users = response.data.users;
+              console.log('2',response.data.users)
             }
           })
         },
