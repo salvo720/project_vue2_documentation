@@ -80,13 +80,13 @@
       </div>
 
 
-      <div class="container">
-        <div class="row mt-3"></div>
+      <div class="container-fluid">
+        <div class="row mt-3">
         <div class="col-lg-6">
           <h3 class="text-info">Registra Utente</h3>
         </div>
         <div class="col-lg-6">
-          <button class="btn btn-info float-right" @click="showAddModal=true">
+          <button class="btn btn-info float-end" @click="showAddModal=true">
           <i class="fas fa-user"></i>&nbsp;&nbsp; ADD New User
         </button>
         </div>
@@ -113,7 +113,7 @@
                 <th>Delete</th>
               </tr>
             </thead>
-            <tbody class="text-center" v-for="users in users" v-bind:key="user.id">
+            <tbody class="text-center" v-for="user in users" v-bind:key="user.id">
               <!-- <pre>{{ users }}</pre> -->
               <tr>
                 <td> {{ user.id }} </td>
@@ -275,52 +275,52 @@ var vm = new Vue({
          ).then(function(response){
             console.log(response)
             if(response.data.error){
-              app.ErrorMsg = response.data.message;
+              vm.ErrorMsg = response.data.message;
             }else{
-              app.users = response.data.users;
+              vm.users = response.data.users;
               console.log('2',response.data.users)
             }
           })
         },
         addUser(){
-          var formData = app.toFormData(app.newUser);
+          var formData = vm.toFormData(vm.newUser);
           axios.post(this.link_php_page_create, formData
           ).then(function(response){
             console.log(response)
-            app.newUser= { name: "" , email : "" , phone : "" };
+            vm.newUser= { name: "" , email : "" , phone : "" };
             if(response.data.error){
-              app.ErrorMsg = response.data.message;
+              vm.ErrorMsg = response.data.message;
             }else{
-              app.SuccessMsg = response.data.message;
-              app.getAllUsers();
+              vm.SuccessMsg = response.data.message;
+              vm.getAllUsers();
             }
           })
         },
         updateUser(){
-          var formData = app.toFormData(app.currentUser);
+          var formData = vm.toFormData(vm.currentUser);
           axios.post(this.link_php_page_update, formData
           ).then(function(response){
             console.log(response)
-            app.currentUser= { name: "" , email : "" , phone : "" };
+            vm.currentUser= { name: "" , email : "" , phone : "" };
             if(response.data.error){
-              app.ErrorMsg = response.data.message;
+              vm.ErrorMsg = response.data.message;
             }else{
-              app.SuccessMsg = response.data.message;
-              app.getAllUsers();
+              vm.SuccessMsg = response.data.message;
+              vm.getAllUsers();
             }
           })
         },
         deleteUser(){
-          var formData = app.toFormData(app.currentUser);
+          var formData = vm.toFormData(vm.currentUser);
           axios.post(this.link_php_page_delete, formData
           ).then(function(response){
             console.log(response)
-            app.currentUser= { name: "" , email : "" , phone : "" };
+            vm.currentUser= { name: "" , email : "" , phone : "" };
             if(response.data.error){
-              app.ErrorMsg = response.data.message;
+              vm.ErrorMsg = response.data.message;
             }else{
-              app.SuccessMsg = response.data.message;
-              app.getAllUsers();
+              vm.SuccessMsg = response.data.message;
+              vm.getAllUsers();
             }
           })
         },
@@ -329,14 +329,14 @@ var vm = new Vue({
           for(var i in obj){
             fd.append(i,obj[i]);
           }
-          return fb;
+          return fd;
         },
         selectUser(user){
-          app.currentUser = users;
+          vm.currentUser = user;
         },
         clearMsg(){
-          app.ErrorMsg = "" ;
-          app.SuccessMsg = "" ;
+          vm.ErrorMsg = "" ;
+          vm.SuccessMsg = "" ;
         }
 
     }
