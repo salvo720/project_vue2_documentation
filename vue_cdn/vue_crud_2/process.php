@@ -27,7 +27,7 @@ if ($action == 'read') {
         array_push($users , $row);
     }
     $result['users'] = $users;
-  }
+}
 
 if ($action == 'create') {
 
@@ -115,7 +115,6 @@ if ($action == 'delete') {
 
     }
   }
-
   echo json_encode($result);
  
 // Close connections

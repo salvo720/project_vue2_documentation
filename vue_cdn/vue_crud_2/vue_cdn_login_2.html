@@ -113,14 +113,15 @@
                 <th>Delete</th>
               </tr>
             </thead>
-            <tbody class="text-center" v-for="user in users">
+            <tbody class="text-center" v-for="users in users" v-bind:key="user.id">
+              <!-- <pre>{{ users }}</pre> -->
               <tr>
                 <td> {{ user.id }} </td>
                 <td> {{ user.name }} </td>
                 <td> {{ user.email }} </td>
                 <td> {{ user.phone }} </td>
-                <td><a href="#" class="text-success" @click="showEditModal=true"><i class="fas fa-edit"></i></a></td>
-                <td><a href="#" class="text-danger" @click="showDeleteModal=true"><i class="fas fa-trash"></i></a></td>
+                <td><a href="#" class="text-success" @click="showEditModal=true; selectUser(user);"><i class="fas fa-edit"></i></a></td>
+                <td><a href="#" class="text-danger" @click="showDeleteModal=true; selectUser(user);"><i class="fas fa-trash"></i></a></td>
               </tr>
               
             </tbody>
@@ -143,19 +144,19 @@
             <form action="#" method="POST">
               
               <div class="form-group">
-                <input type="text" name="name" class="form-control form-control-lg" placeholder="Name">
+                <input v-model="newUser.name" type="text" name="name" class="form-control form-control-lg" placeholder="Name">
               </div>
 
               <div class="form-group">
-                <input type="text" name="email" class="form-control form-control-lg" placeholder="email">
+                <input v-model="newUser.email" type="text" name="email" class="form-control form-control-lg" placeholder="email">
               </div>
 
               <div class="form-group">
-                <input type="number" name="phone" class="form-control form-control-lg" placeholder="phone">
+                <input v-model="newUser.phone" type="number" name="phone" class="form-control form-control-lg" placeholder="phone">
               </div>
 
               <div class="form-group">
-                <button type="button" class="btn btn-info btn-block btn-lg" @click="showAddModal=false"> Add User </button>
+                <button type="button" class="btn btn-info btn-block btn-lg" @click="showAddModal=false; addUser(); clearMsg();"> Add User </button>
               </div>
             </form>
           </div>
@@ -177,19 +178,19 @@
             <form action="#" method="POST">
               
               <div class="form-group">
-                <input type="text" name="name" class="form-control form-control-lg" placeholder="Name">
+                <input v-model="currentUser.name" type="text" name="name" class="form-control form-control-lg" placeholder="Name">
               </div>
 
               <div class="form-group">
-                <input type="text" name="email" class="form-control form-control-lg" placeholder="email">
+                <input v-model="currentUser.email" type="text" name="email" class="form-control form-control-lg" placeholder="email">
               </div>
 
               <div class="form-group">
-                <input type="number" name="phone" class="form-control form-control-lg" placeholder="phone">
+                <input v-model="currentUser.phone" type="number" name="phone" class="form-control form-control-lg" placeholder="phone">
               </div>
 
               <div class="form-group">
-                <button type="button" class="btn btn-info btn-block btn-lg" @click="showEditModal=false"> Upload User </button>
+                <button type="button" class="btn btn-info btn-block btn-lg" @click="showEditModal=false; updateUser(); clearMsg();"> Upload User </button>
               </div>
             </form>
           </div>
@@ -209,9 +210,9 @@
           </div>
           <div class="modal-body pt-4">
             <h4 class="text-danger"> Are you sure want to delete this user?</h4>
-            <h5> You are deleting 'wolfmania'</h5>
+            <h5> You are deleting '{{ currentUser.name }}'</h5>
             <hr>
-            <button class="btn btn-danger btn-lg" @click="showDeleteModal=false"> Yes </button>
+            <button class="btn btn-danger btn-lg" @click="showDeleteModal=false; deleteUser(); clearMsg();"> Yes </button>
             &nbsp;&nbsp;&nbsp;&nbsp;
             <button class="btn btn-success btn-lg" @click="showDeleteModal=false"> No </button>
           </div>
@@ -248,8 +249,12 @@ var data = {
  showAddModal : false ,
  showEditModal : false ,
  showDeleteModal : false ,
- link_php_page : 'http://localhost/project_vue2_documentation/vue_cdn/vue_crud_2/process.php?action=read' ,
+ link_php_page_read : 'http://localhost/project_vue2_documentation/vue_cdn/vue_crud_2/process.php?action=read' ,
+ link_php_page_create : 'http://localhost/project_vue2_documentation/vue_cdn/vue_crud_2/process.php?action=create' ,
+ link_php_page_update : 'http://localhost/project_vue2_documentation/vue_cdn/vue_crud_2/process.php?action=update' ,
+ link_php_page_delete : 'http://localhost/project_vue2_documentation/vue_cdn/vue_crud_2/process.php?action=delete' ,
  users : [] ,
+ users_2 : { users : [{"id":"3","name":"wolf","email":"wolfmania@gmail.com","phone":"123456"},{"id":"4","name":"wolf_2","email":"wolfmania_2@gmail.com","phone":"123456"},{"id":"5","name":"wolf_3","email":"wolfmania_3@gmail.com","phone":"123456"},{"id":"6","name":"wolf_4","email":"wolfmania_4@gmail.com","phone":"123456"},{"id":"7","name":"wolf_5","email":"wolfmania_5@gmail.com","phone":"123456"},{"id":"8","name":"wolf_6","email":"wolfmania_6@gmail.com","phone":"123456"},{"id":"9","name":"wolf_7","email":"wolfmania_7@gmail.com","phone":"123456"},{"id":"10","name":"wolf_8","email":"wolfmania_8@gmail.com","phone":"123456"},{"id":"11","name":"wolf_9","email":"wolfmania_9@gmail.com","phone":"123456"},{"id":"12","name":"wolf_10","email":"wolfmania_10@gmail.com","phone":"123456"}]} ,
  newUser : { name: "" , email : "" , phone : "" },
  currentUser : {},
 
@@ -265,11 +270,9 @@ var vm = new Vue({
   },
 
     methods : {
-      async getAllUsers(){
-        await axios.get(this.link_php_page, {
-            headers: {'Access-Control-Allow-Origin': '*'},
-             mode: 'cors',
-          }).then(function(response){
+       getAllUsers(){
+         axios.get(this.link_php_page_read
+         ).then(function(response){
             console.log(response)
             if(response.data.error){
               app.ErrorMsg = response.data.message;
@@ -279,28 +282,63 @@ var vm = new Vue({
             }
           })
         },
-        render_form: async function (){
-          // var baseUrl= 'http://localhost:8081/';
-
-          // alert('processing')
-            window.console.log(' form mandato ')
-            window.console.log(' email vale : ' + this.email )
-            window.console.log(' password vale : ' + this.psw_field)
-            window.console.log(' remember_me_check vale : ' + this.remember_me_check)
-
-            const url_request_login="http://localhost/project_vue2_documentation/vue_cdn/vue_crud/back_end_api.php";
-            const headers_request = [ 
-            // 'Accept : application/json ' ,
-            'Content-Type : application/json' ,
-            'Access-Control-Allow-Origin : *' ,
-            ];
-            const user_data  = {
-              'email' : this.email  , 
-              'passowrd' : this.psw_field , /* il fetch non consente di usare il nome password cambia la variabile del this   */
-              'remember_me_check' : this.remember_me_check 
+        addUser(){
+          var formData = app.toFormData(app.newUser);
+          axios.post(this.link_php_page_create, formData
+          ).then(function(response){
+            console.log(response)
+            app.newUser= { name: "" , email : "" , phone : "" };
+            if(response.data.error){
+              app.ErrorMsg = response.data.message;
+            }else{
+              app.SuccessMsg = response.data.message;
+              app.getAllUsers();
             }
-
+          })
         },
+        updateUser(){
+          var formData = app.toFormData(app.currentUser);
+          axios.post(this.link_php_page_update, formData
+          ).then(function(response){
+            console.log(response)
+            app.currentUser= { name: "" , email : "" , phone : "" };
+            if(response.data.error){
+              app.ErrorMsg = response.data.message;
+            }else{
+              app.SuccessMsg = response.data.message;
+              app.getAllUsers();
+            }
+          })
+        },
+        deleteUser(){
+          var formData = app.toFormData(app.currentUser);
+          axios.post(this.link_php_page_delete, formData
+          ).then(function(response){
+            console.log(response)
+            app.currentUser= { name: "" , email : "" , phone : "" };
+            if(response.data.error){
+              app.ErrorMsg = response.data.message;
+            }else{
+              app.SuccessMsg = response.data.message;
+              app.getAllUsers();
+            }
+          })
+        },
+        toFormData(obj){
+          var fd = new FormData();
+          for(var i in obj){
+            fd.append(i,obj[i]);
+          }
+          return fb;
+        },
+        selectUser(user){
+          app.currentUser = users;
+        },
+        clearMsg(){
+          app.ErrorMsg = "" ;
+          app.SuccessMsg = "" ;
+        }
+
     }
 })
 
