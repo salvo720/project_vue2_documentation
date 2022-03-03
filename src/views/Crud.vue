@@ -1,0 +1,338 @@
+
+<style>
+/* // include font-awesome link ('https://stackoverflow.com/questions/41537212/use-font-awesome-in-a-vue-app-created-with-vue-cli-webpack'); */
+    .padding_bottom_200px{
+      padding: 0 0 200px 0;
+    }
+    #overlay{
+      position : fixed;
+      top : 0;
+      bottom:0 ;
+      left : 0;
+      right : 0;
+      background : rgba( 0 ,0,0, 0.6);
+    }
+    .divider:after,
+    .divider:before {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #eee;
+    }
+    .h-custom {
+    height: calc(100% - 73px);
+    }
+    @media (max-width: 450px) {
+    .h-custom {
+        height: 100%;
+    }
+    }
+</style>
+<template>
+ 
+
+  <div id="app" >
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" > 
+        <div class="container-fluid">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Dropdown
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+            </li>
+            </ul>
+        </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row bg-dark">
+        <div class="col-lg-12">
+          <div class="text-center text-light display-4 pt-2" style="font-size:25px"> Crup application VUE.JS , PHP & MYSQL </div>
+        </div>
+      </div>
+
+
+      <div class="container-fluid">
+        <div class="row mt-3">
+        <div class="col-lg-6">
+          <h3 class="text-info">Registra Utente</h3>
+        </div>
+        <div class="col-lg-6">
+          <button class="btn btn-info float-end" @click="showAddModal=true">
+          <i class="fas fa-user"></i>&nbsp;&nbsp; ADD New User
+        </button>
+        </div>
+      </div>
+      <hr class="bg-info" >
+      <div class="alert alert-danger" v-if="ErrorMsg">
+        { {ErrorMsg }}
+      </div>
+      <div class="alert alert-success" v-if="SuccessMsg">
+        {{ SuccessMsg }}
+      </div>
+
+      <!-- Dispay Records  -->
+      <div class="row">
+        <div class="col col-lg-12">
+          <table class="table table-border table-striped">
+            <thead>
+              <tr class="text-center bg-info text-light">
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Edit</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody class="text-center" v-for="user in users" v-bind:key="user.id">
+              <!-- <pre>{{ users }}</pre> -->
+              <tr>
+                <td> {{ user.id }} </td>
+                <td> {{ user.name }} </td>
+                <td> {{ user.email }} </td>
+                <td> {{ user.phone }} </td>
+                <td><a href="#" class="text-success" @click="showEditModal=true; selectUser(user);"><i class="fas fa-edit"></i></a></td>
+                <td><a href="#" class="text-danger" @click="showDeleteModal=true; selectUser(user);"><i class="fas fa-trash"></i></a></td>
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add New User Model  -->
+    <div id="overlay" v-if="showAddModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Add New User </h5>
+            <button type="button" class="close" @click="showAddModal=false">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body pt-4">
+            <form action="#" method="POST">
+              
+              <div class="form-group">
+                <input v-model="newUser.name" type="text" name="name" class="form-control form-control-lg" placeholder="Name">
+              </div>
+
+              <div class="form-group">
+                <input v-model="newUser.email" type="text" name="email" class="form-control form-control-lg" placeholder="email">
+              </div>
+
+              <div class="form-group">
+                <input v-model="newUser.phone" type="number" name="phone" class="form-control form-control-lg" placeholder="phone">
+              </div>
+
+              <div class="form-group">
+                <button type="button" class="btn btn-info btn-block btn-lg" @click="showAddModal=false; addUser(); clearMsg();"> Add User </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit New User Model  -->
+    <div id="overlay" v-if="showEditModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title"> Edit User </h5>
+            <button type="button" class="close" @click="showEditModal=false">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body pt-4">
+            <form action="#" method="POST">
+              
+              <div class="form-group">
+                <input v-model="currentUser.name" type="text" name="name" class="form-control form-control-lg" placeholder="Name">
+              </div>
+
+              <div class="form-group">
+                <input v-model="currentUser.email" type="text" name="email" class="form-control form-control-lg" placeholder="email">
+              </div>
+
+              <div class="form-group">
+                <input v-model="currentUser.phone" type="number" name="phone" class="form-control form-control-lg" placeholder="phone">
+              </div>
+
+              <div class="form-group">
+                <button type="button" class="btn btn-info btn-block btn-lg" @click="showEditModal=false; updateUser(); clearMsg();"> Upload User </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+     <!-- Delete User Model  -->
+     <div id="overlay" v-if="showDeleteModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title"> Delete User </h5>
+            <button type="button" class="close" @click="showDeleteModal=false">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body pt-4">
+            <h4 class="text-danger"> Are you sure want to delete this user?</h4>
+            <h5> You are deleting '{{ currentUser.name }}'</h5>
+            <hr>
+            <button class="btn btn-danger btn-lg" @click="showDeleteModal=false; deleteUser(); clearMsg();"> Yes </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="btn btn-success btn-lg" @click="showDeleteModal=false"> No </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</template>
+
+ 
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<!-- jqeruy cdn  -->
+<script
+  src="https://code.jquery.com/jquery-3.6.0.js"
+  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+  crossorigin="anonymous"></script>
+  <!-- vue js cdn  -->
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>   
+<!-- font awesome cdn  -->
+<script src="../assets/fontawesome-free-6.0.0-web/js/all.js"></script>   
+<!-- axios cdn -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.0/axios.min.js" integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+
+
+<!-- script vue -->
+<script>
+var data = {
+ ErrorMsg : "" ,
+ SuccessMsg : "" ,
+ showAddModal : false ,
+ showEditModal : false ,
+ showDeleteModal : false ,
+ link_php_page_read : 'http://localhost/project_vue2_documentation/vue_cdn/vue_crud_2/process.php?action=read' ,
+ link_php_page_create : 'http://localhost/project_vue2_documentation/vue_cdn/vue_crud_2/process.php?action=create' ,
+ link_php_page_update : 'http://localhost/project_vue2_documentation/vue_cdn/vue_crud_2/process.php?action=update' ,
+ link_php_page_delete : 'http://localhost/project_vue2_documentation/vue_cdn/vue_crud_2/process.php?action=delete' ,
+ users : [] ,
+ users_2 : { users : [{"id":"3","name":"wolf","email":"wolfmania@gmail.com","phone":"123456"},{"id":"4","name":"wolf_2","email":"wolfmania_2@gmail.com","phone":"123456"},{"id":"5","name":"wolf_3","email":"wolfmania_3@gmail.com","phone":"123456"},{"id":"6","name":"wolf_4","email":"wolfmania_4@gmail.com","phone":"123456"},{"id":"7","name":"wolf_5","email":"wolfmania_5@gmail.com","phone":"123456"},{"id":"8","name":"wolf_6","email":"wolfmania_6@gmail.com","phone":"123456"},{"id":"9","name":"wolf_7","email":"wolfmania_7@gmail.com","phone":"123456"},{"id":"10","name":"wolf_8","email":"wolfmania_8@gmail.com","phone":"123456"},{"id":"11","name":"wolf_9","email":"wolfmania_9@gmail.com","phone":"123456"},{"id":"12","name":"wolf_10","email":"wolfmania_10@gmail.com","phone":"123456"}]} ,
+ newUser : { name: "" , email : "" , phone : "" },
+ currentUser : {},
+
+}
+var vm = new Vue({
+  el: '#app',
+  data: data,
+  created: function () {
+  },
+  mounted : function(){
+    // mettere la chiamata alla funzione qui dentro fara in modo che vue js andra a prendere i dati al mount 
+    this.getAllUsers();
+  },
+
+    methods : {
+       getAllUsers(){
+         axios.get(this.link_php_page_read
+         ).then(function(response){
+            console.log(response)
+            if(response.data.error){
+              vm.ErrorMsg = response.data.message;
+            }else{
+              vm.users = response.data.users;
+              console.log('2',response.data.users)
+            }
+          })
+        },
+        addUser(){
+          var formData = vm.toFormData(vm.newUser);
+          axios.post(this.link_php_page_create, formData
+          ).then(function(response){
+            console.log(response)
+            vm.newUser= { name: "" , email : "" , phone : "" };
+            if(response.data.error){
+              vm.ErrorMsg = response.data.message;
+            }else{
+              vm.SuccessMsg = response.data.message;
+              vm.getAllUsers();
+            }
+          })
+        },
+        updateUser(){
+          var formData = vm.toFormData(vm.currentUser);
+          axios.post(this.link_php_page_update, formData
+          ).then(function(response){
+            console.log(response)
+            vm.currentUser= { name: "" , email : "" , phone : "" };
+            if(response.data.error){
+              vm.ErrorMsg = response.data.message;
+            }else{
+              vm.SuccessMsg = response.data.message;
+              vm.getAllUsers();
+            }
+          })
+        },
+        deleteUser(){
+          var formData = vm.toFormData(vm.currentUser);
+          axios.post(this.link_php_page_delete, formData
+          ).then(function(response){
+            console.log(response)
+            vm.currentUser= { name: "" , email : "" , phone : "" };
+            if(response.data.error){
+              vm.ErrorMsg = response.data.message;
+            }else{
+              vm.SuccessMsg = response.data.message;
+              vm.getAllUsers();
+            }
+          })
+        },
+        toFormData(obj){
+          var fd = new FormData();
+          for(var i in obj){
+            fd.append(i,obj[i]);
+          }
+          return fd;
+        },
+        selectUser(user){
+          vm.currentUser = user;
+        },
+        clearMsg(){
+          vm.ErrorMsg = "" ;
+          vm.SuccessMsg = "" ;
+        }
+
+    }
+})
+
+</script> 
