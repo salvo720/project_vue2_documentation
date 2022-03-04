@@ -1,7 +1,8 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import Progetto from '../views/progettoview.vue'
-import Login from '../views/login.vue'
+import Login from '../views/Login.vue'
+import Crud from '../views/Crud.vue'
 
 
 const routes = [
@@ -27,13 +28,21 @@ const routes = [
     component: Progetto
   },
   {
-    path: '/login',
-    name: 'login',
+    path: '/Login',
+    name: 'Login',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: Login
-  }
+  },
+  {
+    path: '/Crud',
+    name: 'Crud',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/Crud.vue')
+  },
 ]
 
 const router = createRouter({

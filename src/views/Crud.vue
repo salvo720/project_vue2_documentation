@@ -1,6 +1,4 @@
-
 <style>
-/* // include font-awesome link ('https://stackoverflow.com/questions/41537212/use-font-awesome-in-a-vue-app-created-with-vue-cli-webpack'); */
     .padding_bottom_200px{
       padding: 0 0 200px 0;
     }
@@ -29,8 +27,6 @@
     }
 </style>
 <template>
- 
-
   <div id="app" >
     <nav class="navbar navbar-expand-lg navbar-light bg-light" > 
         <div class="container-fluid">
@@ -217,44 +213,27 @@
 </template>
 
  
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-<!-- jqeruy cdn  -->
-<script
-  src="https://code.jquery.com/jquery-3.6.0.js"
-  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-  crossorigin="anonymous"></script>
-  <!-- vue js cdn  -->
-<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>   
-<!-- font awesome cdn  -->
-<script src="../assets/fontawesome-free-6.0.0-web/js/all.js"></script>   
-<!-- axios cdn -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.0/axios.min.js" integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-
-
-
 <!-- script vue -->
 <script>
-var data = {
- ErrorMsg : "" ,
- SuccessMsg : "" ,
- showAddModal : false ,
- showEditModal : false ,
- showDeleteModal : false ,
- link_php_page_read : 'http://localhost/project_vue2_documentation/vue_cdn/vue_crud_2/process.php?action=read' ,
- link_php_page_create : 'http://localhost/project_vue2_documentation/vue_cdn/vue_crud_2/process.php?action=create' ,
- link_php_page_update : 'http://localhost/project_vue2_documentation/vue_cdn/vue_crud_2/process.php?action=update' ,
- link_php_page_delete : 'http://localhost/project_vue2_documentation/vue_cdn/vue_crud_2/process.php?action=delete' ,
- users : [] ,
- users_2 : { users : [{"id":"3","name":"wolf","email":"wolfmania@gmail.com","phone":"123456"},{"id":"4","name":"wolf_2","email":"wolfmania_2@gmail.com","phone":"123456"},{"id":"5","name":"wolf_3","email":"wolfmania_3@gmail.com","phone":"123456"},{"id":"6","name":"wolf_4","email":"wolfmania_4@gmail.com","phone":"123456"},{"id":"7","name":"wolf_5","email":"wolfmania_5@gmail.com","phone":"123456"},{"id":"8","name":"wolf_6","email":"wolfmania_6@gmail.com","phone":"123456"},{"id":"9","name":"wolf_7","email":"wolfmania_7@gmail.com","phone":"123456"},{"id":"10","name":"wolf_8","email":"wolfmania_8@gmail.com","phone":"123456"},{"id":"11","name":"wolf_9","email":"wolfmania_9@gmail.com","phone":"123456"},{"id":"12","name":"wolf_10","email":"wolfmania_10@gmail.com","phone":"123456"}]} ,
- newUser : { name: "" , email : "" , phone : "" },
- currentUser : {},
-
-}
-var vm = new Vue({
-  el: '#app',
-  data: data,
+export default {
+  name: '#app',
+  data () {
+    return {
+      ErrorMsg : "" ,
+      SuccessMsg : "" ,
+      showAddModal : false ,
+      showEditModal : false ,
+      showDeleteModal : false ,
+      link_php_page_read : 'http://localhost/project_vue2_documentation/vue_cdn/vue_crud_2/process.php?action=read' ,
+      link_php_page_create : 'http://localhost/project_vue2_documentation/vue_cdn/vue_crud_2/process.php?action=create' ,
+      link_php_page_update : 'http://localhost/project_vue2_documentation/vue_cdn/vue_crud_2/process.php?action=update' ,
+      link_php_page_delete : 'http://localhost/project_vue2_documentation/vue_cdn/vue_crud_2/process.php?action=delete' ,
+      users : [] ,
+      users_2 : { users : [{"id":"3","name":"wolf","email":"wolfmania@gmail.com","phone":"123456"},{"id":"4","name":"wolf_2","email":"wolfmania_2@gmail.com","phone":"123456"},{"id":"5","name":"wolf_3","email":"wolfmania_3@gmail.com","phone":"123456"},{"id":"6","name":"wolf_4","email":"wolfmania_4@gmail.com","phone":"123456"},{"id":"7","name":"wolf_5","email":"wolfmania_5@gmail.com","phone":"123456"},{"id":"8","name":"wolf_6","email":"wolfmania_6@gmail.com","phone":"123456"},{"id":"9","name":"wolf_7","email":"wolfmania_7@gmail.com","phone":"123456"},{"id":"10","name":"wolf_8","email":"wolfmania_8@gmail.com","phone":"123456"},{"id":"11","name":"wolf_9","email":"wolfmania_9@gmail.com","phone":"123456"},{"id":"12","name":"wolf_10","email":"wolfmania_10@gmail.com","phone":"123456"}]} ,
+      newUser : { name: "" , email : "" , phone : "" },
+      currentUser : {},
+    }
+  },
   created: function () {
   },
   mounted : function(){
@@ -333,6 +312,6 @@ var vm = new Vue({
         }
 
     }
-})
+}
 
 </script> 
