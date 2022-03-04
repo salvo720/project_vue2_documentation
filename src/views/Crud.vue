@@ -28,6 +28,7 @@
 </style>
 <template>
   <div id="app" >
+    <!-- Nav bar  -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light" > 
         <div class="container-fluid">
         <a class="navbar-brand" href="#">Navbar</a>
@@ -117,104 +118,107 @@
           </table>
         </div>
       </div>
-    </div>
+      </div>
 
-    <!-- Add New User Model  -->
-    <div id="overlay" v-if="showAddModal">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Add New User </h5>
-            <button type="button" class="close" @click="showAddModal=false">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body pt-4">
-            <form action="#" method="POST">
-              
-              <div class="form-group">
-                <input v-model="newUser.name" type="text" name="name" class="form-control form-control-lg" placeholder="Name">
-              </div>
+      <!-- Add New User Model  -->
+      <div id="overlay" v-if="showAddModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Add New User </h5>
+              <button type="button" class="close" @click="showAddModal=false">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body pt-4">
+              <form action="#" method="POST">
+                
+                <div class="form-group">
+                  <input v-model="newUser.name" type="text" name="name" class="form-control form-control-lg" placeholder="Name">
+                </div>
 
-              <div class="form-group">
-                <input v-model="newUser.email" type="text" name="email" class="form-control form-control-lg" placeholder="email">
-              </div>
+                <div class="form-group">
+                  <input v-model="newUser.email" type="text" name="email" class="form-control form-control-lg" placeholder="email">
+                </div>
 
-              <div class="form-group">
-                <input v-model="newUser.phone" type="number" name="phone" class="form-control form-control-lg" placeholder="phone">
-              </div>
+                <div class="form-group">
+                  <input v-model="newUser.phone" type="number" name="phone" class="form-control form-control-lg" placeholder="phone">
+                </div>
 
-              <div class="form-group">
-                <button type="button" class="btn btn-info btn-block btn-lg" @click="showAddModal=false; addUser(); clearMsg();"> Add User </button>
-              </div>
-            </form>
+                <div class="form-group">
+                  <button type="button" class="btn btn-info btn-block btn-lg" @click="showAddModal=false; addUser(); clearMsg();"> Add User </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Edit New User Model  -->
-    <div id="overlay" v-if="showEditModal">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title"> Edit User </h5>
-            <button type="button" class="close" @click="showEditModal=false">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body pt-4">
-            <form action="#" method="POST">
-              
-              <div class="form-group">
-                <input v-model="currentUser.name" type="text" name="name" class="form-control form-control-lg" placeholder="Name">
-              </div>
+      <!-- Edit New User Model  -->
+      <div id="overlay" v-if="showEditModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title"> Edit User </h5>
+              <button type="button" class="close" @click="showEditModal=false">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body pt-4">
+              <form action="#" method="POST">
+                
+                <div class="form-group">
+                  <input v-model="currentUser.name" type="text" name="name" class="form-control form-control-lg" placeholder="Name">
+                </div>
 
-              <div class="form-group">
-                <input v-model="currentUser.email" type="text" name="email" class="form-control form-control-lg" placeholder="email">
-              </div>
+                <div class="form-group">
+                  <input v-model="currentUser.email" type="text" name="email" class="form-control form-control-lg" placeholder="email">
+                </div>
 
-              <div class="form-group">
-                <input v-model="currentUser.phone" type="number" name="phone" class="form-control form-control-lg" placeholder="phone">
-              </div>
+                <div class="form-group">
+                  <input v-model="currentUser.phone" type="number" name="phone" class="form-control form-control-lg" placeholder="phone">
+                </div>
 
-              <div class="form-group">
-                <button type="button" class="btn btn-info btn-block btn-lg" @click="showEditModal=false; updateUser(); clearMsg();"> Upload User </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-
-     <!-- Delete User Model  -->
-     <div id="overlay" v-if="showDeleteModal">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title"> Delete User </h5>
-            <button type="button" class="close" @click="showDeleteModal=false">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body pt-4">
-            <h4 class="text-danger"> Are you sure want to delete this user?</h4>
-            <h5> You are deleting '{{ currentUser.name }}'</h5>
-            <hr>
-            <button class="btn btn-danger btn-lg" @click="showDeleteModal=false; deleteUser(); clearMsg();"> Yes </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <button class="btn btn-success btn-lg" @click="showDeleteModal=false"> No </button>
+                <div class="form-group">
+                  <button type="button" class="btn btn-info btn-block btn-lg" @click="showEditModal=false; updateUser(); clearMsg();"> Upload User </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
+      <!-- Delete User Model  -->
+      <div id="overlay" v-if="showDeleteModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title"> Delete User </h5>
+              <button type="button" class="close" @click="showDeleteModal=false">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body pt-4">
+              <h4 class="text-danger"> Are you sure want to delete this user?</h4>
+              <h5> You are deleting '{{ currentUser.name }}'</h5>
+              <hr>
+              <button class="btn btn-danger btn-lg" @click="showDeleteModal=false; deleteUser(); clearMsg();"> Yes </button>
+              &nbsp;&nbsp;&nbsp;&nbsp;
+              <button class="btn btn-success btn-lg" @click="showDeleteModal=false"> No </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
 </template>
 
- 
 <!-- script vue -->
 <script>
+
+import axios from 'axios'
+
 export default {
   name: '#app',
   data () {
@@ -241,77 +245,78 @@ export default {
     this.getAllUsers();
   },
 
-    methods : {
-       getAllUsers(){
-         axios.get(this.link_php_page_read
-         ).then(function(response){
-            console.log(response)
-            if(response.data.error){
-              vm.ErrorMsg = response.data.message;
-            }else{
-              vm.users = response.data.users;
-              console.log('2',response.data.users)
-            }
-          })
-        },
-        addUser(){
-          var formData = vm.toFormData(vm.newUser);
-          axios.post(this.link_php_page_create, formData
-          ).then(function(response){
-            console.log(response)
-            vm.newUser= { name: "" , email : "" , phone : "" };
-            if(response.data.error){
-              vm.ErrorMsg = response.data.message;
-            }else{
-              vm.SuccessMsg = response.data.message;
-              vm.getAllUsers();
-            }
-          })
-        },
-        updateUser(){
-          var formData = vm.toFormData(vm.currentUser);
-          axios.post(this.link_php_page_update, formData
-          ).then(function(response){
-            console.log(response)
-            vm.currentUser= { name: "" , email : "" , phone : "" };
-            if(response.data.error){
-              vm.ErrorMsg = response.data.message;
-            }else{
-              vm.SuccessMsg = response.data.message;
-              vm.getAllUsers();
-            }
-          })
-        },
-        deleteUser(){
-          var formData = vm.toFormData(vm.currentUser);
-          axios.post(this.link_php_page_delete, formData
-          ).then(function(response){
-            console.log(response)
-            vm.currentUser= { name: "" , email : "" , phone : "" };
-            if(response.data.error){
-              vm.ErrorMsg = response.data.message;
-            }else{
-              vm.SuccessMsg = response.data.message;
-              vm.getAllUsers();
-            }
-          })
-        },
-        toFormData(obj){
-          var fd = new FormData();
-          for(var i in obj){
-            fd.append(i,obj[i]);
-          }
-          return fd;
-        },
-        selectUser(user){
-          vm.currentUser = user;
-        },
-        clearMsg(){
-          vm.ErrorMsg = "" ;
-          vm.SuccessMsg = "" ;
-        }
+  methods : {
+      getAllUsers(){
+        axios.get(this.link_php_page_read ,
 
-    }
+        ).then(function(response){
+          console.log(response)
+          if(response.data.error){
+            this.ErrorMsg = response.data.message;
+          }else{
+            this.users = response.data.users;
+            console.log('2',response.data.users)
+          }
+        })
+      },
+      addUser(){
+        var formData = this.toFormData(this.newUser);
+        axios.post(this.link_php_page_create, formData
+        ).then(function(response){
+          console.log(response)
+          this.newUser= { name: "" , email : "" , phone : "" };
+          if(response.data.error){
+            this.ErrorMsg = response.data.message;
+          }else{
+            this.SuccessMsg = response.data.message;
+            this.getAllUsers();
+          }
+        })
+      },
+      updateUser(){
+        var formData = this.toFormData(this.currentUser);
+        axios.post(this.link_php_page_update, formData
+        ).then(function(response){
+          console.log(response)
+          this.currentUser= { name: "" , email : "" , phone : "" };
+          if(response.data.error){
+            this.ErrorMsg = response.data.message;
+          }else{
+            this.SuccessMsg = response.data.message;
+            this.getAllUsers();
+          }
+        })
+      },
+      deleteUser(){
+        var formData = this.toFormData(this.currentUser);
+        axios.post(this.link_php_page_delete, formData
+        ).then(function(response){
+          console.log(response)
+          this.currentUser= { name: "" , email : "" , phone : "" };
+          if(response.data.error){
+            this.ErrorMsg = response.data.message;
+          }else{
+            this.SuccessMsg = response.data.message;
+            this.getAllUsers();
+          }
+        })
+      },
+      toFormData(obj){
+        var fd = new FormData();
+        for(var i in obj){
+          fd.append(i,obj[i]);
+        }
+        return fd;
+      },
+      selectUser(user){
+        this.currentUser = user;
+      },
+      clearMsg(){
+        this.ErrorMsg = "" ;
+        this.SuccessMsg = "" ;
+      }
+
+  }
 }
 
 </script> 
