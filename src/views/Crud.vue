@@ -235,7 +235,6 @@ export default {
       users : [] ,
       newUser : { name: "" , email : "" , phone : "" },
       currentUser : {},
-      a : '' ,
     }
   },
   created: function () {
