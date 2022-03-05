@@ -217,7 +217,7 @@
 <!-- script vue -->
 <script>
 
-import axios from 'axios'
+import axios from 'axios';
 
 export default {
   name: '#app',
@@ -228,12 +228,11 @@ export default {
       showAddModal : false ,
       showEditModal : false ,
       showDeleteModal : false ,
-      link_php_page_read : 'http://localhost/project_vue2_documentation/vue_cdn/vue_crud_2/process.php?action=read' ,
-      link_php_page_create : 'http://localhost/project_vue2_documentation/vue_cdn/vue_crud_2/process.php?action=create' ,
-      link_php_page_update : 'http://localhost/project_vue2_documentation/vue_cdn/vue_crud_2/process.php?action=update' ,
-      link_php_page_delete : 'http://localhost/project_vue2_documentation/vue_cdn/vue_crud_2/process.php?action=delete' ,
+      link_php_page_read : 'http://localhost:8080/project_vue2_documentation/vue_cdn/vue_crud_2/process.php?action=read' ,
+      link_php_page_create : 'http://localhost:8080/project_vue2_documentation/vue_cdn/vue_crud_2/process.php?action=create' ,
+      link_php_page_update : 'http://localhost:8080/project_vue2_documentation/vue_cdn/vue_crud_2/process.php?action=update' ,
+      link_php_page_delete : 'http://localhost:8080/project_vue2_documentation/vue_cdn/vue_crud_2/process.php?action=delete' ,
       users : [] ,
-      users_2 : { users : [{"id":"3","name":"wolf","email":"wolfmania@gmail.com","phone":"123456"},{"id":"4","name":"wolf_2","email":"wolfmania_2@gmail.com","phone":"123456"},{"id":"5","name":"wolf_3","email":"wolfmania_3@gmail.com","phone":"123456"},{"id":"6","name":"wolf_4","email":"wolfmania_4@gmail.com","phone":"123456"},{"id":"7","name":"wolf_5","email":"wolfmania_5@gmail.com","phone":"123456"},{"id":"8","name":"wolf_6","email":"wolfmania_6@gmail.com","phone":"123456"},{"id":"9","name":"wolf_7","email":"wolfmania_7@gmail.com","phone":"123456"},{"id":"10","name":"wolf_8","email":"wolfmania_8@gmail.com","phone":"123456"},{"id":"11","name":"wolf_9","email":"wolfmania_9@gmail.com","phone":"123456"},{"id":"12","name":"wolf_10","email":"wolfmania_10@gmail.com","phone":"123456"}]} ,
       newUser : { name: "" , email : "" , phone : "" },
       currentUser : {},
     }
