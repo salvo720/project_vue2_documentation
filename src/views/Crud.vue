@@ -235,6 +235,7 @@ export default {
       users : [] ,
       newUser : { name: "" , email : "" , phone : "" },
       currentUser : {},
+      a : '' ,
     }
   },
   created: function () {
@@ -248,7 +249,7 @@ export default {
       getAllUsers(){
         axios.get(this.link_php_page_read ,
 
-        ).then(function(response){
+        ).then(response  => {
           console.log(response)
           if(response.data.error){
             this.ErrorMsg = response.data.message;
@@ -261,7 +262,7 @@ export default {
       addUser(){
         var formData = this.toFormData(this.newUser);
         axios.post(this.link_php_page_create, formData
-        ).then(function(response){
+        ).then( response => {
           console.log(response)
           this.newUser= { name: "" , email : "" , phone : "" };
           if(response.data.error){
@@ -275,7 +276,7 @@ export default {
       updateUser(){
         var formData = this.toFormData(this.currentUser);
         axios.post(this.link_php_page_update, formData
-        ).then(function(response){
+        ).then( response => {
           console.log(response)
           this.currentUser= { name: "" , email : "" , phone : "" };
           if(response.data.error){
@@ -289,7 +290,7 @@ export default {
       deleteUser(){
         var formData = this.toFormData(this.currentUser);
         axios.post(this.link_php_page_delete, formData
-        ).then(function(response){
+        ).then( response => {
           console.log(response)
           this.currentUser= { name: "" , email : "" , phone : "" };
           if(response.data.error){
