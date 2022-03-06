@@ -29,38 +29,8 @@
 <template>
   <div id="app" >
     <!-- Nav bar  -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" > 
-        <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Dropdown
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-            </li>
-            </ul>
-        </div>
-        </div>
-    </nav>
+    <Navbar>
+    </Navbar>
 
     <div class="container-fluid">
       <div class="row bg-dark">
@@ -73,17 +43,17 @@
       <div class="container-fluid">
         <div class="row mt-3">
         <div class="col-lg-6">
-          <h3 class="text-info">Registra Utente</h3>
+          <h3 class="text-info float-start">Registra Utente</h3>
         </div>
         <div class="col-lg-6">
           <button class="btn btn-info float-end" @click="showAddModal=true">
-          <i class="fas fa-user"></i>&nbsp;&nbsp; ADD New User
+          <fa icon="coffee"/>&nbsp;&nbsp; ADD New User
         </button>
         </div>
       </div>
       <hr class="bg-info" >
       <div class="alert alert-danger" v-if="ErrorMsg">
-        { {ErrorMsg }}
+        {{ ErrorMsg }}
       </div>
       <div class="alert alert-success" v-if="SuccessMsg">
         {{ SuccessMsg }}
@@ -217,6 +187,9 @@
 <!-- script vue -->
 <script>
 
+import Navbar from '@/components/Navbar.vue'
+
+
 import axios from 'axios';
 
 export default {
@@ -243,77 +216,78 @@ export default {
     // mettere la chiamata alla funzione qui dentro fara in modo che vue js andra a prendere i dati al mount 
     this.getAllUsers();
   },
-
+  components: {
+    Navbar // Register a new component
+  },
   methods : {
-      getAllUsers(){
-        axios.get(this.link_php_page_read ,
-
-        ).then(response  => {
-          console.log(response)
-          if(response.data.error){
-            this.ErrorMsg = response.data.message;
-          }else{
-            this.users = response.data.users;
-            console.log('2',response.data.users)
-          }
-        })
-      },
-      addUser(){
-        var formData = this.toFormData(this.newUser);
-        axios.post(this.link_php_page_create, formData
-        ).then( response => {
-          console.log(response)
-          this.newUser= { name: "" , email : "" , phone : "" };
-          if(response.data.error){
-            this.ErrorMsg = response.data.message;
-          }else{
-            this.SuccessMsg = response.data.message;
-            this.getAllUsers();
-          }
-        })
-      },
-      updateUser(){
-        var formData = this.toFormData(this.currentUser);
-        axios.post(this.link_php_page_update, formData
-        ).then( response => {
-          console.log(response)
-          this.currentUser= { name: "" , email : "" , phone : "" };
-          if(response.data.error){
-            this.ErrorMsg = response.data.message;
-          }else{
-            this.SuccessMsg = response.data.message;
-            this.getAllUsers();
-          }
-        })
-      },
-      deleteUser(){
-        var formData = this.toFormData(this.currentUser);
-        axios.post(this.link_php_page_delete, formData
-        ).then( response => {
-          console.log(response)
-          this.currentUser= { name: "" , email : "" , phone : "" };
-          if(response.data.error){
-            this.ErrorMsg = response.data.message;
-          }else{
-            this.SuccessMsg = response.data.message;
-            this.getAllUsers();
-          }
-        })
-      },
-      toFormData(obj){
-        var fd = new FormData();
-        for(var i in obj){
-          fd.append(i,obj[i]);
+    getAllUsers(){
+      axios.get(this.link_php_page_read 
+      ).then(response  => {
+        console.log(response)
+        if(response.data.error){
+          this.ErrorMsg = response.data.message;
+        }else{
+          this.users = response.data.users;
+          console.log('2',response.data.users)
         }
-        return fd;
-      },
-      selectUser(user){
-        this.currentUser = user;
-      },
-      clearMsg(){
-        this.ErrorMsg = "" ;
-        this.SuccessMsg = "" ;
+      })
+    },
+    addUser(){
+      var formData = this.toFormData(this.newUser);
+      axios.post(this.link_php_page_create, formData
+      ).then( response => {
+        console.log(response)
+        this.newUser= { name: "" , email : "" , phone : "" };
+        if(response.data.error){
+          this.ErrorMsg = response.data.message;
+        }else{
+          this.SuccessMsg = response.data.message;
+          this.getAllUsers();
+        }
+      })
+    },
+    updateUser(){
+      var formData = this.toFormData(this.currentUser);
+      axios.post(this.link_php_page_update, formData
+      ).then( response => {
+        console.log(response)
+        this.currentUser= { name: "" , email : "" , phone : "" };
+        if(response.data.error){
+          this.ErrorMsg = response.data.message;
+        }else{
+          this.SuccessMsg = response.data.message;
+          this.getAllUsers();
+        }
+      })
+    },
+    deleteUser(){
+      var formData = this.toFormData(this.currentUser);
+      axios.post(this.link_php_page_delete, formData
+      ).then( response => {
+        console.log(response)
+        this.currentUser= { name: "" , email : "" , phone : "" };
+        if(response.data.error){
+          this.ErrorMsg = response.data.message;
+        }else{
+          this.SuccessMsg = response.data.message;
+          this.getAllUsers();
+        }
+      })
+    },
+    toFormData(obj){
+      var fd = new FormData();
+      for(var i in obj){
+        fd.append(i,obj[i]);
       }
+      return fd;
+    },
+    selectUser(user){
+      this.currentUser = user;
+    },
+    clearMsg(){
+      this.ErrorMsg = "" ;
+      this.SuccessMsg = "" ;
+    }
 
   }
 }
