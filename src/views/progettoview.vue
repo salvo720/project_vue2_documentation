@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <h1>{{ welcome_user }}</h1>
-    <form v-on:submit="send_form">
+    <form v-on:submit="send_form()">
       <!-- <div class="row"> -->
         <div class="col col-md-4 offset-4">
           <label for="username" class="form-label">Email or Username :</label>
@@ -28,6 +28,8 @@
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue'
 
+import axios from 'axios';
+
 export default {
   name: 'app',
    data (){
@@ -36,29 +38,33 @@ export default {
       welcome_user : 'Benvenuto utente esegui il login ' , 
       username:'',
       password :'',
+      link_php_page_login : 'http://localhost:8080/project_vue2_documentation/vue_cdn/vue_crud/back_end_api.php?action=login' ,
+
 
     }
   },
   methods: {
-    async send_form(e){
+    send_form(e){
       e.preventDefault() // it prevent from page reload
       // console.log(this.name, this.price);
-      window.console.log('form_mandato')
-      const res = await fetch('/backend-api', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      window.console.log('form_mandato');
 
-        // pass in the information from our form
-        body: JSON.stringify({
-          username: this.username,
-          email: this.email,
-          password: this.password,
-        }) 
-      });
-      if (!res.ok) {
-        const message = `An error has occured: ${res.status}`;
-        throw new Error(message);
+      const user_data  = {
+        'email' : this.username  , 
+        'passowrd' : this.password , /* il fetch non consente di usare il nome password cambia la variabile del this   */
       }
+
+
+      axios.post(this.link_php_page_login, user_data
+        ).then( response => {
+            console.log(response)
+            if(response.data.error){
+            this.ErrorMsg = response.data.message;
+            }else{
+            this.SuccessMsg = response.data.message;
+            }
+      });
+     
     }
   },
 }

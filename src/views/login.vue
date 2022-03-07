@@ -33,7 +33,7 @@
                     <div> passowrd vale : {{ password }} </div>
                     <div> remember_me_check vale : {{ remember_me_check }} </div>
                     
-                    <form  action="#" method="POST">
+                    <form v-on:submit="render_form()">
                         <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
                             <p class="lead fw-normal mb-0 me-3">Sign in with</p>
 
@@ -93,21 +93,21 @@
             <div class="text-white mb-3 mb-md-0">
                 Copyright © 2022. All rights reserved.
             </div>
-            <!-- Copyright -->
+            <!-- Copyright --> 
         
             <!-- Right -->
             <div>
                 <a href="#!" class="text-white me-4">
-                <i class="fab fa-facebook-f"></i>
+                    <i class="fab fa-facebook-f" />
                 </a>
                 <a href="#!" class="text-white me-4">
-                <i class="fab fa-twitter"></i>
+                    <i class="fab fa-twitter" />
                 </a>
                 <a href="#!" class="text-white me-4">
-                <i class="fab fa-google"></i>
+                    <i class="fab fa-google"/>
                 </a>
                 <a href="#!" class="text-white">
-                <i class="fab fa-linkedin-in"></i>
+                    <i class="fab fa-linkedin-in"/>
                 </a>
             </div>
             <!-- Right -->
@@ -128,8 +128,7 @@ export default {
         email : '' ,
         password : '' ,
         remember_me_check : '' ,
-        link_php_page_login : 'http://localhost:8080/project_vue2_documentation/vue_cdn/vue_crud/back_end_api.php' ,
-        link_php_page_read : 'http://localhost:8080/project_vue2_documentation/vue_cdn/vue_crud_2/process.php?action=login' ,
+        link_php_page_login : 'http://localhost:8080/project_vue2_documentation/vue_cdn/vue_crud/back_end_api.php?action=login' ,
         }
   },
   created: function () {
