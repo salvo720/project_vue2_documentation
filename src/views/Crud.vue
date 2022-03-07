@@ -1,4 +1,11 @@
 <style>
+  .green-color{ 
+    color:green !important
+  }
+  .red-color{ 
+    color:red !important
+  }
+
     .padding_bottom_200px{
       padding: 0 0 200px 0;
     }
@@ -80,8 +87,8 @@
                 <td> {{ user.name }} </td>
                 <td> {{ user.email }} </td>
                 <td> {{ user.phone }} </td>
-                <td><a href="#" class="text-success" @click="showEditModal=true; selectUser(user);"><i class="fas fa-edit"></i></a></td>
-                <td><a href="#" class="text-danger" @click="showDeleteModal=true; selectUser(user);"><i class="fas fa-trash"></i></a></td>
+                <td><button class="btn" @click="showEditModal=true; selectUser(user);"> <i class="fas fa-edit green-color"  /> </button></td>
+                <td><button class="btn" @click="showDeleteModal=true; selectUser(user);"> <i class="fas fa-trash red-color" /> </button></td>
               </tr>
               
             </tbody>
