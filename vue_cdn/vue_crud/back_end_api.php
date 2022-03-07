@@ -1,11 +1,7 @@
 <?php
 
-$email = $_POST['email'];
-$password = $_POST['password'];
-$remember_me_check = $_POST['remember_me_check'];
-
 // Create connection
-$con=mysqli_connect("localhost","salvo","","swift_pku_db");
+$con=mysqli_connect("localhost","salvo","","vue_login");
  
 // Check connection
 if (mysqli_connect_errno())
@@ -13,27 +9,28 @@ if (mysqli_connect_errno())
   echo "Failed to connect to MySQL: " . mysqli_connect_error();
 }
  
-// Select all of our stocks from table 'stock_tracker'
-$sql = "SELECT * 
-        FROM  user
-        WHERE email= '".$email."' AND password = '".$password."' ";
+// ACTION 
+$action = '';
+if(isset($_GET['action'])){
+    $action = $_GET['action'];
+}
+// echo "action : ",  $action , "<br>";
 
 // echo $sql;
- 
-// Confirm there are results
-    $result = mysqli_query($con, $sql);
-    // var_dump($result,$sql ) ;
-    
-if ($result = mysqli_num_rows($result) > 0 )
-{
-    $resultArray= TRUE;
-	// Encode the array to JSON and output the results
-	echo json_encode($resultArray);
-} else {
+if ($action == 'login') {
 
-    $resultArray= FALSE;
-	echo json_encode($resultArray);
+    $sql = "SELECT * FROM `user` WHERE email='". $email ."' and password='". $password ."' ";
+    // Execute SQL
+    $query=$con->query($sql);
+    $num_rows = mysqli_num_rows($query);
+    if( $num_rows >=1){
+        $result = TRUE;
+    }else{
+        $result = FALSE;
+    }
 }
+
+echo json_encode($result);
  
 // Close connections
 mysqli_close($con);

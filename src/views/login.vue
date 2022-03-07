@@ -33,7 +33,7 @@
                     <div> passowrd vale : {{ password }} </div>
                     <div> remember_me_check vale : {{ remember_me_check }} </div>
                     
-                    <form v-on:submit.prevent="render_form">
+                    <form  action="#" method="POST">
                         <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
                             <p class="lead fw-normal mb-0 me-3">Sign in with</p>
 
@@ -128,6 +128,8 @@ export default {
         email : '' ,
         password : '' ,
         remember_me_check : '' ,
+        link_php_page_login : 'http://localhost:8080/project_vue2_documentation/vue_cdn/vue_crud/back_end_api.php' ,
+        link_php_page_read : 'http://localhost:8080/project_vue2_documentation/vue_cdn/vue_crud_2/process.php?action=login' ,
         }
   },
   created: function () {
@@ -135,7 +137,7 @@ export default {
 
     methods : {
         // per eseguire il tutto con il fetch api bisogna usare il server json su vue/cli , quindi usiamo la richiesta axios 
-        render_form: async function (){
+        render_form (){
 
           // alert('processing')
             window.console.log(' form mandato ')
@@ -143,20 +145,21 @@ export default {
             window.console.log(' password vale : ' + this.password)
             window.console.log(' remember_me_check vale : ' + this.remember_me_check)
 
-            // const url_request = "http://localhost/project_vue2_documentation/vue_cdn/vue_crud/back_end_api.php" ;
-            const url_request = "/back_end_api" ;
-
-
-            const headers_request = ' Access-Control-Allow-Origin : * ' 
-
             const user_data  = {
               'email' : this.email  , 
               'passowrd' : this.password , /* il fetch non consente di usare il nome password cambia la variabile del this   */
               'remember_me_check' : this.remember_me_check 
             }
 
-            const response = await axios.post( url_request , headers_request ,user_data );
-            window.console.log(response);
+            axios.post(this.link_php_page_login, user_data
+            ).then( response => {
+                console.log(response)
+                if(response.data.error){
+                this.ErrorMsg = response.data.message;
+                }else{
+                this.SuccessMsg = response.data.message;
+                }
+            })
            
         },
     }
