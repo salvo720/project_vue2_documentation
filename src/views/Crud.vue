@@ -47,7 +47,7 @@
         </div>
         <div class="col-lg-6">
           <button class="btn btn-info float-end" @click="showAddModal=true">
-          <fa icon="coffee"/>&nbsp;&nbsp; ADD New User
+          <i class="fas fa-user" />&nbsp;&nbsp; ADD New User
         </button>
         </div>
       </div>
@@ -186,10 +186,9 @@
 
 <!-- script vue -->
 <script>
-
+/* component navbar  */
 import Navbar from '@/components/Navbar.vue'
-
-
+// axios 
 import axios from 'axios';
 
 export default {

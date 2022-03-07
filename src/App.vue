@@ -31,3 +31,17 @@
   }
 }
 </style>
+
+
+<script>
+import fontawesome from "@fortawesome/fontawesome";
+import solid from "@fortawesome/fontawesome-free-solid";
+// import FontAwesomeIcon from "@fortawesome/vue-fontawesome";
+
+fontawesome.library.add(solid);
+
+export default {
+  name: "App",
+  
+};
+</script>
