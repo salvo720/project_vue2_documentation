@@ -19,8 +19,14 @@ if(isset($_GET['action'])){
 // echo $sql;
 if ($action == 'login') {
 
-    $sql = "SELECT * FROM `user` WHERE email='". $email ."' and password='". $password ."' ";
+    // TAKE DATA 
+    var_dump($_POST);
+    $email=$_POST["userdata"]["email"];
+    $password=$_POST["password"];
+
+    $sql = "SELECT * FROM `user` WHERE `email`=". $email ." AND `password`=". $password ." ";
     // Execute SQL
+    echo $sql ;
     $query=$con->query($sql);
     $num_rows = mysqli_num_rows($query);
     if( $num_rows >=1){

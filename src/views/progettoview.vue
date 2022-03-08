@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <h1>{{ welcome_user }}</h1>
-    <form v-on:submit="send_form()">
+    <form v-on:submit.prevent="send_form()">
       <!-- <div class="row"> -->
         <div class="col col-md-4 offset-4">
           <label for="username" class="form-label">Email or Username :</label>
@@ -11,7 +11,7 @@
           <label for="id_password" class="form-label">Password</label>
           <input type="password"  v-model.lazy="password" class="form-control" id="id_password">
         </div>
-        <h2>dati login:{{ username}} | {{ password}}</h2>
+        <h2>dati login:{{ username }} | {{ password }}</h2>
         <!-- <div class="col col-md-6 offset-3">
           <input type="checkbox" class="form-check-input" id="exampleCheck1">
           <label class="form-check-label" for="exampleCheck1">Check me out</label>
@@ -39,21 +39,17 @@ export default {
       username:'',
       password :'',
       link_php_page_login : 'http://localhost:8080/project_vue2_documentation/vue_cdn/vue_crud/back_end_api.php?action=login' ,
-
-
     }
   },
   methods: {
-    send_form(e){
-      e.preventDefault() // it prevent from page reload
-      // console.log(this.name, this.price);
+    send_form(){
+      /* il fetch non consente di usare il nome password cambia la variabile del this   */
       window.console.log('form_mandato');
 
       const user_data  = {
         'email' : this.username  , 
-        'passowrd' : this.password , /* il fetch non consente di usare il nome password cambia la variabile del this   */
+        'passowrd' : this.password , 
       }
-
 
       axios.post(this.link_php_page_login, user_data
         ).then( response => {

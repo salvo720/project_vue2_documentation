@@ -164,7 +164,7 @@ export default {
     }
 }
 
-// TODO : aggiungere le icone di font-awesome , ed installarlo ,
+// TODO : aggiungere le icone di font-awesome , ed installarlo 
 //  prova installazione fallita l'applicazione fa continue richieste al server 
 
 </script> 
