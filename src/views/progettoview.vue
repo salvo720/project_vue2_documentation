@@ -75,5 +75,5 @@ export default {
     },
   },
 }
-// TODO: la richiesta viene fatta ma bisogna passare da toFormData per amdnare i dati 
+// TODO: la richiesta viene fatta ma bisogna passare da toFormData per madnare i dati 
 </script>
