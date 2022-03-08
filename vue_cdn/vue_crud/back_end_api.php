@@ -20,13 +20,13 @@ if(isset($_GET['action'])){
 if ($action == 'login') {
 
     // TAKE DATA 
-    var_dump($_POST);
-    $email=$_POST["userdata"]["email"];
+    // var_dump($_POST);
+    $email=$_POST["email"];
     $password=$_POST["password"];
 
-    $sql = "SELECT * FROM `user` WHERE `email`=". $email ." AND `password`=". $password ." ";
+    $sql = "SELECT * FROM `user` WHERE `email`='". $email ."' AND `password`='". $password ."' ";
     // Execute SQL
-    echo $sql ;
+    // echo $sql ;
     $query=$con->query($sql);
     $num_rows = mysqli_num_rows($query);
     if( $num_rows >=1){

@@ -46,23 +46,34 @@ export default {
       /* il fetch non consente di usare il nome password cambia la variabile del this   */
       window.console.log('form_mandato');
 
-      const user_data  = {
-        'email' : this.username  , 
-        'passowrd' : this.password , 
-      }
-
-      axios.post(this.link_php_page_login, user_data
-        ).then( response => {
-            console.log(response)
-            if(response.data.error){
+      var formdata = this.toFormData({
+        email : this.username  , 
+        password : this.password , 
+      });
+      
+      axios.post(this.link_php_page_login , formdata 
+      ).then( response => {
+          console.log(response)
+          if(response.data.error){
             this.ErrorMsg = response.data.message;
-            }else{
-            this.SuccessMsg = response.data.message;
+          }else{
+            this.SuccessMsg = response.data;
+            window.console.log(response);
+            if(this.SuccessMsg == true ){
+              window.location.href="http://localhost:8080/#/Crud";
             }
+          }
       });
      
-    }
+    },
+    toFormData(obj){
+      var fd = new FormData();
+      for(var i in obj){
+        fd.append(i,obj[i]);
+      }
+      return fd;
+    },
   },
 }
-// TODO:richiesta viene effettuata ma senza dati da fixare 
+// TODO: la richiesta viene fatta ma bisogna passare da toFormData per amdnare i dati 
 </script>
