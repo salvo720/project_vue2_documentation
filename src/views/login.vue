@@ -33,7 +33,7 @@
                     <div> passowrd vale : {{ password }} </div>
                     <div> remember_me_check vale : {{ remember_me_check }} </div>
                     
-                    <form v-on:submit="render_form()">
+                    <form v-on:submit.prevent="render_form()">
                         <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
                             <p class="lead fw-normal mb-0 me-3">Sign in with</p>
 
