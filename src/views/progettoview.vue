@@ -64,4 +64,5 @@ export default {
     }
   },
 }
+// TODO:richiesta viene effettuata ma senza dati da fixare 
 </script>
