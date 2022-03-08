@@ -174,6 +174,8 @@ export default {
     }
 }
 
+//  varie link utili per forn awesome : ( https://codesandbox.io/s/ov6o0xk23y?file=/src/App.vue )
+// tutti i sui progetti magari utili ( https://codesandbox.io/u/ariellephan )
 
 </script> 
 
