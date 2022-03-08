@@ -2,7 +2,7 @@
   <div id="nav">
     <router-link to="/">Home</router-link> |
     <router-link to="/progettoview">Progetto</router-link> |
-    <router-link to="/Login">login</router-link> | 
+    <router-link to="/Login">Login</router-link> | 
     <router-link to="/Crud">Crud</router-link> | 
     <router-link to="/about">About</router-link>
     <router-view/>

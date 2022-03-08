@@ -79,7 +79,7 @@
                         </div>
 
                         <div class="text-center text-lg-start mt-4 pt-2">
-                            <button type="submit" class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
+                            <button class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
                             <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="#!" class="link-danger">Register</a></p>
                         </div>
                     </form>
@@ -144,22 +144,32 @@ export default {
             window.console.log(' password vale : ' + this.password)
             window.console.log(' remember_me_check vale : ' + this.remember_me_check)
 
-            const user_data  = {
+            var formdata = this.toFormData({
               'email' : this.email  , 
-              'passowrd' : this.password , /* il fetch non consente di usare il nome password cambia la variabile del this   */
+              'password' : this.password , /* il fetch non consente di usare il nome password cambia la variabile del this   */
               'remember_me_check' : this.remember_me_check 
-            }
+            })
 
-            axios.post(this.link_php_page_login, user_data
+            axios.post(this.link_php_page_login, formdata
             ).then( response => {
                 console.log(response)
                 if(response.data.error){
                 this.ErrorMsg = response.data.message;
                 }else{
-                this.SuccessMsg = response.data.message;
+                    this.SuccessMsg = response.data;
+                    if(this.SuccessMsg == true ){
+                        window.location.href = 'http://localhost:8080/#/Crud' ;
+                    }
                 }
             })
            
+        },
+         toFormData(obj){
+            var fd = new FormData();
+            for(var i in obj){
+                fd.append(i,obj[i]);
+            }
+            return fd;
         },
     }
 }
