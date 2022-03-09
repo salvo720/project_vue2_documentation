@@ -156,7 +156,8 @@ export default {
                 if(response.data.error){
                 this.ErrorMsg = response.data.message;
                 }else{
-                    this.SuccessMsg = response.data;
+                    this.SuccessMsg = response.data.login;
+                    window.console.log( this.SuccessMsg);
                     if(this.SuccessMsg == true ){
                         window.location.href = 'http://localhost:8080/#/Crud' ;
                     }

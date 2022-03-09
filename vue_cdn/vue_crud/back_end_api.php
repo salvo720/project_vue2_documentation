@@ -1,4 +1,6 @@
 <?php
+// jwt token 
+use ReallySimpleJWT\Token;
 
 // Create connection
 $con=mysqli_connect("localhost","salvo","","vue_login");
@@ -30,9 +32,10 @@ if ($action == 'login') {
     $query=$con->query($sql);
     $num_rows = mysqli_num_rows($query);
     if( $num_rows >=1){
-        $result = TRUE;
+        $result['login'] = TRUE;
+        $result['token'] = "asd" ;
     }else{
-        $result = FALSE;
+        $result['login'] = FALSE;
     }
 }
 
@@ -41,4 +44,6 @@ echo json_encode($result);
 // Close connections
 mysqli_close($con);
 // }
+
+// TODO:da gestire la sessione con i token jwt (o altri al momento testiamo i jwt )
 ?>
