@@ -126,7 +126,15 @@
 
       <div>
         <h2> Passaggio di dati a componenti figli con prop   </h2>
-        <div> vuoto 
+        <div> Gli oggetti di scena sono degli attributi dinamici che puoi registrare su un componente.
+          Quando un valore viene passatto ad un attributo prop , diventa una propita su quell'instanza del componente.
+          Per passare un titolo sul nostro componentedel posto sul blog , possiamo includerlo nell'elenco 
+          degli oggetti di scena accettati da quel componente , <span class="text-primary"> utilizzando l'opzione props : </span>  <br>
+          Vue.component('blog-post', {  <br>
+            props: ['title'], <br>
+            template: '<h3>{{ title }}</h3>' <br>
+          }) <br>
+
         </div>
       <hr><br>
 
@@ -169,6 +177,10 @@ Vue.component('button-counter' , {
 
 new Vue ({ el:'#app'});
 
+Vue.component('blog-post',{ 
+  props : ['title'],
+  template : ' <h3>{{ title }}</h3> ',
+});
 
 
 
@@ -187,6 +199,8 @@ var data = {
   event : 'click' ,
   click : 0 , 
 }
+
+
 var vm = new Vue({
   el: '#app_2',
   data: data,
@@ -205,6 +219,7 @@ var vm = new Vue({
 
 
 
+//TODO : nozione base sui componenti 
 
 </script> 
 
