@@ -90,7 +90,7 @@
             } <br>
           </div>
           <div> Se vue non avesse questa regola , fare click su un pulsante influirebbe sui dati di tutte 
-          le altre instanze . <span class="tetx-primary"> adesso vue ha un controllo su questo ,
+          le altre instanze . <span class="text-primary"> adesso vue ha un controllo su questo ,
           qundi se data non e una funzione vue va in errore .</span>
           </div>
         </div>
@@ -134,9 +134,30 @@
             props: ['title'], <br>
             template: '<h3>{{ title }}</h3>' <br>
           }) <br>
+          e possibile passare dati personalizzati alla prop di ogni componete con il seguente codice : <br> 
+          < blog-post title="My journey with Vue" >< /blog-post> <br> 
 
         </div>
-      <hr><br>
+        <blog-post title="My journey with Vue" ></blog-post>
+        <blog-post title="Blogging with Vue" ></blog-post>
+        <blog-post title="Why Vue is so fun" ></blog-post>
+        <hr>
+        <div> in un app tipica avra dei post dentro data , come sotto (vedi posts)</div>
+        <blog-post 
+        v-for="post in posts" 
+        v-bind:key="post.id"
+        v-bind:title="post.title"
+        ></blog-post>
+        <div> Sopra , vedrai che possiamo usare <span class="text-primary"> il v-bind  per passare dinamicamente </span>
+          gli oggetti di scena . Cio e particolarmentte utile quando non si conosce il contenuto esatto di cui si vuole
+          eseguire il rendering in anticipo , ad esempio <span class="text-danger">  quando si recuperano i post da un API 
+          </span> .
+          
+        </div>
+        <hr><br>
+      </div>
+
+      
 
     </div>
 
@@ -174,15 +195,15 @@ Vue.component('button-counter' , {
   },
   template : '<button v-on:click="count++" type="button" class="btn btn-info"> Mi hai cliccato {{ count }} volte </button>'
 } );
-
-new Vue ({ el:'#app'});
-
+//componente blog-post
 Vue.component('blog-post',{ 
-  props : ['title'],
+  props : ['title'] ,
   template : ' <h3>{{ title }}</h3> ',
 });
 
-
+//i compoeneti devono essegere registrati prima che si effettua il bind con app o non saranno registrati
+//bastava la linea sotto commentatta ma definiamo il modo completo vue 
+//new Vue ({ el:'#app'});
 
 var data = {
   a: 1 , 
@@ -198,12 +219,56 @@ var data = {
   attributename : 'href' ,  // usato nel test attributi dinamici
   event : 'click' ,
   click : 0 , 
+  posts : [
+    { id: 1, title: 'My journey with Vue' },
+    { id: 2, title: 'Blogging with Vue' },
+    { id: 3, title: 'Why Vue is so fun' },
+  ],
+}
+
+var vm = new Vue({
+  el: '#app',
+  data: data,
+  created: function () {
+  },
+  computed : {
+
+  },
+  methods : {
+
+  },
+  watch :{
+
+  },
+})
+
+
+
+var data2 = {
+  a: 1 , 
+  msg : 'benvenuto', 
+  rawHtml:'<span style="color:red">this text should be red</span>', 
+  dynamicId:'id_prova' ,
+  //   il bottone non sara rendirizzato da vue quando disabled e false , null , undefined 
+  isButtonDisabled: undefined , 
+  // isButtonDisabled:'disabled',  
+  seen:false, 
+  url: 'ciao',
+  doSomethings : 'vuoto',
+  attributename : 'href' ,  // usato nel test attributi dinamici
+  event : 'click' ,
+  click : 0 , 
+  posts : [
+    { id: 1, title: 'My journey with Vue' },
+    { id: 2, title: 'Blogging with Vue' },
+    { id: 3, title: 'Why Vue is so fun' },
+  ],
 }
 
 
-var vm = new Vue({
+var vm2 = new Vue({
   el: '#app_2',
-  data: data,
+  data: data2,
   created: function () {
   },
   computed : {
