@@ -142,7 +142,7 @@
         <blog-post title="Blogging with Vue" ></blog-post>
         <blog-post title="Why Vue is so fun" ></blog-post>
         <hr>
-        <div> in un app tipica avra dei post dentro data , come sotto (vedi posts)</div>
+        <div> <h4 class="text-danger"> in un app tipica avra dei post dentro data , come sotto (vedi posts) </h4> </div>
         <blog-post 
         v-for="post in posts" 
         v-bind:key="post.id"
@@ -152,7 +152,41 @@
           gli oggetti di scena . Cio e particolarmentte utile quando non si conosce il contenuto esatto di cui si vuole
           eseguire il rendering in anticipo , ad esempio <span class="text-danger">  quando si recuperano i post da un API 
           </span> .
-          
+
+        </div>
+        <hr><br>
+      </div>
+
+      <div>
+        <h2> Un singolo elemento radice </h2>
+        <div> 
+          Quando crei un < blog-post>< /blog-post> compoente il tuo modello alla fine conterrà piu del semplice titolo : <br>
+          < h3> { { title } } < /h3> <br>
+          Per lo meno ti consigliamo di includere il contenuto del post  : 
+          < h3> { { title }} < /h3>
+          < div v-html="content"></ div>
+          Se lo provi ad inserire nel componente Vue mostrerà un errore spiegando che  
+          <span class="text-primary">  ogni componente deve avere un singolo elemento radice </span> . Puoi correggere 
+          questo errore avvolgendo il modello in un elemento padre , ad esempio : <br>
+          < div class="blog-post"> <br>
+          < h3> {{ title }} < /h3>
+          < div v-html="content"> < /div>
+          < /div>
+          <div> 
+            Man mano che il componente cresce e probabile che non avremo bisogno solo del titolo e del contenuto del post , 
+            ma anche della data di pubblicazione dei commenti ed altro ancora . Definire un supporto per ogni per ogni 
+            informazione correlata pottrebbe diventare moltto fastidioso : 
+            < blog-post  <br>
+            v-for="post in posts" <br>
+            v-bind:key="post.id" <br>
+            v-bind:title="post.title" <br>
+            v-bind:content="post.content" <br>
+            v-bind:publishedAt="post.publishedAt" <br>
+            v-bind:comments="post.comments" <br>
+            >< /blog-post> <br>
+            <!-- FERMO QUI  -->
+          </div>
+
         </div>
         <hr><br>
       </div>
@@ -198,7 +232,12 @@ Vue.component('button-counter' , {
 //componente blog-post
 Vue.component('blog-post',{ 
   props : ['title'] ,
-  template : ' <h3>{{ title }}</h3> ',
+  template : ` 
+    <div class="blog-post"> 
+      <h3> {{ title }} </h3>
+      <div v-html="content"> </div>
+    </div>
+   `,
 });
 
 //i compoeneti devono essegere registrati prima che si effettua il bind con app o non saranno registrati
