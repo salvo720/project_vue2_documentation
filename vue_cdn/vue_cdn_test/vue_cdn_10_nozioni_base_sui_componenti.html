@@ -184,7 +184,20 @@
             v-bind:publishedAt="post.publishedAt" <br>
             v-bind:comments="post.comments" <br>
             >< /blog-post> <br>
+            <hr>
+            Qindi questo potrebbe essere un buon momneto per il refactoring del < blog-post>< /blog-post> componente
+             per accettare <span class="text-primary"> post </span> invece  <span class="text-danger"> un singolo oggetto di scena </span> <br> 
+             < blog-post> <br>
+             v-for="post in posts" <br>
+             v-bind:key="post.id" <br>
+             v-bind:post="post" <br>
+             < /blog-post> <br>
             <!-- FERMO QUI  -->
+             <blog-post
+              v-for="post in posts"
+              v-bind:key="post.id" 
+              v-bind:post="post" 
+             ></blog-post>
           </div>
 
         </div>
@@ -231,11 +244,15 @@ Vue.component('button-counter' , {
 } );
 //componente blog-post
 Vue.component('blog-post',{ 
-  props : ['title'] ,
+  props : ['post'] ,
   template : ` 
     <div class="blog-post"> 
-      <h3> {{ title }} </h3>
-      <div v-html="content"> </div>
+      <hr>
+      <h3> {{ post.id }} </h3>
+      <h3> {{ post.title }} </h3>
+      <div v-html="post.content"> </div>
+      <div v-html="post.publishedAt"> </div>
+      <div v-html="post.comments"> </div>
     </div>
    `,
 });
@@ -259,10 +276,12 @@ var data = {
   event : 'click' ,
   click : 0 , 
   posts : [
-    { id: 1, title: 'My journey with Vue' },
-    { id: 2, title: 'Blogging with Vue' },
-    { id: 3, title: 'Why Vue is so fun' },
+    { id: 1, title: 'My journey with Vue' , content:"content 1" , publishedAt:"today 1 " , comments : "comments 1"},
+    { id: 2, title: 'Blogging with Vue' , content:"content 2" , publishedAt:"today 2 " , comments : "comments 2"},
+    { id: 3, title: 'Why Vue is so fun' , content:"content 3" , publishedAt:"today 3 " , comments : "comments 3"},
   ],
+
+
 }
 
 var vm = new Vue({
