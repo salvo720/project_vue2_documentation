@@ -104,12 +104,12 @@
           un'area di contenuto ciascuno contenete in genere altri componenti per collegamenti 
           di navigazione , post di blog e cosi via . 
           Per utilizzare questi componenti e necessario registrarli in modo che Vue li conosca . 
-        </div>
+        </div> 
           <div>  i componenti possono essere registrati a <span class="text-primary">  
           livello globale o locale . </span> <br>
           Per registrare un componente a <span class="text-primary">  livello globale usiamo il Vue.component </span> <br>
           Per registrare un componeente a <span class="text-primary"> livello locale usiamo   </span> </div>
-        </div>
+     
         <hr>
         <h2> Vue component </h2>
         <div>
@@ -119,9 +119,11 @@
         </div>
         <hr>
         <div> i componenti registrati a livello globale possono essere usati da 
-        <span class="text-info"> qualunque instanza Vue radice ( new Vue ) </span> 
-        creata in seguito e anche all'interno di tutti i sotto componenti  dell'albero
-        dei componeti di quell'instanza Vue  </div>
+          <span class="text-info"> qualunque instanza Vue radice ( new Vue ) </span> 
+          creata in seguito e anche all'interno di tutti i sotto componenti  dell'albero
+          dei componeti di quell'instanza Vue  
+        </div>
+      </div>
       <hr><br>
 
       <div>
@@ -154,8 +156,8 @@
           </span> .
 
         </div>
-        <hr><br>
       </div>
+      <hr><br>
 
       <div>
         <h2> Un singolo elemento radice </h2>
@@ -168,83 +170,83 @@
           Se lo provi ad inserire nel componente Vue mostrerà un errore spiegando che  
           <span class="text-primary">  ogni componente deve avere un singolo elemento radice </span> . Puoi correggere 
           questo errore avvolgendo il modello in un elemento padre , ad esempio : <br>
-          < div class="blog-post"> <br>
+          < di v class="blog-post" > <br>
           < h3> {{ title }} < /h3>
-          < div v-html="content"> < /div>
+          <  di v v-html="content"> < /div>
           < /div>
           <div> 
-            Man mano che il componente cresce e probabile che non avremo bisogno solo del titolo e del contenuto del post , 
-            ma anche della data di pubblicazione dei commenti ed altro ancora . Definire un supporto per ogni per ogni 
-            informazione correlata pottrebbe diventare moltto fastidioso : 
-            < blog-post  <br>
-            v-for="post in posts" <br>
-            v-bind:key="post.id" <br>
-            v-bind:title="post.title" <br>
-            v-bind:content="post.content" <br>
-            v-bind:publishedAt="post.publishedAt" <br>
-            v-bind:comments="post.comments" <br>
-            >< /blog-post> <br>
-            <hr>
-            Qindi questo potrebbe essere un buon momneto per il refactoring del < blog-post>< /blog-post> componente
-             per accettare <span class="text-primary"> post </span> invece  <span class="text-danger"> un singolo oggetto di scena </span> <br> 
-             < blog-post> <br>
-             v-for="post in posts" <br>
-             v-bind:key="post.id" <br>
-             v-bind:post="post" <br>
-             < /blog-post> <br>
-             <blog-post
-              v-for="post in posts"
-              v-bind:key="post.id" 
-              v-bind:post="post" 
-             ></blog-post>
-            </div>
+              Man mano che il componente cresce e probabile che non avremo bisogno solo del titolo e del contenuto del post , 
+              ma anche della data di pubblicazione dei commenti ed altro ancora . Definire un supporto per ogni per ogni 
+              informazione correlata pottrebbe diventare moltto fastidioso : 
+              < blog-post  <br>
+              v-for="post in posts" <br>
+              v-bind:key="post.id" <br>
+              v-bind:title="post.title" <br>
+              v-bind:content="post.content" <br>
+              v-bind:publishedAt="post.publishedAt" <br>
+              v-bind:comments="post.comments" <br>
+              >< /blog-post> <br>
+              <hr>
+              Qindi questo potrebbe essere un buon momneto per il refactoring del < blog-post>< /blog-post> componente
+              per accettare <span class="text-primary"> post </span> invece  <span class="text-danger"> un singolo oggetto di scena </span> <br> 
+              < blog-post > <br>
+              v-for="post in posts" <br>
+              v-bind:key="post.id" <br>
+              v-bind:post="post" <br>
+              < /blog-post > <br>
+              <blog-post
+                v-for="post in posts"
+                v-bind:key="post.id" 
+                v-bind:post="post" 
+              ></blog-post>
           </div>
           <hr><br>
         </div>
       </div>
-    </div>
+      <hr><br>
 
-    <div>
-      <h2> Ascolto degli eventi su un componente figlio  </h2>
-      <div> 
-        Mentre sviluppiamo il nostro <span class="text-primary">   < blog-post > alcune funzionalita potrebbero  </span>  
-        richiedere la comunicazione di back-up al genitore . Ad esempio  , 
-        potremmo decidere di includere una funzione di accessibilita per ingrandire il 
-        testo dei post del blog , lasciando il resto della pagina alla sua dimensione predefinita . 
-        Nel genitore possiamo supportare questa funzione aggiungendo
-         <span class="text-primary"> postFontSize propieta ai dati .</span>  <br>
-
-          <div v-bind:style="{ postFontSize = postFontSize + 'em' } ">
-            <blog-post
-            v-for="post in posts"
-            v-bind:key="post.id" 
-            v-bind:post="post" 
-           ></blog-post>
-         
-          </div>
-
-          <div>Quando clicchiamo sul bottono dobbiamo comunicare al genitore che dovrebbe 
-            ingrandire il testo di tutti i post . Fortunatamente le instanze vue forniscono
-            un set di eventi peersonalizzato per risolvere questo problema  . Il genitore puo 
-            scegliere di ascoltare qualsiasi eveneto sull'instnza del componente figlio con 
-            <span class="text-primary"> v-on </span> , propio come faremo per un evento DOM nativo
-            < blog-post
-            ... 
-            v-on:enlarge-text="postFontSize +=0.1"
-            > < /blog-post>
-
-            <blog-post
-            v-for="post in posts"
-            v-bind:key="post.id" 
-            v-bind:post="post" 
-            v-on:enlarge-text="postFontSize += 0.1"
+      <div>
+        <h2> Ascolto degli eventi su un componente figlio  </h2>
+        <div> 
+          Mentre sviluppiamo il nostro <span class="text-primary">   < blog-post > alcune funzionalita potrebbero  </span>  
+          richiedere la comunicazione di back-up al genitore . Ad esempio  , 
+          potremmo decidere di includere una funzione di accessibilita per ingrandire il 
+          testo dei post del blog , lasciando il resto della pagina alla sua dimensione predefinita . 
+          Nel genitore possiamo supportare questa funzione aggiungendo
+          <span class="text-primary"> postFontSize propieta ai dati .</span>  <br>
+            <div v-bind:style="{ fontSize : postFontSize + 'em' } ">
+              <div :style="{ fontSize: postFontSize + 'em' }">
+              <blog-post
+                v-for="post in posts"
+                v-bind:key="post.id" 
+                v-bind:post="post" 
             ></blog-post>
-           Grazie v-on:enlarge-text="postFontSize += 0.1 ", all'ascoltatore il genitore ricevera 
+            </div>
+            <div>Quando clicchiamo sul bottono dobbiamo comunicare al genitore che dovrebbe 
+              ingrandire il testo di tutti i post . Fortunatamente le instanze vue forniscono
+              un set di eventi peersonalizzato per risolvere questo problema  . Il genitore puo 
+              scegliere di ascoltare qualsiasi eveneto sull'instnza del componente figlio con 
+              <span class="text-primary"> v-on </span> , propio come faremo per un evento DOM nativo
+              < blog-post
+              ... 
+              v-on:enlarge-text="postFontSize +=0.1"
+              > < /blog-post>
+
+              <blog-post
+                v-for="post in posts"
+                v-bind:key="post.id" 
+                v-bind:post="post" 
+                v-on:enlarge-text="postFontSize += 0.1"
+              ></blog-post>
+            Grazie v-on:enlarge-text="postFontSize += 0.1 ", all'ascoltatore il genitore ricevera 
             l'evento e il postFontSize valore di aggiornamento 
-          </div>
+            </div>
+        </div>
       </div>
+
     </div>
-  </div>
+
+
 
   <div id="app_2" class="container">
 
@@ -259,18 +261,22 @@
   </div>
 
 <!-- bootstrap 5 cdn js -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script 
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+
+</script>
 <!-- jqeruy cdn  -->
 <script
   src="https://code.jquery.com/jquery-3.6.0.js"
   integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-  crossorigin="anonymous"></script>
+  crossorigin="anonymous">
+</script>
   <!-- vue js cdn  -->
-<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>   
-
+<script 
+  src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js">
+</script>   
 <!-- script vue -->
 <script>
-
 // Definisco un nuovo componente chiamato button-counter 
 Vue.component('button-counter' , {
   data : function () {
@@ -322,8 +328,6 @@ var data = {
     { id: 3, title: 'Why Vue is so fun' , content:"content 3" , publishedAt:"today 3 " , comments : "comments 3"},
   ],
   postFontSize: 1,
-
-
 }
 
 var vm = new Vue({
