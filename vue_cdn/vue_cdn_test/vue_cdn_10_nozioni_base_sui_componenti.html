@@ -98,7 +98,7 @@
       <hr><br>
 
       <div>
-        <h2> Organizzazione dei compoenti  </h2>
+        <h2> Organizzazione dei componenti  </h2>
         <div>E comune che un app sia organizzata in un albero di componenti nidificati : 
           Ad esempio potresti avere componenti per un'intestazione , una barra laterale e 
           un'area di contenuto ciascuno contenete in genere altri componenti per collegamenti 
@@ -160,7 +160,7 @@
       <div>
         <h2> Un singolo elemento radice </h2>
         <div> 
-          Quando crei un < blog-post>< /blog-post> compoente il tuo modello alla fine conterrà piu del semplice titolo : <br>
+          Quando crei un < blog-post>< /blog-post> componente il tuo modello alla fine conterrà piu del semplice titolo : <br>
           < h3> { { title } } < /h3> <br>
           Per lo meno ti consigliamo di includere il contenuto del post  : 
           < h3> { { title }} < /h3>
@@ -192,7 +192,6 @@
              v-bind:key="post.id" <br>
              v-bind:post="post" <br>
              < /blog-post> <br>
-            <!-- FERMO QUI  -->
              <blog-post
               v-for="post in posts"
               v-bind:key="post.id" 
@@ -206,14 +205,14 @@
     </div>
 
     <div>
-      <h2> Ascolto degli eventi su un compoenente figlio  </h2>
+      <h2> Ascolto degli eventi su un componente figlio  </h2>
       <div> 
         Mentre sviluppiamo il nostro <span class="text-primary">   < blog-post > alcune funzionalita potrebbero  </span>  
-                richiedere la comunicazione di back-up al genitore . Ad esempio  , 
+        richiedere la comunicazione di back-up al genitore . Ad esempio  , 
         potremmo decidere di includere una funzione di accessibilita per ingrandire il 
         testo dei post del blog , lasciando il resto della pagina alla sua dimensione predefinita . 
         Nel genitore possiamo supportare questa funzione aggiungendo
-         <span class="text-primary"> postFontSize propieta ai dati </span>  
+         <span class="text-primary"> postFontSize propieta ai dati .</span>  <br>
 
           <div v-bind:style="{ postFontSize = postFontSize + 'em' } ">
             <blog-post
@@ -221,22 +220,43 @@
             v-bind:key="post.id" 
             v-bind:post="post" 
            ></blog-post>
+         
+          </div>
+
+          <div>Quando clicchiamo sul bottono dobbiamo comunicare al genitore che dovrebbe 
+            ingrandire il testo di tutti i post . Fortunatamente le instanze vue forniscono
+            un set di eventi peersonalizzato per risolvere questo problema  . Il genitore puo 
+            scegliere di ascoltare qualsiasi eveneto sull'instnza del componente figlio con 
+            <span class="text-primary"> v-on </span> , propio come faremo per un evento DOM nativo
+            < blog-post
+            ... 
+            v-on:enlarge-text="postFontSize +=0.1"
+            > < /blog-post>
+
+            <blog-post
+            v-for="post in posts"
+            v-bind:key="post.id" 
+            v-bind:post="post" 
+            v-on:enlarge-text="postFontSize += 0.1"
+            ></blog-post>
+           Grazie v-on:enlarge-text="postFontSize += 0.1 ", all'ascoltatore il genitore ricevera 
+            l'evento e il postFontSize valore di aggiornamento 
           </div>
       </div>
     </div>
   </div>
 
-    <div id="app_2" class="container">
+  <div id="app_2" class="container">
 
-      <div>
-        <h2> Seconda instanza vue bind su app_2 </h2>
-        <div> componente esempio  <br>
-        <button-counter></button-counter>
-        </div>
+    <div>
+      <h2> Seconda instanza vue bind su app_2 </h2>
+      <div> componente esempio  <br>
+      <button-counter></button-counter>
       </div>
-      <hr><br>
-
     </div>
+    <hr><br>
+
+  </div>
 
 <!-- bootstrap 5 cdn js -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
@@ -251,7 +271,7 @@
 <!-- script vue -->
 <script>
 
-// Definisco un nuovo compoenente chiamato button-counter 
+// Definisco un nuovo componente chiamato button-counter 
 Vue.component('button-counter' , {
   data : function () {
     return {
@@ -268,9 +288,9 @@ Vue.component('blog-post',{
       <hr>
       <h3> {{ post.id }} </h3>
       <h3> {{ post.title }} </h3>
-      <button>
+      <button v-on:click="$emit('enlarge-text')">
        Enlarge text
-      <button>
+      </button>
       <div v-html="post.content"> </div>
       <div v-html="post.publishedAt"> </div>
       <div v-html="post.comments"> </div>
@@ -278,7 +298,7 @@ Vue.component('blog-post',{
    `,
 });
 
-//i compoeneti devono essegere registrati prima che si effettua il bind con app o non saranno registrati
+//i componenti devono essegere registrati prima che si effettua il bind con app o non saranno registrati
 //bastava la linea sotto commentatta ma definiamo il modo completo vue 
 //new Vue ({ el:'#app'});
 
