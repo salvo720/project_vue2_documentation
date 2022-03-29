@@ -198,15 +198,33 @@
               v-bind:key="post.id" 
               v-bind:post="post" 
              ></blog-post>
+            </div>
           </div>
-
+          <hr><br>
         </div>
-        <hr><br>
       </div>
-
-      
-
     </div>
+
+    <div>
+      <h2> Ascolto degli eventi su un compoenente figlio  </h2>
+      <div> 
+        Mentre sviluppiamo il nostro <span class="text-primary">   < blog-post > alcune funzionalita potrebbero  </span>  
+                richiedere la comunicazione di back-up al genitore . Ad esempio  , 
+        potremmo decidere di includere una funzione di accessibilita per ingrandire il 
+        testo dei post del blog , lasciando il resto della pagina alla sua dimensione predefinita . 
+        Nel genitore possiamo supportare questa funzione aggiungendo
+         <span class="text-primary"> postFontSize propieta ai dati </span>  
+
+          <div v-bind:style="{ postFontSize = postFontSize + 'em' } ">
+            <blog-post
+            v-for="post in posts"
+            v-bind:key="post.id" 
+            v-bind:post="post" 
+           ></blog-post>
+          </div>
+      </div>
+    </div>
+  </div>
 
     <div id="app_2" class="container">
 
@@ -250,6 +268,9 @@ Vue.component('blog-post',{
       <hr>
       <h3> {{ post.id }} </h3>
       <h3> {{ post.title }} </h3>
+      <button>
+       Enlarge text
+      <button>
       <div v-html="post.content"> </div>
       <div v-html="post.publishedAt"> </div>
       <div v-html="post.comments"> </div>
@@ -280,6 +301,7 @@ var data = {
     { id: 2, title: 'Blogging with Vue' , content:"content 2" , publishedAt:"today 2 " , comments : "comments 2"},
     { id: 3, title: 'Why Vue is so fun' , content:"content 3" , publishedAt:"today 3 " , comments : "comments 3"},
   ],
+  postFontSize: 1,
 
 
 }
