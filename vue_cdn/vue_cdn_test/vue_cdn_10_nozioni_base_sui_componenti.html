@@ -200,7 +200,6 @@
                 v-bind:post="post" 
               ></blog-post>
           </div>
-          <hr><br>
         </div>
       </div>
       <hr><br>
@@ -222,6 +221,8 @@
                 v-bind:post="post" 
             ></blog-post>
             </div>
+            <hr><br>
+            <h3 class="text-danger">  enlarge-text work only in this section ---------------  </h3>
             <div>Quando clicchiamo sul bottono dobbiamo comunicare al genitore che dovrebbe 
               ingrandire il testo di tutti i post . Fortunatamente le instanze vue forniscono
               un set di eventi peersonalizzato per risolvere questo problema  . Il genitore puo 
@@ -284,8 +285,14 @@ Vue.component('button-counter' , {
       count : 0
     } 
   },
-  template : '<button v-on:click="count++" type="button" class="btn btn-info"> Mi hai cliccato {{ count }} volte </button>'
-} );
+  template :  `
+    <div> 
+      <button v-on:click="count++" type="button" class="btn btn-info"> 
+        Mi hai cliccato {{ count }} volte 
+      </button>
+    </div>
+  `
+});
 //componente blog-post
 Vue.component('blog-post',{ 
   props : ['post'] ,
@@ -346,8 +353,6 @@ var vm = new Vue({
   },
 })
 
-
-
 var data2 = {
   a: 1 , 
   msg : 'benvenuto', 
@@ -369,7 +374,6 @@ var data2 = {
   ],
 }
 
-
 var vm2 = new Vue({
   el: '#app_2',
   data: data2,
@@ -385,10 +389,6 @@ var vm2 = new Vue({
 
   },
 })
-
-
-
-//TODO : nozione base sui componenti 
 
 </script> 
 
