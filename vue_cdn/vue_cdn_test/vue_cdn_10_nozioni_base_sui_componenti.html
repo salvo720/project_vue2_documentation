@@ -276,10 +276,33 @@
             </div>
         </div>
       </div>
+      <hr><br>
 
       <div>
         <h2> Utilizzo <span class="text-primary"> v-model sui componenti </span> </h2>
           <div> 
+            <span class="text-primary"> Gli eventi personalizzati </span> possono essere usati anche per creare
+            input personalizzati che <span class="text-primary"></span> funzionano con v-model  </span> <br>
+
+            <input v-model="searchtext"> <br>
+              <span class="text-primary"> fa la stessa cosa di : </span> <br> 
+            <input 
+            v-bind:value="searchtext" 
+            v-on:input="searchtext = $event.target.value "
+            type="text"> <br>
+            <hr><br>
+            <span class="text-primary"> Quando viene utilizzato su un componente v-model invece fa questo </span>
+            <custom-input
+            v-bind:value="searchtext"
+            v-on:input="searchtext = $event "
+            />
+            <span class="text-primary">Affinche cio funzioni correttamente l'input del componente deve : </span> <br>
+            1) assocciare <span class="text-primary"> value attributo </span> con un <span class="text-primary"> value in scena </span> <br>
+            2) su <span class="text-primary"> input </span> emetti il propio <span class="text-primary"> input </span> 
+            evento personalizzato con il nuovo valore <br> 
+             <span class="text-primary"> Eccolo in azione : </span> <br>
+             Ora v-model dovrebbe funzionare perfettamente con questo componente : <br>  
+             <custom-input v-model="searchtext"></custom-input>
           </div>
         </div>
 
@@ -347,6 +370,16 @@ Vue.component('blog-post',{
    `,
 });
 
+Vue.component('custom-input',{
+  props: ['value'] ,
+  template : `
+    <input 
+    v-bind:value="value"
+    v-on:input="$emit( 'input', $event.target.value)"
+    />
+  `
+});
+
 //i componenti devono essegere registrati prima che si effettua il bind con app o non saranno registrati
 //bastava la linea sotto commentatta ma definiamo il modo completo vue 
 //new Vue ({ el:'#app'});
@@ -371,6 +404,7 @@ var data = {
     { id: 3, title: 'Why Vue is so fun' , content:"content 3" , publishedAt:"today 3 " , comments : "comments 3"},
   ],
   postFontSize: 1,
+  searchtext : '',
 }
 
 var vm = new Vue({
