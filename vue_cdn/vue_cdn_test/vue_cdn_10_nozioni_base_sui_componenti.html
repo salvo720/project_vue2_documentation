@@ -245,9 +245,45 @@
         </div>
       </div>
 
+      <div>
+        <h2> Emettere un valore con un evento </h2>
+        <div> 
+         A volte e utile emettere un valore specifico con un evento . ad esempio , potremmo 
+         volere che il < blog-post> componenete sia incaricato di quanto ingrandire il testo . 
+         In questi casi  , possiamo utilizzare $emit , il 2° parametro di per fornire questo valore .
+            <hr><br>
+            <div>Quindi quando ascoltiamo l'evento nel genitore , possiamo accedere al valore 
+              dell'evento emesso con $event :
+              <blog-post
+                v-for="post in posts"
+                v-bind:key="post.id" 
+                v-bind:post="post" 
+                v-on:enlarge-text="postFontSize += $event "
+              ></blog-post>
+              <hr><br>
+              <div> Oppure , <span class="text-primary">  se il gestore dell'evento e un metodo </span> : 
+                <blog-post
+                v-for="post in posts"
+                v-bind:key="post.id" 
+                v-bind:post="post" 
+                v-on:enlarge-text="onEnlargeText"
+              ></blog-post>
+              </div>
+              <br><hr>
+              <div></div>
+            Grazie v-on:enlarge-text="postFontSize += 0.1 ", all'ascoltatore il genitore ricevera 
+            l'evento e il postFontSize valore di aggiornamento 
+            </div>
+        </div>
+      </div>
+
+      <div>
+        <h2> Utilizzo <span class="text-primary"> v-model sui componenti </span> </h2>
+          <div> 
+          </div>
+        </div>
+
     </div>
-
-
 
   <div id="app_2" class="container">
 
@@ -301,7 +337,7 @@ Vue.component('blog-post',{
       <hr>
       <h3> {{ post.id }} </h3>
       <h3> {{ post.title }} </h3>
-      <button v-on:click="$emit('enlarge-text')">
+      <button v-on:click="$emit('enlarge-text' , 0.1 )">
        Enlarge text
       </button>
       <div v-html="post.content"> </div>
@@ -346,6 +382,10 @@ var vm = new Vue({
 
   },
   methods : {
+    onEnlargeText : function(enlargeAmount){
+      this.postFontSize += enlargeAmount
+
+    }
 
   },
   watch :{
