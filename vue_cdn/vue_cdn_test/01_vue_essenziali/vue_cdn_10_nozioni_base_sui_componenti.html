@@ -291,17 +291,20 @@
             v-on:input="searchtext = $event.target.value "
             type="text"> <br>
             <hr><br>
-            <span class="text-primary"> Quando viene utilizzato su un componente v-model invece fa questo </span>
+            <span class="text-primary"> Quando viene utilizzato su un componente v-model invece fa questo </span> <br>
             <custom-input
             v-bind:value="searchtext"
             v-on:input="searchtext = $event "
             />
+          </div>
+          <hr><br>
+          <div>
             <span class="text-primary">Affinche cio funzioni correttamente l'input del componente deve : </span> <br>
             1) assocciare <span class="text-primary"> value attributo </span> con un <span class="text-primary"> value in scena </span> <br>
             2) su <span class="text-primary"> input </span> emetti il propio <span class="text-primary"> input </span> 
             evento personalizzato con il nuovo valore <br> 
              <span class="text-primary"> Eccolo in azione : </span> <br>
-             Ora v-model dovrebbe funzionare perfettamente con questo componente : <br>  
+             Ora v-model dovrebbe funzionare perfettamente con questo componente : <br> <br> 
              <custom-input v-model="searchtext"></custom-input>
           </div>
         </div>
