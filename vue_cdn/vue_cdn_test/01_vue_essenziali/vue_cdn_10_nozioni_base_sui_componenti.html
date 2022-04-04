@@ -322,6 +322,7 @@
           Fortunatamente , questo compito e realizzato semplicemente con un elemento Vue personalizzato < slot> 
           Come vedrai sopra , <span class="text-primary"> aggiungendo semplicemente lo slot dove vogliamo che vada
           </span> - e il gioco e fatto . e abbiamo fatto
+          <span class="text-primary"> lo slot sara il punto in cui verrano inseriti i dati che andiamo a passare </span>
         </div>
       </div>
 
@@ -401,7 +402,7 @@ Vue.component('custom-input',{
 
 Vue.component('alert-box',{
   template : `
-  <div class="alert-danger">
+  <div class="alert alert-danger">
     <strong> Errore! </strong>
     <slot></slot>
   </div>
