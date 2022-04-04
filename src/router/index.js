@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import Progetto from '../views/Progettoview.vue'
+import Progettoview_2_wait from '../views/Progettoview_2_wait.vue'
 import Login from '../views/Login.vue'
 import Crud from '../views/Crud.vue'
 
@@ -26,6 +27,14 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: Progetto
+  },
+  {
+    path: '/Progettoview_2_wait',
+    name: 'Progettoview_2_wait',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: Progettoview_2_wait
   },
   {
     path: '/Login',
