@@ -6,7 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-</head>
+    <style>
+      .tab-button {
+        padding: 6px 10px;
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+        border: 1px solid #ccc;
+        cursor: pointer;
+        background: #f0f0f0;
+        margin-bottom: -1px;
+        margin-right: -1px;
+      }
+      .tab-button:hover {
+        background: #e0e0e0;
+      }
+      .tab-button.active {
+        background: #e0e0e0;
+      }
+      .tab {
+        border: 1px solid #ccc;
+        padding: 10px;
+      }
+    </style>
+  </head>
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
@@ -326,6 +348,40 @@
         </div>
       </div>
 
+      <div>
+        <h2> Componenti Dinamici </h2>
+        <div> 
+          A volte , e utile passarre da un componente all'altro  , come in un 
+          interaccia a schede :
+
+          < component> Questo sopra ee reso possibile dall'elemento di 
+          <span class="text-primary"> vue con l'is attributo speciale  </span> 
+
+          <div id="dynamic-component-demo" class="demo">
+            <button
+              v-for="tab in tabs"
+              v-bind:key="tab"
+              v-bind:class="['tab-button', { active: currentTab === tab }]"
+              v-on:click="currentTab = tab"
+            >
+              {{ tab }}
+            </button>
+      
+            <component v-bind:is="currentTabComponent" class="tab"></component>
+          </div>
+
+          Nell'esempio sopra currentTabComponent puo contenere : <ul> 
+            <li>il nome di un oggetto rgistrato ,o  </li>
+            <li>l'oggetto opzioni di un componente </li>
+          </ul>
+          Tiene presente che <span class="text-primary"> questo attributo puo essere utilizzato con normali elementi html </span>,
+          tuttavia verranno trattati come componenti , il che significa che <span class="text-primary">  tutti gli attributi
+           saranno associati come attributi DOM </span> . <br>
+           <span class="text-primary"> affinche alcune propieta value funzionino </span>  come ci si aspetterebbe
+           <span class="text-primary"> sara necessario utilizzarle il .prop modificatore </span>
+        </div>
+      </div>
+
     </div>
 
   <div id="app_2" class="container">
@@ -409,6 +465,17 @@ Vue.component('alert-box',{
   `
 });
 
+// tab component 
+Vue.component("tab-home", {
+  template: "<div>Home component</div>"
+});
+Vue.component("tab-posts", {
+  template: "<div>Posts component</div>"
+});
+Vue.component("tab-archive", {
+  template: "<div>Archive component</div>"
+});
+
 //i componenti devono essegere registrati prima che si effettua il bind con app o non saranno registrati
 //bastava la linea sotto commentatta ma definiamo il modo completo vue 
 //new Vue ({ el:'#app'});
@@ -434,6 +501,8 @@ var data = {
   ],
   postFontSize: 1,
   searchtext : '',
+  currentTab: "Home",
+  tabs: ["Home", "Posts", "Archive"]
 }
 
 var vm = new Vue({
@@ -442,6 +511,9 @@ var vm = new Vue({
   created: function () {
   },
   computed : {
+    currentTabComponent: function() {
+      return "tab-" + this.currentTab.toLowerCase();
+    }
 
   },
   methods : {
