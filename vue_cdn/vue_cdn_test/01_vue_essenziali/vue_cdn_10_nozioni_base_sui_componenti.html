@@ -282,7 +282,7 @@
         <h2> Utilizzo <span class="text-primary"> v-model sui componenti </span> </h2>
         <div> 
           <span class="text-primary"> Gli eventi personalizzati </span> possono essere usati anche per creare
-          input personalizzati che <span class="text-primary"></span> funzionano con v-model  </span> <br>
+          input personalizzati che <span class="text-primary"> funzionano con v-model  </span> <br>
 
           <input v-model="searchtext"> <br>
             <span class="text-primary"> fa la stessa cosa di : </span> <br> 
@@ -325,6 +325,38 @@
           <span class="text-primary"> lo slot sara il punto in cui verrano inseriti i dati che andiamo a passare </span>
         </div>
       </div>
+      <hr><br>
+
+      <div>
+        <h2> Avvertenze sull' <span class="text-primary"> Analisi del modello DOM </span> </h2>
+        <div> 
+          <span class="text-primary"> Alcuni componenti HTML come < ul> ,  < li> , < table> , e < select>   ,  
+          hanno restrizioni su quali elementi possono apparire al loro interno </span> e alcuni elementi come 
+          < li> , < tr> e < option> possono apparire solo all'interno di certi elementi . <br>
+
+          Cio portera a problemi quando si utilizzano componenti con elementi che hanno tali restrizioni . <br>
+          <span class="text-primary"> Per esempio : </span><br>
+          < table> <br>
+            < blog-post-row>< /blog-post-row> <br>
+          < /table> <br>
+          <span class="text-primary"> Il componente blog-post-row verra segnalato come contenuto non valido  </span> , 
+          causando errori nell'eventuale output di rendering . <br>
+          <span class="text-primary"> Fortunatamente l'is attributo speciale offre una soluzione alternativa  :  </span> <br>
+          < table> <br>
+            < tr is="blog-post-row">< /tr> <br>
+          < /table> <br>
+
+          Va notato : <span class="text-primary"> che questa limitazione non si applica se si utilizzano modelli di 
+          stringhe da una delle seguenti origini </span> <br>
+          <ul>
+            <li> Modelli di stringhe ( ad esempio :  <span class="text-danger"> template : " ...... " </span> )</li> 
+            <li> Componenti a file singolo ( ad esempio : <span class="text-danger"> .vue  </span> )</li> 
+            <li> <span class="text-danger"> < script type="text/x-template"> </span> </li> 
+          </ul>
+         
+        </div>
+      </div>
+      <hr><br>
 
     </div>
 
