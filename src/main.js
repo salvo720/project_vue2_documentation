@@ -10,6 +10,6 @@ import fontawesome from "@fortawesome/fontawesome";
 import solid from "@fortawesome/fontawesome-free-solid";
 import brands from "@fortawesome/fontawesome-free-brands";
 
-fontawesome.library.add( brands , solid);
+fontawesome.library.add(brands, solid);
 
 createApp(App).use(store).use(router).mount('#app')

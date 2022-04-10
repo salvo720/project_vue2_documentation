@@ -9,8 +9,8 @@ import Crud from '../views/Crud.vue'
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'Login',
+    component: Login
   },
   {
     path: '/about',
@@ -37,12 +37,12 @@ const routes = [
     component: Progettoview_2_wait
   },
   {
-    path: '/Login',
-    name: 'Login',
+    path: '/Home',
+    name: 'Home',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: Login
+    component: Home
   },
   {
     path: '/Crud',

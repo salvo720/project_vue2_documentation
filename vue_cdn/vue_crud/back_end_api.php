@@ -39,7 +39,7 @@ if ($action == 'login') {
         $result['token'] = sha1($chiave);
         $result['login'] = TRUE;
         $_SESSION = $result;
-        var_dump('session', $_SESSION);
+        // var_dump('session', $_SESSION);
     }else{
         $result['login'] = FALSE;
     }
@@ -52,5 +52,3 @@ mysqli_close($con);
 // }
 
 // TODO:da gestire la sessione con i token jwt (o altri al momento testiamo i jwt )
-
-?>
