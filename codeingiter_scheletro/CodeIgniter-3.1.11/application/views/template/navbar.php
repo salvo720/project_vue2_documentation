@@ -5,38 +5,43 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mx-auto mb-2 mb-lg-0" >
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Elementi
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="<?php echo site_url('Elementi_Crud_Controller/index') ?>">Tabella Elementi</a></li>
-              <li><a class="dropdown-item" href="<?php echo site_url('Elementi_Crud_Controller/new_element') ?>">Nuovo Elemento</a></li>
-            </ul>
-        </li> 
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Elementi
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="<?php echo site_url('Elementi_Crud_Controller/index') ?>">Tabella Elementi</a></li>
+            <li><a class="dropdown-item" href="<?php echo site_url('Elementi_Crud_Controller/new_element') ?>">Nuovo Elemento</a></li>
+          </ul>
+        </li>
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Produttori
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="<?php echo site_url('Produttori_Crud_Controller/index') ?>">Tabella Produttori</a></li>
-              <li><a class="dropdown-item" href="<?php echo site_url('Produttori_Crud_Controller/new_productor') ?>">Nuovo Produttore</a></li>
-            </ul>
-        </li> 
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="<?php echo site_url('Produttori_Crud_Controller/index') ?>">Tabella Produttori</a></li>
+            <li><a class="dropdown-item" href="<?php echo site_url('Produttori_Crud_Controller/new_productor') ?>">Nuovo Produttore</a></li>
+          </ul>
+        </li>
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="<?php echo site_url('Welcome/index') ?>">Welcome controller </a>
         </li>
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            API  |  end-point
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <!-- List API or endpoint  -->
-              <li><a class="dropdown-item" href="<?php echo site_url('API_Controller/index') ?>">Index</a></li>
-              <!-- <li><a class="dropdown-item" href="<?php echo site_url('Produttori_Crud_Controller/new_productor') ?>">Nuovo Produttore</a></li> -->
-            </ul>
-        </li> 
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            API | end-point
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <!-- List API or endpoint  -->
+            <li><a class="dropdown-item" href="<?php echo site_url('API_Controller/index') ?>">elementi api</a></li>
+            <li><a class="dropdown-item" href="<?php echo site_url('API_Controller/index_injson') ?>">elementi API dati</a></li>
+            <li><a class="dropdown-item" href="<?php echo site_url('API_Controller/produttori') ?>">produttori api</a></li>
+            <li><a class="dropdown-item" href="<?php echo site_url('API_Controller/produttori_injson') ?>">produttori API dati </a></li>
+
+
+            <!-- <li><a class="dropdown-item" href="<?php echo site_url('Produttori_Crud_Controller/new_productor') ?>">Nuovo Produttore</a></li> -->
+          </ul>
+        </li>
         <!-- <li class="nav-item">
           <a class="nav-link" href="#">Link</a>
         </li>
