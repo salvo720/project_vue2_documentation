@@ -77,7 +77,7 @@ class Elementi_Crud_Controller extends CI_Controller
 
 	public function insert_new_element()
 	{
-
+		$data = array();
 		$array_validation_errors = array(
 			'required' => sprintf('%s e un campo richiesto ', '{field}'),
 			'trim' => sprintf(' %s si e verificato un errore con riporva piu tardi ', '{field}'),
@@ -118,6 +118,7 @@ class Elementi_Crud_Controller extends CI_Controller
 			}
 		} else {
 			echo validation_errors();
+			$this->template->show('new_element', $data, false);
 		}
 	}
 
